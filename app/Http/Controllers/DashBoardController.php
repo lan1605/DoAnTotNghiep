@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\BaiTap;
+use App\Models\BaiHoc;
+use App\Models\Admin;
+use App\Models\User;
+use App\Models\BaiDang;
+use App\Models\CauHoi;
+use App\Models\ChuDe;
+use App\Models\TruyCap;
+use Carbon\Carbon;
+
+class DashBoardController extends Controller
+{
+    public function index(Request $req){
+        //total
+        $baitap = BaiTap::count();
+        $baihoc = BaiHoc::count();
+        $admin = Admin::count();
+        $chude = ChuDe::count();
+        $hocvien = User::count();
+        $baidang = BaiDang::count();
+        $cauhoi = CauHoi::count();
+
+        //thống kê lượt truy cập 
+        $user_ip = $req->ip();
+        $early_last_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString(); //đầu tháng trước
+        $end_of_last_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->endOfMonth()->toDateString(); //cuối tháng trước
+        $early_this_month = Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString(); //đầu tháng này
+        $oneyear = Carbon::now('Asia/Ho_Chi_Minh')->subDays(365)->toDateString();
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        //tổng truy cập tháng trước
+        $thangtruoc = TruyCap::whereBetween('thoigian_truycap',[$early_last_month, $end_of_last_month])->get();
+        $tong_thangtruoc = $thangtruoc->count();
+        //tổng truy cập tháng này
+        $thangnay = TruyCap::whereBetween('thoigian_truycap',[$early_this_month, $now])->get();
+        $tong_thangnay = $thangnay->count();
+        $truycap_hientai = TruyCap::where('diachi_ip', $user_ip)->get();
+        $truycap = $truycap_hientai->count();
+        if ($truycap < 1){
+            $truycap_moi = new TruyCap;
+            $truycap_moi->diachi_ip = $user_ip;
+            $truycap_moi->thoigian_truycap = $now;
+            $truycap_moi->save();
+        }
+        //tổng số lượng truy cập
+        $soluong = TruyCap::count();
+        return view('admin.admin',['route'=>route('quanly.trangchu'),'admin'=>$admin,
+        // 'giangvien'=>$giangvien, 
+        'hocvien'=>$hocvien, 'baitap'=>$baitap,
+        'baihoc' => $baihoc, 'baidang'=>$baidang,
+        'chude' => $chude, 'cauhoi'=>$cauhoi, 'truycap' => $soluong
+            ]);
+    }
+}
