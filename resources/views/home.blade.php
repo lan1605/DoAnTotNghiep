@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('menu')
     @guest
+        
         @if (Route::has('login'))
             <a class="btn btn-primary btn-sm px-4 radius-30" href="{{ route('login') }}">{{ __('Đăng nhập') }}</a>
         @endif
