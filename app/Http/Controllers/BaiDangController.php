@@ -24,8 +24,9 @@ class BaiDangController extends Controller
     }
     public function detailGet($id){
         $baidang = BaiDang::find($id);
-        $binhluan = BinhLuan::where('id_baidang', $id);
+        $binhluan = BinhLuan::where('id_baidang', $id)->get();
 
-        return view('admin.bai-dang.detail', ['baidang'=>$baidang, 'binhluan'=>$binhluan, 'titlePage'=>'Quản lý bài đăng', 'breadcrumb'=> 'Chi tiết bài đăng','linkPage'=>'dashboard/baidang']);
+        return view('admin.bai-dang.detail', ['baidang'=>$baidang, 'binhluan'=>$binhluan, 
+        'titlePage'=>'Quản lý bài đăng', 'breadcrumb'=> 'Chi tiết bài đăng','linkPage'=>'dashboard/baidang']);
     }
 }
