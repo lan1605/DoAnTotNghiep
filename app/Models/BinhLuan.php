@@ -14,4 +14,8 @@ class BinhLuan extends Model
     public function baidang(){
             return $this->belongsTo('App\Models\BaiDang','id_baidang','id');
     }
+    public function replies()
+    {
+        return $this->hasMany(BinhLuan::class, 'id_traloibinhluan');
+    }
 }

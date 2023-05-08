@@ -24,48 +24,66 @@
   {{-- <title>Snacked - Bootstrap 5 Admin Template</title> --}}
 </head>
 
-<body class="bg-surface">
+<body class="bg-white">
 
   <!--start wrapper-->
   <div class="wrapper">
        <header>
-          <nav class="navbar navbar-expand-lg navbar-light bg-white rounded-0 border-bottom">
-            <div class="container">
-              <a class="navbar-brand" href="#"><img src="../../assets/images/brand-logo-2.png" width="140" alt=""/></a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <div class="container mb-2 mt-2">
+            <div class="d-flex align-items-center w-100">
+              <div class="phone">
+                Số điện thoại:
+              </div>
+              <div class="ms-2">
+                Email:
+              </div>
+              <div class="d-flex ms-3 gap-3">
+                @yield('menu')
+              </div>
+            </div>
+          </div>
+          <nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
+          
+            <div class="container">	<a class="navbar-brand" href="#"><img src="../../assets/images/logo-dai-hoc-nha-trang.png" width="40" alt=""/> SEO for A</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent3" aria-controls="navbarSupportedContent3" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
+              <div class="collapse navbar-collapse" id="navbarSupportedContent3">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item"> <a class="nav-link active text-uppercase" aria-current="page" href="#"><i class='bx bx-home-alt me-1'></i>Trang chủ</a>
+                  </li>
+                  <li class="nav-item"> <a class="nav-link text-uppercase" href="#"><i class='bx bx-user me-1'></i>Bài học</a>
+                  </li>
+                  <li class="nav-item"> <a class="nav-link text-uppercase" href="#"><i class='bx bx-category-alt me-1'></i>Bài tập</a>
+                  </li>
+                  <li class="nav-item"> <a class="nav-link text-uppercase" href="#"><i class='bx bx-category-alt me-1'></i>Góc hỏi đáp</a>
+                  </li>
+                  <li class="nav-item"> <a class="nav-link text-uppercase" href="#"><i class='bx bx-microphone me-1'></i>Liên hệ</a>
+                  </li>
                 </ul>
-
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                 
-                </ul>
-                <div class="d-flex ms-3 gap-3">
-                    <!-- Authentication Links -->
-                   @yield('menu')
-                </div>
+                @if (Auth::check())
+                  @include('layouts.layout.logout')
+                @else
+                    {{''}}
+                @endif
               </div>
             </div>
           </nav>
        </header>
     
        <!--start content-->
-       <main class="py-4">
+       
         @yield('content')
-    </main>
+   
         
        <!--end page main-->
 
-       <footer class="bg-white border-top p-3 text-center fixed-bottom">
-        <p class="mb-0">Copyright © 2023. All right reserved.</p>
-      </footer>
+       
 
   </div>
   <!--end wrapper-->
 
-
+  @include('layouts.layout.footer')
   <!-- Bootstrap bundle JS -->
   <script src="../../assets/js/bootstrap.bundle.min.js"></script>
 

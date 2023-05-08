@@ -41,8 +41,9 @@
                                         {{' '}}
                                     @else
                                     <?php
-                                    $traloi[] = $item->id_traloibinhluan;
-                                    $traloibinhluan = App\Models\BinhLuan::whereIn('id',$traloi[] )->get();
+                                    
+                                    $traloi = [$item->id_traloibinhluan];
+                                    $traloibinhluan = App\Models\BinhLuan::whereIn('id',$traloi)->get();
                                     dd($traloibinhluan);
                                 ?>
                                     @endif

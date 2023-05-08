@@ -138,6 +138,7 @@ Route::middleware(['admin'])->group(function () {
 
     });
 });
+Route::get('/baihoc', [BaiHocController::class,'indexPage'])->name('baihoc.index');
 Route::prefix('ajax')->group(function () {
     Route::get('/cauhoi',[AjaxController::class,'getBaiHoc'])->name('ajax.cauhoi');
     

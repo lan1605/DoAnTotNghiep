@@ -166,4 +166,9 @@ class BaiHocController extends Controller
         BaiHoc::whereIn('id_baihoc', $id)->delete();
         return response()->json(['success'=>'Bạn đã xóa thành công']);
     }
+    //Pages
+    public function indexPage(){
+        $baihocs = BaiHoc::all();
+        return view('pages.baihoc.index',['route'=>route('baihoc.index'),'baihocs'=>$baihocs]);
+    }
 }
