@@ -30,42 +30,24 @@
   <div class="wrapper">
        <header>
           <div class="container mb-2 mt-2">
-            <div class="d-flex align-items-center w-100">
-              <div class="phone">
-                Số điện thoại:
+            <div class="d-flex align-items-center justify-content-between w-100">
+              <div class="d-flex">
+                <div class="phone">
+                  Số điện thoại:
+                </div>
+                <div class="ms-2">
+                  Email:
+                </div>
               </div>
-              <div class="ms-2">
-                Email:
-              </div>
-              <div class="d-flex ms-3 gap-3">
-                @yield('menu')
-              </div>
+              @yield('login-for-users')
+            
             </div>
           </div>
           <nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
           
-            <div class="container">	<a class="navbar-brand" href="#"><img src="../../assets/images/logo-dai-hoc-nha-trang.png" width="40" alt=""/> SEO for A</a>
+            <div class="container">	<a class="navbar-brand" href="/"><img src="../../assets/images/logo-dai-hoc-nha-trang.png" width="40" alt=""/> SEO for A</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent3" aria-controls="navbarSupportedContent3" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent3">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item"> <a class="nav-link active text-uppercase" aria-current="page" href="#"><i class='bx bx-home-alt me-1'></i>Trang chủ</a>
-                  </li>
-                  <li class="nav-item"> <a class="nav-link text-uppercase" href="#"><i class='bx bx-user me-1'></i>Bài học</a>
-                  </li>
-                  <li class="nav-item"> <a class="nav-link text-uppercase" href="#"><i class='bx bx-category-alt me-1'></i>Bài tập</a>
-                  </li>
-                  <li class="nav-item"> <a class="nav-link text-uppercase" href="#"><i class='bx bx-category-alt me-1'></i>Góc hỏi đáp</a>
-                  </li>
-                  <li class="nav-item"> <a class="nav-link text-uppercase" href="#"><i class='bx bx-microphone me-1'></i>Liên hệ</a>
-                  </li>
-                </ul>
-                @if (Auth::check())
-                  @include('layouts.layout.logout')
-                @else
-                    {{''}}
-                @endif
+                @yield('menu-nav')
               </div>
             </div>
           </nav>
@@ -84,12 +66,22 @@
   <!--end wrapper-->
 
   @include('layouts.layout.footer')
-  <!-- Bootstrap bundle JS -->
   <script src="../../assets/js/bootstrap.bundle.min.js"></script>
-
   <!--plugins-->
   <script src="../../assets/js/jquery.min.js"></script>
+  <script src="../../assets/plugins/simplebar/js/simplebar.min.js"></script>
+  <script src="../../assets/plugins/metismenu/js/metisMenu.min.js"></script>
+  <script src="../../assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
   <script src="../../assets/js/pace.min.js"></script>
+  <script src="../../assets/plugins/chartjs/js/Chart.min.js"></script>
+  <script src="../../assets/plugins/chartjs/js/Chart.extension.js"></script>
+  <script src="../../assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+   <!-- Vector map JavaScript -->
+   <script src="../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
+   <script src="../../assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
+  <!--app-->
+  <script src="../../assets/js/app.js"></script>
+  <script src="../../assets/js/index.js"></script>
 
 
 </body>

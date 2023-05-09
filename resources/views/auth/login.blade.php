@@ -1,22 +1,12 @@
-@extends('layouts.app')
 @if (isset($route))
-    @section('title')
-    {{__($title)}}
+    {{''}}
+@else
+    @section('login-for-users')
+    <div class="d-flex ms-3 gap-3">
+        @include('layouts.layout.auth')
+      </div>
     @endsection
-    @else 
-    @section('title')
-    {{__('Đăng nhập người dùng')}}
-    @endsection
-    @section('menu')
-        @guest
-            @if (Route::has('login'))
-                <a class="btn btn-primary btn-sm px-4 radius-30" href="{{ route('login') }}">{{ __('Đăng nhập') }}</a>
-            @endif
-            @if (Route::has('register'))
-                <a class="btn btn-white btn-sm px-4 radius-30" href="{{ route('register') }}">{{ __('Đăng ký') }}</a>
-            @endif
-        @endguest
-    @endsection
+@extends('layouts.app')
 @endif
 @section('content')
 <main class="authentication-content">
