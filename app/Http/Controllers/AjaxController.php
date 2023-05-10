@@ -18,5 +18,5 @@ class AjaxController extends Controller
             if (count($baihoc) > 0) {
             return \Response::json($baihoc);
             }
-}
+    }
 }

@@ -138,10 +138,17 @@ Route::middleware(['admin'])->group(function () {
 
     });
 });
-Route::get('/baihoc', [BaiHocController::class,'indexPage'])->name('baihoc.index');
+Route::prefix('/baihoc')->group(function () {
+    Route::get('/', [BaiHocController::class,'indexPage'])->name('baihoc.index');
+    Route::get('/{slug}', [BaiHocController::class,'viewDetail'])->middleware('hocvien');
+    Route::get('/{slug}/luu',[BaiHocController::class, 'Luubaihoc']);
+    Route::get('/{slug}/huy',[BaiHocController::class, 'xoaLuu']);
+});
+
 Route::prefix('ajax')->group(function () {
     Route::get('/cauhoi',[AjaxController::class,'getBaiHoc'])->name('ajax.cauhoi');
     
+
 });
 
 

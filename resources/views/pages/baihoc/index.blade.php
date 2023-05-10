@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @include('layouts.layout.menu')
+@section('login-for-users')
+    <div class="d-flex ms-3 gap-3">
+        @include('layouts.layout.auth')
+      </div>
+@endsection
 @section('content')
 @include('layouts.layout.breadcrumb')
     <main>
@@ -38,41 +43,97 @@
         </div>
         <div style="background-color: white">
             <div class="container mt-2">
-                <div class="text-left mb-2">{{count($baihocs).' bài học được tìm thấy'}}</div>
-                <div class="row">
-                    @foreach ($baihocs as $item)
-                    <div class="col-8 col-lg-8 d-flex">
-                        <div class="card w-100">
-                            <div class="card-body" style="cursor: pointer" title="{{$item->ten_baihoc}}">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <a href="baihoc/{{$item->slug}}">
-                                            <h6 class="mb-0 product--title">{{$item->ten_baihoc}}</h6>
-                                        </a>
-                                        <p class="mb-0">Chủ đề: <span>
+                
+                <div class="row my-5">
+                    <div class="col-12 col-lg-7 ">
+                        <div class="card ">
+                            <div class="card-header py-2 d-flex justify-content-between">
+                                <h6 class="mb-0">Bài học</h6>
+                               
+                            </div>
+                            <div class="card-body">
+                                <p class=" text-right">
+                                    @if (!empty(request()->find_cate))
+                                            @if (!empty(request()->key_find))
                                             <?php
-                                                $chude = App\Models\ChuDe::find($item->id_chude);
-                                                echo $chude->ten_chude;
-                                                ?>
-                                        </span></p>
-                                    </div>
-                                    <div class="mb-0">
-                                        <a href="#" title='Lưu bài học' class="text-danger"><i class="lni lni-heart-filled"></i></a>
-                                        <i class="bx bx-heart"></i>
-                                    </div>
+                                                $cate = App\Models\ChuDe::find(request()->find_cate);
+                                            ?>
+                                            {{count($baihocs).' bài học được tìm thấy theo chủ đề "'.$cate->ten_chude.'" với từ khóa "'.request()->key_find.'"'}}
+                                            @else
+                                            <?php
+                                                $cate = App\Models\ChuDe::find(request()->find_cate);
+                                            ?>
+                                            {{count($baihocs).' bài học được tìm thấy theo chủ đề "'.$cate->ten_chude.'"'}}
+                                            @endif
+                                    @else
+                                            @if (!empty(request()->key_find))
+                                            {{count($baihocs).' bài học được tìm thấy với từ khóa "'.request()->key_find.'"'}}
+                                            @else
+                                            {{count($baihocs).' bài học được tìm thấy'}}
+                                            @endif
+                                    @endif
+                                </p>
+                                <div class="row g-2">
+                                    @foreach ($baihocs as $item)
+                                        <div class="col-12 my-0">
+                                            <div class="card w-100">
+                                                <div class="card-body" style="cursor: pointer" title="{{$item->ten_baihoc}}">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <div>
+                                                            <a href="/baihoc/{{$item->slug}}">
+                                                                <h6 class="mb-0 product--title">{{$item->ten_baihoc}}</h6>
+                                                            </a>
+                                                            <p class="mb-0">Chủ đề: <span>
+                                                                <?php
+                                                                    $chude = App\Models\ChuDe::find($item->id_chude);
+                                                                    echo $chude->ten_chude;
+                                                                    ?>
+                                                            </span></p>
+                                                        </div>
+                                                        {{-- <div class="mb-0">
+                                                            <a href="#" title='Lưu bài học' class="text-danger"><i class="lni lni-heart-filled"></i></a>
+                                                            <i class="bx bx-heart"></i>
+                                                        </div> --}}
+                                                    </div>
+                                                    
+                                                </div>
+                                        </div>
                                 </div>
-                                
+                                @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
-                    @endforeach
-                    <div class="col-4 col-lg-4 d-flex">
+                    <div class="col-12 col-lg-5">
                         <div class="card">
                             <div class="card-body">
-                                
+                                <h3>Bài học mới nhất</h3>
+                                @foreach ($baihocmoinhat as $item)
+                                <div class="card">
+                                    <div class="card-body" style="cursor: pointer" title="{{$item->ten_baihoc}}">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <a href="baihoc/{{$item->slug}}">
+                                                    <h6 class="mb-0 product--title">{{$item->ten_baihoc}}</h6>
+                                                </a>
+                                                <p class="mb-0">Chủ đề: <span>
+                                                    <?php
+                                                        $chude = App\Models\ChuDe::find($item->id_chude);
+                                                        echo $chude->ten_chude;
+                                                        ?>
+                                                </span></p>
+                                            </div>
+                                            {{-- <div class="mb-0">
+                                                <a href="#" title='Lưu bài học' class="text-danger"><i class="lni lni-heart-filled"></i></a>
+                                                <i class="bx bx-heart"></i>
+                                            </div> --}}
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                @endforeach
                             </div>
                         </div>
-                    
                     </div>
                 </div>
             </div>

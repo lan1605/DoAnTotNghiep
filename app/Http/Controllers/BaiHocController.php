@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\BaiHoc;
+use App\Models\LuuBaiHoc;
+use App\Models\ThoiGianHoc;
 use Auth; 
 class BaiHocController extends Controller
 {
@@ -167,8 +169,77 @@ class BaiHocController extends Controller
         return response()->json(['success'=>'Bạn đã xóa thành công']);
     }
     //Pages
-    public function indexPage(){
-        $baihocs = BaiHoc::all();
-        return view('pages.baihoc.index',['route'=>route('baihoc.index'),'baihocs'=>$baihocs]);
+    public function indexPage(Request $req){
+        $filter =[];
+        $keysfilter ='';
+        if (!empty($req->find_cate)){
+            if ($req->find_cate==0){
+                $filter[]=[];
+            }
+            else {
+                $find_cate = $req->find_cate;
+                $filter[] = ['bai_hocs.id_chude', '=', $find_cate];
+            }
+        }
+        if ($req->key_find!=null){
+            $keysfilter = $req->key_find;
+        }
+        $baihocs = BaiHoc::where($filter)->where(function ($query) use ($keysfilter){
+            $query->where('ten_baihoc','like','%'.$keysfilter.'%')->orWhere('slug','like','%'.$keysfilter.'%');
+        })->orderBy('id_chude', 'ASC')->paginate(10);
+        $baihocmoinhat = BaiHoc::orderBy('created_at', 'DESC')->take(5)->get();
+        return view('pages.baihoc.index',['route'=>route('baihoc.index'),
+        'baihocs'=>$baihocs, 'baihocmoinhat'=>$baihocmoinhat]);
+    }
+    public function viewDetail($slug){
+        $chitiet = BaiHoc::where('slug',$slug)->first();
+
+        $chitiet->luotxem = $chitiet->luotxem+1;
+        $chitiet->save();
+
+        $thoigianhoc = new ThoiGianHoc;
+        $thoigianhoc->id_hocvien = Auth::user()->id;
+        $thoigianhoc->id_baihoc = $chitiet->id_baihoc;
+        $thoigianhoc->save();
+
+        $cungchude = BaiHoc::where('id_chude', $chitiet->id_chude)->get();
+        return view('pages.baihoc.detail',[ 'chitiet'=>$chitiet, 'cungchude'=>$cungchude]); 
+    }
+    public function Luubaihoc($slug){
+        $baihoc_id= BaiHoc::where('slug',$slug)->first();
+
+        $id = ThoiGianHoc::where('id_baihoc', $baihoc_id->id_baihoc)->orderBy('created_at', 'DESC')->first();
+        $luubaihoc = new LuuBaiHoc;
+        
+        $baihocdaluu = LuuBaiHoc::where('id_baihoc', $baihoc_id->id_baihoc)->first();
+
+        if(!isset($baihocdaluu)){
+            $luubaihoc->id_thoigianhoc = $id->id;
+            $luubaihoc->id_baihoc = $id->id_baihoc;
+            $luubaihoc->save();
+
+            return redirect('baihoc/'.$slug)->with('success','Bạn đã lưu thành công');
+        }
+        else {
+            return redirect('baihoc/'.$slug)->with('already','Bài học này bạn đã lưu');
+        }
+        
+    }
+
+    public function xoaLuu($slug){
+        $baihoc_id= BaiHoc::where('slug',$slug)->first();
+
+        $id = ThoiGianHoc::where('id_baihoc', $baihoc_id->id_baihoc)->orderBy('created_at', 'DESC')->first();
+        
+        $baihocdaluu = LuuBaiHoc::where('id_baihoc', $baihoc_id->id_baihoc)->first();
+
+        $baihocdaluu->delete();
+
+        if ($baihocdaluu){
+            return redirect('baihoc/'.$slug)->with('success','Bạn đã xóa khỏi danh sách thành công');
+        }
+        else {
+            return redirect('baihoc/'.$slug)->with('error','Lỗi, vui lòng thử lại');
+        }
     }
 }

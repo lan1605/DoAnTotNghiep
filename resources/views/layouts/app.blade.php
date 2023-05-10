@@ -45,7 +45,7 @@
           </div>
           <nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
           
-            <div class="container">	<a class="navbar-brand" href="/"><img src="../../assets/images/logo-dai-hoc-nha-trang.png" width="40" alt=""/> SEO for A</a>
+            <div class="container">	<a class="navbar-brand" href="/"><img src="../../assets/images/logo-dai-hoc-nha-trang.png" width="40" alt=""/> NTU-A</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent3" aria-controls="navbarSupportedContent3" aria-expanded="false" aria-label="Toggle navigation">
                 @yield('menu-nav')
               </div>
@@ -61,7 +61,7 @@
        <!--end page main-->
 
        
-
+       <a href="javaScript:;" class="back-to-top mb-5"><i class='bx bxs-up-arrow-alt'></i></a>
   </div>
   <!--end wrapper-->
 
@@ -83,7 +83,7 @@
   <script src="../../assets/js/app.js"></script>
   <script src="../../assets/js/index.js"></script>
 
-
+  @yield('javascript')
 </body>
 
 </html>
