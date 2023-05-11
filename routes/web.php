@@ -131,8 +131,8 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/xoa/{id_baitap}',[BaiTapController::class,'delete']);
         // Route::delete('/selected',[BaiTapController::class, 'deleteAll'])->name('cauhoi.delete.all');
         Route::post('/',[BaiTapController::class,'add']);
-        Route::get('/{id_baitap}',[BaiTapController::class,'editGet']);
-        Route::post('/{id_baitap}',[BaiTapController::class,'editPost']);
+        // Route::get('/{id_baitap}',[BaiTapController::class,'editGet']);
+        Route::get('/{id_baitap}',[BaiTapController::class,'editPost']);
         Route::delete('/selected',[BaiTapController::class, 'deleteAll'])->name('baitap.delete.all');
 
 

@@ -86,7 +86,7 @@
                             </div>
                             <div class="col-12">
                             <label class="form-label">Loại câu hỏi</label>
-                            <select name="id_loaicauhoi" id="" class="form-select @error('id_loaicauhoi') is-invalid @enderror" >
+                            <select name="id_loaicauhoi" id="" class="form-select " >
                                 <?php
                                     $loaicauhois = App\Models\LoaiCauHoi::all();
                                 ?>
@@ -94,27 +94,55 @@
                                     <option value="{{$item->id}}" {{$cauhoi->id_loaicauhoi==$item->id ? 'selected' : ''}}>{{$item->ten_loaicauhoi}}</option>
                                 @endforeach
                             </select>
-                            @error('id_loaicauhoi')
+                            {{-- @error('id_loaicauhoi')
                             <span class="invalid-feedback" role="alert" >
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                            @enderror --}}
                             </div>
                             <div class="col-12">
-                            <label class="form-label">Bài tập</label>
-                            <select name="id_baitap" id="" class="form-select @error('id_baitap') is-invalid @enderror">
+                            <label class="form-label">Chủ đề</label>
+                            <select name="id_chude" id="chude" class="form-select">
+                                <option value="0">-Chọn chủ đề-</option>
                                 <?php
-                                    $baitaps = App\Models\BaiTap::all();
+                                    $chudes = App\Models\ChuDe::all();
+                                    $chude_baihoc = App\Models\BaiHoc::where('id_baihoc', $cauhoi->id_baihoc)->first();
+                                    $id = $chude_baihoc->id_chude;
                                 ?>
-                                @foreach ($baitaps as $item)
-                                    <option value="{{$item->id_baitap}}" {{$cauhoi->id_baitap==$item->id_baitap ? 'selected' : ''}} >{{$item->ten_baitap}}</option>
+                                @foreach ($chudes as $item)
+                                    <option value="{{$item->id_chude}}" {{$id==$item->id_chude ? 'selected' : ''}} >{{$item->ten_chude}}</option>
                                 @endforeach
                             </select>
-                            @error('id_baitap')
+                            </div>
+                            <div class="col-12">
+                            <label class="form-label">Bài học</label>
+                            <select name="id_baihoc" id="baihoc" class="form-select @error('id_baihoc') is-invalid @enderror">
+                                <option value="{{$cauhoi->id_baihoc}}" selected> {{App\Models\BaiHoc::find($cauhoi->id_baihoc)->ten_baihoc}}</option>
+                            </select>
+                            @error('id_baihoc')
                             <span class="invalid-feedback" role="alert" >
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                            <script>
+                                $(document).ready(function () {
+                                    $('#chude').on('change', function () {
+                                        var chudeID = this.value;
+                                        $.ajax({
+                                            url: '{{ route('ajax.cauhoi') }}?id_chude='+chudeID,
+                                            type: 'get',
+                                            success: function (res) {
+                                                $('#baihoc').html('<option value="0">Tất cả</option>');
+                                                $.each(res, function (key, value) {
+                                                    $('#baihoc').append('<option value="' + value
+                                                        .id_baihoc + '"{{$cauhoi=='+value.id_baihoc+' ? "selected" : false}}>' + value.ten_baihoc + '</option>');
+                                                });
+                                            }
+                                            
+                                        });
+                                    });
+                                });
+                            </script>
                             </div>
                         </div><!--end row-->
                     </div>

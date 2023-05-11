@@ -10,11 +10,28 @@ use Auth;
 class CauHoiController extends Controller
 {
     public function index(Request $req){
-        // $keysfilter ='';
-        // if ($req->key_find!=null){
-        //     $keysfilter = $req->key_find;
-        // }
-        $cauhois = CauHoi::paginate(10);
+        $filterLession =[];
+        if (!empty($req->find_lession)){
+            if ($req->find_lession==0){
+                $filterLession[]=[];
+            }
+            else {
+                $find_lession = $req->find_lession;
+                $filterLession[] = ['cau_hois.id_baihoc', '=', $find_lession];
+            }
+        }
+        $filter =[];
+        if (!empty($req->find_cate)){
+            if ($req->find_cate==0){
+                $filter[]=[];
+            }
+            else {
+                $find_cate = $req->find_cate;
+                $filter[] = ['cau_hois.id_loaicauhoi', '=', $find_cate];
+            }
+        }
+
+        $cauhois = CauHoi::where($filterLession)->Where($filter)->paginate(10);
         return view('cau-hoi.list', ['route'=>route('quanly.cauhoi'), 'cauhois'=>$cauhois,'titlePage'=>'Quản lý câu hỏi', 'breadcrumb'=> 'Danh sách câu hỏi']);
     }
     public function delete($id){
@@ -42,7 +59,7 @@ class CauHoiController extends Controller
     		'ten_cauhoi'=>'required|min:2',
             'noi_dung' => 'required',
             'dap_an_dung'=>'required',
-            'id_baitap'=>'required',
+            'id_baihoc'=>'required',
             'id_loaicauhoi'=>'required'
         ],
     	[
@@ -51,7 +68,7 @@ class CauHoiController extends Controller
             'noi_dung.required'=>'bạn chưa nhập nội dung câu hỏi ',
             'dap_an_dung.required'=>'bạn chưa nhập đáp án đúng',
             'id_loaicauhoi.required'=>'bạn chọn loại câu hỏi',
-            'id_baitap.required'=>'bạn chọn bài tập',
+            'id_baihoc.required'=>'bạn chọn bài học',
     	]);
 
         $cauhoi = new CauHoi;
@@ -62,7 +79,7 @@ class CauHoiController extends Controller
         $cauhoi->dap_an_3 = strip_tags($req->dap_an_3);
         $cauhoi->dap_an_4 = strip_tags($req->dap_an_4);
         $cauhoi->dap_an_dung = strip_tags($req->dap_an_dung);
-        $cauhoi->id_baitap = $req->id_baitap;
+        $cauhoi->id_baihoc = $req->id_baihoc;
         $cauhoi->id_admin = Auth::user()->id_admin;
         $cauhoi->id_loaicauhoi = $req->id_loaicauhoi;
         $cauhoi->save();
@@ -87,7 +104,7 @@ class CauHoiController extends Controller
     		'ten_cauhoi'=>'required|min:2',
             'noi_dung' => 'required',
             'dap_an_dung'=>'required',
-            'id_baitap'=>'required',
+            'id_baihoc'=>'required',
             'id_loaicauhoi'=>'required'
         ],
     	[
@@ -96,7 +113,7 @@ class CauHoiController extends Controller
             'noi_dung.required'=>'bạn chưa nhập nội dung câu hỏi ',
             'dap_an_dung.required'=>'bạn chưa nhập đáp án đúng',
             'id_loaicauhoi.required'=>'bạn chọn loại câu hỏi',
-            'id_baitap.required'=>'bạn chọn bài tập',
+            'id_baihoc.required'=>'bạn chọn bài học',
     	]);
 
         $cauhoi->ten_cauhoi = $req->ten_cauhoi;
@@ -106,7 +123,7 @@ class CauHoiController extends Controller
         $cauhoi->dap_an_3 = strip_tags($req->dap_an_3);
         $cauhoi->dap_an_4 = strip_tags($req->dap_an_4);
         $cauhoi->dap_an_dung = strip_tags($req->dap_an_dung);
-        $cauhoi->id_baitap = $req->id_baitap;
+        $cauhoi->id_baihoc = $req->id_baihoc;
         $cauhoi->id_admin = Auth::user()->id_admin;
         $cauhoi->id_loaicauhoi = $req->id_loaicauhoi;
         $cauhoi->save();

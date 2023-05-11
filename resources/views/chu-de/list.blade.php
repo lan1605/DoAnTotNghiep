@@ -97,8 +97,8 @@
                             <td>{{$chude->created_at}}</td>
                             <td>
                                 <div class="d-flex align-items-center gap-3 fs-6">
-                                    <i class="bi bi-pencil-fill text-warning" data-bs-toggle="modal" data-bs-target="#exampleModal-edit{{$chude->id_chude}}" aria-label="View"></i>
-                                    <i class="bi bi-trash-fill text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{$chude->id_chude}}" aria-label="Delete"></i>
+                                    <i class="bi bi-pencil-fill text-warning" data-bs-toggle="modal" data-bs-target="#exampleModal-edit{{$chude->id_chude}}" aria-label="Chỉnh sửa"></i>
+                                    <i class="bi bi-trash-fill text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{$chude->id_chude}}" aria-label="Xóa"></i>
                                     </div>
                             </td>
                         </tr>

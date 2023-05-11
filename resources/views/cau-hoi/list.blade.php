@@ -20,7 +20,7 @@
                                     <option value="0">Tất cả</option>
                                     @if (isset($role))
                                     @foreach ($role as $item)
-                                        <option value="<?php echo $item->id_chude?>" {{request()->find_cate==$item->id_chude ? 'selected' : false}}><?php echo $item->ten_chude?></option>
+                                        <option value="<?php echo $item->id_chude?>" {{request()->id_chude==$item->id_chude ? 'selected' : false}}><?php echo $item->ten_chude?></option>
                                     @endforeach
                                         
                                     @endif
@@ -29,17 +29,56 @@
                             <div class="mb-2 mb-sm-0 ms-2">
                                 <select name="find_lession" id="baihoc" class="form-select">
                                     <option value="0">Tất cả</option>
+                                    @if (!isset(request()->find_lession))
+                                    <option value="0">Tất cả</option>
+                                @else
+                                    <?php
+                                        $baihoc = App\Models\BaiHoc::where('id_chude', request()->id_chude)->get();
+                                    ?>
+                                    @foreach ($baihoc as $item)
+                                    <option value="<?php echo $item->id_baihoc?>" {{request()->find_lession==$item->id_baihoc ? 'selected' : false}}><?php echo $item->ten_baihoc?></option>
+                                    @endforeach
+                                @endif
                                 </select>
+                                
                             </div>
                             <div class="mb-2 mb-sm-0 ms-2">
-                                <div class="ms-auto position-relative">
-                                    <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-search"></i></div>
-                                    <input class="form-control ps-5" type="text" placeholder="tìm kiếm câu hỏi..."name="key_find" value="{{Request()->key_find}}">
-                                </div>
+                                <?php
+                                    $loaicauhoi = App\Models\LoaiCauHoi::all();    
+                                ?>
+                                <select name="find_cate" id="chude" class="form-select">
+                                    <option value="0">Tất cả</option>
+                                    @if (isset($loaicauhoi))
+                                    @foreach ($loaicauhoi as $item)
+                                        <option value="<?php echo $item->id?>" {{request()->find_cate==$item->id ? 'selected' : false}}><?php echo $item->ten_loaicauhoi?></option>
+                                    @endforeach
+                                        
+                                    @endif
+                                </select>
                             </div>
+                            
                             <div class="mb-2 mb-sm-0 ms-2">
                                 <button type="submit" class="btn btn-primary mb-3 mb-lg-0">Tìm kiếm</button>
                             </div>
+                            <script>
+                                $(document).ready(function () {
+                                    $('#chude').on('change', function () {
+                                        var chudeID = this.value;
+                                        $.ajax({
+                                            url: '{{ route('ajax.cauhoi') }}?id_chude='+chudeID,
+                                            type: 'get',
+                                            success: function (res) {
+                                                $('#baihoc').html('<option value="0">Tất cả</option>');
+                                                $.each(res, function (key, value) {
+                                                    $('#baihoc').append('<option value="' + value
+                                                        .id_baihoc + '"{{request()->find_lession=='+value.id_baihoc+' ? "selected" : false}}>' + value.ten_baihoc + '</option>');
+                                                });
+                                            }
+                                            
+                                        });
+                                    });
+                                });
+                            </script>
                         </form>
                         <div class="ms-auto">
                             <a href="#" class="btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAll"><i class="bi-trash-fill me-2"></i>Xóa</a>
@@ -64,8 +103,9 @@
                         </th>
                         <th>STT</th>
                         <th>Tên câu hỏi</th>
+                        <th>Nội dung</th>
                         <th>Loại câu hỏi</th>
-                        <th>Bài tập</th>
+                        <th>Bài học</th>
                         <th>Người tạo</th>
                         <th>Thời gian tạo</th>
                         <th>Tùy chọn</th>
@@ -83,6 +123,7 @@
                             </td>
                             <td><span><h6 class="mb-0 product-title">{{$stt}}</h6></span></td>
                             <td><span>{{$cauhoi->ten_cauhoi}}</span></td>
+                            <td><span>{!! $cauhoi->noi_dung !!}</span></td>
                             <td><span>
                                 <?php
                                     if (isset($cauhoi->id_loaicauhoi)){
@@ -97,10 +138,10 @@
                             </span></td>
                             <td><span>
                                 <?php
-                                    if (isset($cauhoi->id_baitap)){
-                                    $id = $cauhoi->id_baitap;
-                                    $baitap = App\Models\BaiTap::find($id);
-                                    echo $baitap->ten_baitap;
+                                    if (isset($cauhoi->id_baihoc)){
+                                    $id = $cauhoi->id_baihoc;
+                                    $baihoc = App\Models\BaiHoc::find($id);
+                                    echo $baihoc->ten_baihoc;
                                 }
                                 else {
                                     echo '_';
@@ -188,24 +229,7 @@
 @section('javascript')
 
 <script type="text/javascript">
-    $(document).ready(function () {
-            $('#chude').on('change', function () {
-                var chudeID = this.value;
-                $('#baihoc').html('');
-                $.ajax({
-                    url: '{{ route('ajax.cauhoi') }}?id_chude='+chudeID,
-                    type: 'get',
-                    success: function (res) {
-                        $('#baihoc').html('<option value="0">Tất cả</option>');
-                        $.each(res, function (key, value) {
-                            $('#baihoc').append('<option value="' + value
-                                .id_baihoc + '">' + value.ten_baihoc + '</option>');
-                        });
-                    }
-                    
-                });
-            });
-        });
+    
         $(function(e){
         $("#select_all").click(function(){
             $('.checkbox-item').prop('checked', $(this).prop('checked'));

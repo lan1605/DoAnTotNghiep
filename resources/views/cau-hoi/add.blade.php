@@ -102,21 +102,48 @@
                         @enderror
                             </div>
                             <div class="col-12">
-                            <label class="form-label">Bài tập</label>
-                            <select name="id_baitap" id="" class="form-select @error('id_baitap') is-invalid @enderror">
-                                <?php
-                                    $baitaps = App\Models\BaiTap::all();
-                                ?>
-                                @foreach ($baitaps as $item)
-                                    <option value="{{$item->id_baitap}}" >{{$item->ten_baitap}}</option>
-                                @endforeach
-                            </select>
-                            @error('id_baitap')
-                            <span class="invalid-feedback" role="alert" >
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                            </div>
+                                <label class="form-label">Chủ đề</label>
+                                <select name="id_chude" id="chude" class="form-select">
+                                    <option value="0">-Chọn chủ đề-</option>
+                                    <?php
+                                        $chudes = App\Models\ChuDe::all();
+                                        
+                                    ?>
+                                    @foreach ($chudes as $item)
+                                        <option value="{{$item->id_chude}}"  >{{$item->ten_chude}}</option>
+                                    @endforeach
+                                </select>
+                                </div>
+                                <div class="col-12">
+                                <label class="form-label">Bài học</label>
+                                <select name="id_baihoc" id="baihoc" class="form-select @error('id_baihoc') is-invalid @enderror">
+                                    <option value="0">-Chọn bài học-</option>
+                                </select>
+                                @error('id_baihoc')
+                                <span class="invalid-feedback" role="alert" >
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                                <script>
+                                    $(document).ready(function () {
+                                        $('#chude').on('change', function () {
+                                            var chudeID = this.value;
+                                            $.ajax({
+                                                url: '{{ route('ajax.cauhoi') }}?id_chude='+chudeID,
+                                                type: 'get',
+                                                success: function (res) {
+                                                    $('#baihoc').html('<option value="0">-Chọn bài học-</option>');
+                                                    $.each(res, function (key, value) {
+                                                        $('#baihoc').append('<option value="' + value
+                                                            .id_baihoc + '">' + value.ten_baihoc + '</option>');
+                                                    });
+                                                }
+                                                
+                                            });
+                                        });
+                                    });
+                                </script>
+                                </div>
                         </div><!--end row-->
                     </div>
                     </div>  
