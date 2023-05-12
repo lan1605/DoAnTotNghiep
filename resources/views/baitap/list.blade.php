@@ -148,6 +148,7 @@
                                         <th>Tên bài tập</th>
                                         <th>Đường dẫn tĩnh</th>
                                         <th>Chủ đề</th>
+                                        <th>Tổng câu hỏi</th>
                                         <th>Số lượng câu hỏi</th>
                                         <th>Thời gian làm bài (phút)</th>
                                         <th>Tùy chọn</th>
@@ -176,6 +177,9 @@
                                                     }
                                                 ?>
                                             </span></td>
+                                            <td>
+                                            <span>{{$baitap->tong_cauhoi}}</span>
+                                            </td>
                                             <td>
                                             <span>{{$baitap->soluong_cauhoi}}</span>
                                             </td>
