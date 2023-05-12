@@ -197,12 +197,24 @@ class BaiHocController extends Controller
         $chitiet->luotxem = $chitiet->luotxem+1;
         $chitiet->save();
 
-        $thoigianhoc = new ThoiGianHoc;
-        $thoigianhoc->id_hocvien = Auth::user()->id;
-        $thoigianhoc->id_baihoc = $chitiet->id_baihoc;
-        $thoigianhoc->save();
+        $daluu = ThoiGianHoc::where('id_baihoc',$chitiet->id_baihoc)->where('id_hocvien',Auth::user()->id)->orderBy('created_at', 'DESC')->first();
+        
+        if(isset($daluu)){
+            $capnhat = ThoiGianHoc::find($daluu->id);
+            $capnhat->updated_at = date('Y-m-d G:i:s');
+            // dd($capnhat);
+            $capnhat->save();
+        }
+        else {
+            $thoigianhoc = new ThoiGianHoc;
+            $thoigianhoc->id_hocvien = Auth::user()->id;
+            $thoigianhoc->id_baihoc = $chitiet->id_baihoc;
+            $thoigianhoc->save();
+        }
+        // $daluu->touch();
+        
 
-        $cungchude = BaiHoc::where('id_chude', $chitiet->id_chude)->get();
+        $cungchude = BaiHoc::where('id_baihoc','!=' ,$chitiet->id_baihoc)->where('id_chude', $chitiet->id_chude)->get();
         return view('pages.baihoc.detail',[ 'chitiet'=>$chitiet, 'cungchude'=>$cungchude]); 
     }
     public function Luubaihoc($slug){

@@ -25,12 +25,34 @@
                                             @csrf
                                                 <div class="col-6">
                                                     <label class="form-label">Tên bài tập: </label>
-                                                <input type="text" class="form-control @error('ten_baitap') is-invalid  @enderror" placeholder="Tên bài tập..." name="ten_baitap" value="{{ old('ten_baitap') }}">
+                                                <input type="text" class="text form-control @error('ten_baitap') is-invalid  @enderror" placeholder="Tên bài tập..." name="ten_baitap" value="{{ old('ten_baitap') }}">
                                                 @error('ten_baitap')
                                                     <span class="invalid-feedback" role="alert" >
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
+                                                <span id="result-text" class="invalid-feedback"></span>
+                                                <script>
+                                                    const text = document.querySelector('.text');
+                                                    text.addEventListener('keyup', function(){
+                                                        var value = text.value;
+                                                        
+                                                        if (value==''){
+                                                            document.querySelector('#result-text').textContent = "";
+                                                        }
+                                                        else{
+                                                            
+                                                            if (/^[a-zA-Z0-9-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]*$/.test(value) == false || value==''){
+                                                            document.querySelector('#result-text').textContent = "Nhập sai định dạng, vui lòng nhập lại";
+                                                            text.classList.add('is-invalid');
+                                                        }
+                                                        else{
+                                                            document.querySelector('#result-text').textContent = "";
+                                                            text.classList.remove('is-invalid');
+                                                        }
+                                                        }
+                                                    })
+                                                </script>
                                                 </div>
                                                 <div class="col-6">
                                                     <label class="form-label">Số lượng câu hỏi: </label>

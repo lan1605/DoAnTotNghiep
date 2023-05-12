@@ -38,6 +38,7 @@
     @endif
   </title>
   <style>
+    .ck-editor__editable {min-height: 500px;}
     .preview-img {
   width: 300px;
   margin: 50px 0;
@@ -99,13 +100,14 @@ ClassicEditor
         // ...
         
     } )
-    .then( error => {
-        console.log( error );
+    .then( editor => {
+        // console.log( error );
+        editor.ui.view.editable.element.style.height = '500px';
     } )
     .catch( error => {
         console.log( error );
     } );
-
+    
     
 </script>
 

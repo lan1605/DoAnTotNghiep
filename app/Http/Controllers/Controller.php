@@ -40,7 +40,6 @@ class Controller extends BaseController
             'U'=>'Ú|Ù|Ủ|Ũ|Ụ|Ư|Ứ|Ừ|Ử|Ữ|Ự',
              
             'Y'=>'Ý|Ỳ|Ỷ|Ỹ|Ỵ',
-             
             );
              
             foreach($unicode as $nonUnicode=>$uni){

@@ -29,6 +29,7 @@ use App\Http\Controllers\CauHoiController;
 use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\QuyenController;
+use App\Http\Controllers\LamBaiTapController;
 
 Route::get('/', function () {
 return view('welcome');
@@ -143,6 +144,10 @@ Route::prefix('/baihoc')->group(function () {
     Route::get('/{slug}', [BaiHocController::class,'viewDetail'])->middleware('hocvien');
     Route::get('/{slug}/luu',[BaiHocController::class, 'Luubaihoc']);
     Route::get('/{slug}/huy',[BaiHocController::class, 'xoaLuu']);
+});
+
+Route::prefix('/baitap')->group(function () {
+    Route::get('/{slug}', [LamBaiTapController::class,'index']);
 });
 
 Route::prefix('ajax')->group(function () {
