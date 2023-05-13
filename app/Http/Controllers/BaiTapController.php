@@ -112,6 +112,8 @@ class BaiTapController extends Controller
         $baitap->ten_baitap = $req->ten_baitapEdit;
         $baitap->soluong_cauhoi = $req->soluongEdit;
         // $baitap->thoigian_lambai = $req->thoigian;
+        $tong_cauhoi = CauHoi::where('id_baihoc', $req->id_baihocEdit)->get();
+        $baitap->tong_cauhoi = count($tong_cauhoi);
         $baitap->slug = Controller::locdau($req->ten_baitapEdit);
         $baitap->id_baihoc = $req->id_baihocEdit;
         $baitap->save();

@@ -11,5 +11,14 @@ class LamBaiTap extends Model
 
     protected $table = "lam_bai_taps";
 
-    
+    protected $fillable
+    = [
+        'id',
+        'id_baitap',
+        'id_hocvien',
+        'id_cauhoi',
+        'created_at',
+        'updated_at',
+];
+    public $timestamp = true;
 }
