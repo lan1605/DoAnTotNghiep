@@ -13,12 +13,16 @@ class LamBaiTap extends Model
 
     protected $fillable
     = [
-        'id',
         'id_baitap',
         'id_hocvien',
         'id_cauhoi',
+        'dapan_hocvien',
         'created_at',
         'updated_at',
 ];
+
+
+protected $primaryKey = null;
+public $incrementing = false;
     public $timestamp = true;
 }

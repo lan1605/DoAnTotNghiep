@@ -147,7 +147,13 @@ Route::prefix('/baihoc')->group(function () {
 });
 
 Route::prefix('/baitap')->group(function () {
-    Route::get('/{slug}', [LamBaiTapController::class,'index']);
+    if (Auth::check()){
+        Route::get('/{slug}', [LamBaiTapController::class,'index']);
+    }
+    else {
+        Route::get('/{slug}', [LamBaiTapController::class,'index'])->middleware('hocvien');
+    }
+    Route::post('/{slug}', [LamBaiTapController::class, 'luubailam']);
 });
 
 Route::prefix('ajax')->group(function () {

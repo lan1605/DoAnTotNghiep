@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\BaiTap;
 use App\Models\CauHoi;
 use App\Models\LamBaiTap;
+use App\Models\ThongTinLamBai;
 use Auth;
 use DB;
 class LamBaiTapController extends Controller
@@ -32,10 +33,15 @@ class LamBaiTapController extends Controller
         $results = array_diff(array_map('serialize',$arrCH), array_map('serialize',$arrLBT));
         // dd($results);
         //Nếu có số lượng phần tử khác nhau bằng với số lượng câu hỏi mà mỗi bài tập quy định
+        $luuthongtin = new ThongTinLamBai;
         if (count($results)==$baitap->soluong_cauhoi)
             {
                 //Lưu thông tin vào bảng lam_bai_taps thông qua mảng $arr
                 $taomoi = LamBaiTap::insert($arr);
+                
+                $luuthongtin->id_baitap = $baitap->id_baitap;
+                $luuthongtin->id_hocvien = Auth::user()->id;
+                $luuthongtin->save();
             }
         //Lấy danh sách id câu hỏi đã lưu
         $danhsach = LamBaiTap::where('id_baitap', $baitap->id_baitap)->where('id_hocvien',Auth::user()->id)->take($baitap->soluong_cauhoi)->orderBy('created_at','DESC')->get();
@@ -47,10 +53,32 @@ class LamBaiTapController extends Controller
         $dscauhoi = CauHoi::whereIn('id',$arrIDcauhoi)->get();
         $thoigian = $baitap->thoigian_lambai;
 
-        dd($danhsach);
-        return view('pages.baitap.exam',['dscauhoi'=>$dscauhoi,'thoigian'=>$thoigian,'baitap'=> $baitap]);
-    }
-    public function luubailam(){
 
+        // dd($danhsach, $dscauhoi);
+        return view('pages.baitap.exam',['dscauhoi'=>$dscauhoi,'thoigian'=>$thoigian,'baitap'=> $baitap,'danhsach'=>$danhsach]);
+    }
+    public function luubailam(Request $req, $slug){
+        $baitap = BaiTap::where('slug',$slug)->first();
+
+        
+
+        $lambaitap = LamBaiTap::where('id_baitap', $baitap->id_baitap)->where('id_hocvien',Auth::user()->id)->get();
+        // dd($req->post('dapan_hocvien'));
+        $arrLBT =[];
+        foreach ($lambaitap as $lbt){
+            $arrLBT[] = $lbt->id_cauhoi;
+        }
+        dd($arrLBT);
+        $arrKey = [];
+        foreach ($req->post('dapan_hocvien') as $key => $value){
+            
+                $luuthongtin = LamBaiTap::where('id_baitap', $baitap->id_baitap)->where('id_hocvien',Auth::user()->id)->where('id_cauhoi', $key)->first();
+                $luuthongtin->dapan_hocvien = $value;
+                $luuthongtin->updated_at = date('Y-m-d G:i:s');
+                $luuthongtin->update();
+            
+        }
+        dd($arrKey);
+        return view('pages.baitap.finish');
     }
 }
