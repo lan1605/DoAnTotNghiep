@@ -11,7 +11,8 @@ class ThongTinLamBai extends Model
     protected $table = "thong_tin_lam_bai";
     const CREATED_AT = 'thoigian_lambai';
     const UPDATED_AT = 'thoigian_nopbai';
-
+    
+    public $timestamp = false;
     protected $fillable
     = [
         'id_baitap',

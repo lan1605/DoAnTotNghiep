@@ -34,32 +34,25 @@
                                                         <h5><strong>Câu {{$dem}}</strong>: {{$item->noi_dung}}</h5>
                                                         <div class="question-answer fs-6">
                                                             <div class="answer">
-                                                                @if (trim($item_lbt->dapan_hocvien===trim($item->dap_an_1)))
-                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="" checked value="{{trim($item->dap_an_1)}}" > A. {{$item->dap_an_1}}
-                                                                @else
-                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="" value="{{trim($item->dap_an_1)}}" > A. {{$item->dap_an_1}}
-                                                                @endif
+                                                                
+                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="{{$item->id}}" value="{{trim($item->dap_an_1)}}" > A. {{$item->dap_an_1}}
+                                                                
                                                             </div>
                                                             <div class="answer">
-                                                                @if (trim($item_lbt->dapan_hocvien===trim($item->dap_an_2)))
-                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="" checked value="{{trim($item->dap_an_2)}}"> B. {{$item->dap_an_2}}
-                                                                @else
-                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="" value="{{trim($item->dap_an_2)}}" > B. {{$item->dap_an_2}}
-                                                                @endif
+                                                                
+                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="{{$item->id}}" value="{{trim($item->dap_an_2)}}"> B. {{$item->dap_an_2}}
+                                                               
                                                             </div>
                                                             <div class="answer">
-                                                                @if (trim($item_lbt->dapan_hocvien===trim($item->dap_an_3)))
-                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="" checked value="{{trim($item->dap_an_3)}}"> C. {{$item->dap_an_3}}
-                                                                @else
-                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="" value="{{trim($item->dap_an_3)}}" > C. {{$item->dap_an_3}}
-                                                                @endif
+                                                                
+                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="{{$item->id}}" value="{{trim($item->dap_an_3)}}"> C. {{$item->dap_an_3}}
+                                                               
                                                             </div>
                                                             <div class="answer">
-                                                                @if (trim($item_lbt->dapan_hocvien===trim($item->dap_an_4)))
-                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="" checked value="{{trim($item->dap_an_4)}}"> D. {{$item->dap_an_4}}
-                                                                @else
-                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="" value="{{trim($item->dap_an_4)}}" > D. {{$item->dap_an_4}}
-                                                                @endif
+                                                               
+                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="{{$item->id}}"value="{{trim($item->dap_an_4)}}"> D. {{$item->dap_an_4}}
+                                                                
+                                                                   
                                                             </div>
                                                         </div>
                                                     </div>
@@ -105,18 +98,9 @@
                                         @endphp
                                         @foreach ($danhsach as $item_ds)
                                         <?php $demds = $demds +1; ?>
-                                            @if (trim($item_ds->dapan_hocvien) != null)
-                                                <div class="col-2 mt-2">
-                                                    <a href="#quest-{{$item_ds->id_cauhoi}}" class="menu-link btn btn-primary d-flex justify-content-center">{{$demds}}<span class="tick" id="tick-{{$demds}}">✓</span></a>
-                                                    
-                                                </div>
-                                            @else
                                                 <div class="col-2 mt-2">
                                                     <a href="#quest-{{$item_ds->id_cauhoi}}" class="menu-link btn btn-white d-flex justify-content-center">{{$demds}}</a>
-                                                    <div class="">
-                                                    </div>
                                                 </div>
-                                            @endif
                                         @endforeach
                                     </div>
                                     
@@ -130,46 +114,50 @@
             
         </div>
         <script>
-        function startTimer(duration, display) {
-var timer = duration, minutes, seconds;
-setInterval(function () {
-            minutes = parseInt(timer / 60, 10)
-            seconds = parseInt(timer % 60, 10);
+            // var countDownDate = new Date("2023-05-17 14:50:55").getTime();
+            var oldDateObj = new Date("{{$thoigian_lambai}}");
+            var newDateObj = new Date();
+            newDateObj.setTime(oldDateObj.getTime() + (5 * 60 * 1000));
+            console.log(newDateObj);
+            // Update the count down every 1 second
+            var x = setInterval(function() {
 
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
+            // Get today's date and time
+            var now = new Date().getTime();
+                
+            // Find the distance between now and the count down date
+            var distance = newDateObj - now;
+                
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            display.textContent = minutes + " " + ":"+ " " + seconds;
-
-            if (--timer == 0) {
-                // timer = duration;
-                // window.location.href = "/baihoc";
-                timer =0;
-                document.querySelector('#formSubmit').submit();
+            var _hour = hours < 10 ? '0' +  hours : hours;
+            var _minute = minutes < 10 ? '0' +  minutes : minutes;
+            var _second = seconds < 10 ? '0' +  seconds : seconds;
+            var _day = days < 10 ? '0' +  days : days;
+                
+            // Output the result in an element with id="demo"
+            if (days == 0){
+                document.getElementById("timer").innerHTML =  _hour + ":" + _minute + ":" +_second;
+            
+            }
+            else {
+                document.getElementById("timer").innerHTML = _day + ":" + _hour + ":" + _minute + ":" +_second;
             }
             
-        console.log(parseInt(seconds))
-        window.localStorage.setItem("seconds",seconds)
-        window.localStorage.setItem("minutes",minutes)
-        }, 1000);
-        }
-
-        window.onload = function () {
-        sec  = parseInt(window.localStorage.getItem("seconds"))
-        min = parseInt(window.localStorage.getItem("minutes"))
-        
-        if(parseInt(min*sec)){
-            var fiveMinutes = (parseInt(min*60)+sec);
-        }else{
-            var fiveMinutes = 60 * {{$thoigian}};
-        }
-      
-            // var fiveMinutes = 60 * 5;
-        display = document.querySelector('#timer');
-        startTimer(fiveMinutes, display);
-        };
-
-
+            if (minutes < 5){
+                document.getElementById("timer").style = 'color: red';
+            }    
+            // If the count down is over, write some text 
+            if (distance === 0) {
+                clearInterval(x);
+                // document.getElementById("timer").innerHTML = "EXPIRED";
+                document.getElementById('formSubmit').submit();
+            }
+            }, 1000);
         </script>
     </main>
 @endsection
