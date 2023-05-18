@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\BaiHoc;
 use App\Models\LuuBaiHoc;
 use App\Models\ThoiGianHoc;
+use File;
 use Auth; 
 class BaiHocController extends Controller
 {
@@ -197,6 +198,9 @@ class BaiHocController extends Controller
         $chitiet->luotxem = $chitiet->luotxem+1;
         $chitiet->save();
 
+        $next_id = BaiHoc::where('id_baihoc', '>',$chitiet->id_baihoc)->where('id_chude', $chitiet->id_chude)->min('id_baihoc');
+        $prev_id = BaiHoc::where('id_baihoc', '<',$chitiet->id_baihoc)->where('id_chude', $chitiet->id_chude)->max('id_baihoc');
+
         $daluu = ThoiGianHoc::where('id_baihoc',$chitiet->id_baihoc)->where('id_hocvien',Auth::user()->id)->orderBy('created_at', 'DESC')->first();
         
         if(isset($daluu)){
@@ -215,7 +219,7 @@ class BaiHocController extends Controller
         
 
         $cungchude = BaiHoc::where('id_baihoc','!=' ,$chitiet->id_baihoc)->where('id_chude', $chitiet->id_chude)->get();
-        return view('pages.baihoc.detail',[ 'chitiet'=>$chitiet, 'cungchude'=>$cungchude]); 
+        return view('pages.baihoc.detail',[ 'chitiet'=>$chitiet, 'cungchude'=>$cungchude, 'next'=> $next_id, 'prev'=> $prev_id]); 
     }
     public function Luubaihoc($slug){
         $baihoc_id= BaiHoc::where('slug',$slug)->first();

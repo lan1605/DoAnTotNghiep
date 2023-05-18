@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="../../assets/images/favicon-32x32.png" type="image/png" />
+  <link rel="icon" href="../../assets/images/logo-dai-hoc-nha-trang.png" type="image/png" />
   <!-- Bootstrap CSS -->
   <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="../../assets/css/bootstrap-extended.css" rel="stylesheet" />
@@ -45,7 +45,7 @@
           </div>
           <nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
           
-            <div class="container">	<a class="navbar-brand" href="/"><img src="../../assets/images/logo-dai-hoc-nha-trang.png" width="40" alt=""/> NTU-A</a>
+            <div class="container">	<a class="navbar-brand" href="/"><img src="../../assets/images/logo-dai-hoc-nha-trang.png" width="40" alt=""/> NTU</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent3" aria-controls="navbarSupportedContent3" aria-expanded="false" aria-label="Toggle navigation">
                 @yield('menu-nav')
               </div>

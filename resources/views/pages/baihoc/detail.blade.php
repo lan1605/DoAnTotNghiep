@@ -36,36 +36,55 @@
                                     <?php
                                         $baitap = App\Models\BaiTap::where('id_baihoc', $chitiet->id_baihoc)->first();
                                     ?>
-                                    @if (isset($baitap))
-                                        @if (Auth::check())
+                                        @if (isset($baitap->id_baihoc))
                                             <a href="/baitap/{{$baitap->slug}}" class="btn btn-success px-5" id="lambaitap"> <i class="bx bx-credit-card-front"></i> Làm bài tập</a>
                                         @else
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-													</div>
-													<div class="modal-body">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur.</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-														<a href="/baitap/{{$baitap->slug}}" class="btn btn-success px-5" id="lambaitap"> <i class="bx bx-credit-card-front"></i> Làm bài tập</a>
-													</div>
-												</div>
-											</div>
-										</div>
+                                            
                                         @endif
-                                    @else
-                                        {{''}}
-                                    @endif
+                                        
                                 </div>
                             </div>
-                            
+                            @if ($chitiet->video==null)
+                                
+                            @else
+                            <div class="card-body">
+                                <video controls id="video-tag" width="100%" height="400">
+                                    <source id="video-source" src="{{$chitiet->video}}">    
+                                </video>
+                            </div>
+                            @endif
                             <div class="card-body">
                                 <div class="row g-2 mt-1">
                                     <div class="col-12" id="contents">
                                         {!! $chitiet->noi_dung !!}
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        @if ($prev)
+                                        @php
+                                            $baitruoc = App\Models\BaiHoc::find($prev);
+                                        @endphp
+                                            <h5>
+                                                <div class="d-flex align-items-center">
+                                                    <a href="/baihoc/{{$baitruoc->slug}}" title="{{$baitruoc->ten_baihoc}}">
+                                                        <i class="bx bx-chevron-left-circle"></i>
+                                                        {{$baitruoc->ten_baihoc}}
+                                                    </a>
+                                                </div>
+                                            </h5>
+                                        @endif
+                                        @if ($next)
+                                        @php
+                                            $baitruoc = App\Models\BaiHoc::find($next);
+                                        @endphp
+                                            <h5>
+                                                <div class="d-flex align-items-center">
+                                                    <a href="/baihoc/{{$baitruoc->slug}}" title="{{$baitruoc->ten_baihoc}}">
+                                                        {{$baitruoc->ten_baihoc}}
+                                                        <i class="bx bx-chevron-right-circle"></i>
+                                                    </a>                                                
+                                                </div>
+                                            </h5>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

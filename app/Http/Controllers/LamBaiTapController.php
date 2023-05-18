@@ -7,6 +7,7 @@ use App\Models\BaiTap;
 use App\Models\CauHoi;
 use App\Models\LamBaiTap;
 use App\Models\ThongTinLamBai;
+use App\Models\KetQua;
 use Auth;
 use DB;
 class LamBaiTapController extends Controller
@@ -58,8 +59,10 @@ class LamBaiTapController extends Controller
         $thoigianlambai = ThongTinLamBai::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('thoigian_lambai', 'DESC')->first();
         
         // dd($danhsach, $dscauhoi);
-        return view('pages.baitap.exam',['dscauhoi'=>$dscauhoi,'thoigian'=>$thoigian,'baitap'=> $baitap,'danhsach'=>$danhsach, 'thoigian_lambai'=> $thoigianlambai->thoigian_lambai]);
+        return view('pages.baitap.exam',['dscauhoi'=>$dscauhoi,'thoigian'=>$thoigian,'baitap'=> $baitap,'danhsach'=>$danhsach, 
+        'thoigian_lambai'=> $thoigianlambai->thoigian_lambai,'thoigian_nopbai'=> $thoigianlambai->thoigian_nopbai]);
     }
+
     public function luubailam(Request $req, $slug){
         $baitap = BaiTap::where('slug',$slug)->first();
 
@@ -79,20 +82,73 @@ class LamBaiTapController extends Controller
             $luuthongtin = LamBaiTap::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->get();
             foreach ($luuthongtin as $item){
                 foreach ($arrKey as $key=>$value){
+                    $item->updated_at =date('Y-m-d G:i:s');
+                    $item->update();
                     if ($item->id_cauhoi === $key){
                         DB::table('lam_bai_taps')->where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->where('id_cauhoi', $item->id_cauhoi)
-                        ->update(['dapan_hocvien'=>$value,'updated_at'=>date('Y-m-d G:i:s')]);
+                        ->update(['dapan_hocvien'=>$value]);
                     }
                     else if (!$item->id_cauhoi === $key){
                         DB::table('lam_bai_taps')->where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->where('id_cauhoi', $item->id_cauhoi)
-                        ->update(['dapan_hocvien'=>null,'updated_at'=>date('Y-m-d G:i:s')]);
+                        ->update(['dapan_hocvien'=>null]);
                     }
                 }
             $danop->thoigian_nopbai = date('Y-m-d G:i:s');
-            $danop->save();
+            $danop->update();
             }
-            return view('pages.baitap.finish');
+
+            
+            return redirect('baitap/'.$slug.'/nop');
         
         
+    }
+    public function NopBaiLam(Request $req, $slug){
+        $baitap = BaiTap::where('slug',$slug)->first();
+        $danhsach = LamBaiTap::where('id_baitap', $baitap->id_baitap)->where('id_hocvien',Auth::user()->id)->take($baitap->soluong_cauhoi)->orderBy('updated_at', 'DESC')->orderBy('id_cauhoi', 'ASC')->get();
+        // dd($danhsach);
+        return view('pages.baitap.finish', ['danhsach'=>$danhsach, 'baitap'=>$baitap]);
+         // dd($danhsach);
+        $arrIdCauhoi = [];
+
+        foreach ($danhsach as $ds){
+            $arrIDcauhoi[] = $ds->id_cauhoi;
+        }
+
+        $danhsachcauhoi = CauHoi::whereIn('id', $arrIDcauhoi)->get();
+        
+        $diem = 10/$baitap->soluong_cauhoi;
+        $socaudung = 0;
+        foreach ($danhsach as $ds){
+            foreach ($danhsachcauhoi as $dsch){
+                if ($ds->id_cauhoi===$dsch->id){
+                    if (trim($ds->dapan_hocvien)===trim($dsch->dap_an_dung)){
+                        $socaudung = $socaudung +1;
+                    }
+                }
+            }
+        }
+        
+        $tongdiem = $diem * $socaudung;
+        // dd($tongdiem);
+
+        $thoigianlambai = ThongTinLamBai::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('thoigian_lambai', 'DESC')->first();
+
+        
+        $ketqua = new KetQua;
+        $ketqua->id_baitap = $baitap->id_baitap;
+        $ketqua->id_hocvien = Auth::user()->id;
+        $ketqua->tong_diem = $tongdiem;
+        $ketqua->soluong_caudung = $socaudung;
+        $ketqua->created_at = date('Y-m-d G:i:s');
+        $ketqua->updated_at = date('Y-m-d G:i:s');
+        $ketqua->save();
+
+    }
+    public function KetQua(Request $req, $slug){
+        $baitap = BaiTap::where('slug',$slug)->first();
+        $danhsach = LamBaiTap::where('id_baitap', $baitap->id_baitap)->where('id_hocvien',Auth::user()->id)->take($baitap->soluong_cauhoi)->orderBy('updated_at', 'DESC')->orderBy('id_cauhoi', 'ASC')->get();
+
+       
+        return view('pages.baitap.result');
     }
 }

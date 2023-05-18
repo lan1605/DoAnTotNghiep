@@ -147,14 +147,11 @@ Route::prefix('/baihoc')->group(function () {
 });
 
 Route::prefix('/baitap')->group(function () {
-    if (Auth::check()){
-        Route::get('/{slug}', [LamBaiTapController::class,'index']);
-    }
-    else {
-        Route::get('/{slug}', [LamBaiTapController::class,'index'])->middleware('hocvien');
-    }
+    Route::get('/{slug}', [LamBaiTapController::class,'index']);
     Route::post('/{slug}', [LamBaiTapController::class, 'luubailam']);
-});
+    Route::get('/{slug}/nop', [LamBaiTapController::class, 'NopBaiLam']);
+    Route::get('/{slug}/ketqua', [LamBaiTapController::class, 'KetQua']);
+})->middleware('hocvien');
 
 Route::prefix('ajax')->group(function () {
     Route::get('/cauhoi',[AjaxController::class,'getBaiHoc'])->name('ajax.cauhoi');

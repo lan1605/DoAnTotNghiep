@@ -1,3 +1,4 @@
+@if ($thoigian_nopbai === null)
 @extends('layouts.app')
 @include('layouts.layout.menu')
 @section('login-for-users')
@@ -91,7 +92,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="mb-2">
-                                            <span  id="timer"></span>
+                                            <span  id="timer" name="time"></span>
                                         </div>
                                         @php
                                             $demds =0;
@@ -117,7 +118,7 @@
             // var countDownDate = new Date("2023-05-17 14:50:55").getTime();
             var oldDateObj = new Date("{{$thoigian_lambai}}");
             var newDateObj = new Date();
-            newDateObj.setTime(oldDateObj.getTime() + (5 * 60 * 1000));
+            newDateObj.setTime(oldDateObj.getTime() + ({{$thoigian}} * 60 * 1000));
             console.log(newDateObj);
             // Update the count down every 1 second
             var x = setInterval(function() {
@@ -161,3 +162,9 @@
         </script>
     </main>
 @endsection
+@else
+@php
+    $baihoc = App\Models\BaiHoc::find($baitap->id_baihoc);
+@endphp
+<script>window.location = "/baihoc/{{$baihoc->slug}}";</script>
+@endif

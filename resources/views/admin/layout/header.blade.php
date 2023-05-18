@@ -2,7 +2,12 @@
     <nav class="navbar navbar-expand gap-3 align-items-center">
       <div class="mobile-toggle-icon fs-3">
           <i class="bi bi-list"></i>
-        </div>
+      </div>
+      <div class="d-none d-sm-block">
+        <h4 class="text-primary">
+          Hệ thống quản lý ứng dụng hỗ trợ học tập Tin học đại cương A
+        </h4>
+      </div>
         <div class="top-navbar-right ms-auto">
           <ul class="navbar-nav align-items-center">
           {{-- Menu short --}}

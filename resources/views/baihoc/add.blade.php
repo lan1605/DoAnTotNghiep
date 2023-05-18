@@ -85,7 +85,41 @@
                             </div>
                             <div class="col-12 ">
                                 <label class="form-label">Video bài học</label>
-                                <input type="file" name="video" id="" accept="video/mp4">
+                                <label class="form-label btn btn-primary" for="video" >
+                                    Tải lên
+                                </label>
+                                <input type="file" name="video" id="video" accept="video/mp4" hidden>
+                                <div class="card card-video w-100" style= "display: none">
+                                    <div class="card-body ">
+                                        <video controls id="video-tag" width="100%" height="200">
+                                            <source id="video-source" src="splashVideo">    
+                                        </video>
+                                    </div>
+                                </div>
+                                <script>
+                                    const videoSrc = document.querySelector("#video-source");
+                                    const videoTag = document.querySelector("#video-tag");
+                                    const inputTag = document.querySelector("#video");
+                                    const cardVideo = document.querySelector(".card-video");
+
+                                    inputTag.addEventListener('change',  readVideo)
+
+                                    function readVideo(event) {
+                                    console.log(event.target.files)
+                                    if (event.target.files && event.target.files[0]) {
+                                        var reader = new FileReader();
+                                        cardVideo.style='display: block';
+                                        reader.onload = function(e) {
+                                        console.log('loaded')
+                                        
+                                        videoSrc.src = e.target.result
+                                        videoTag.load()
+                                        }.bind(this)
+
+                                        reader.readAsDataURL(event.target.files[0]);
+                                    }
+                                    }
+                                </script>
                                 </div>
                             </div>
                             
