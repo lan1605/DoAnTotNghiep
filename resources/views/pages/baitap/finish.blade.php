@@ -93,7 +93,7 @@
                                      <p class="my-0"><strong>Số lượng câu hỏi: </strong>{{$baitap->soluong_cauhoi}} câu</p>
                                      <p class="my-0"><strong>Thời gian làm bài: </strong>{{$baitap->thoigian_lambai}} phút</p>
                                      <div class="d-flex mt-2 justify-content-center">
-                                         <a href="/{{$baitap->slug}}/ketqua" class="btn btn-success" >Xem kết quả</a>
+                                         <a href="/baitap/{{$baitap->slug}}/ketqua" class="btn btn-success" >Xem kết quả</a>
                                      </div>
                                 </div>
                             </div>
