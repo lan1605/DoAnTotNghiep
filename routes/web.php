@@ -30,6 +30,7 @@ use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\QuyenController;
 use App\Http\Controllers\LamBaiTapController;
+use App\Http\Controllers\QuaTrinhHocTapController;
 
 Route::get('/', function () {
 return view('welcome');
@@ -139,20 +140,24 @@ Route::middleware(['admin'])->group(function () {
 
     });
 });
+//Học bài
 Route::prefix('/baihoc')->group(function () {
     Route::get('/', [BaiHocController::class,'indexPage'])->name('baihoc.index');
     Route::get('/{slug}', [BaiHocController::class,'viewDetail'])->middleware('hocvien');
     Route::get('/{slug}/luu',[BaiHocController::class, 'Luubaihoc']);
     Route::get('/{slug}/huy',[BaiHocController::class, 'xoaLuu']);
 });
-
+// Làm bài tập
 Route::prefix('/baitap')->group(function () {
     Route::get('/{slug}', [LamBaiTapController::class,'index']);
     Route::post('/{slug}', [LamBaiTapController::class, 'luubailam']);
     Route::get('/{slug}/nop', [LamBaiTapController::class, 'NopBaiLam']);
     Route::get('/{slug}/ketqua', [LamBaiTapController::class, 'KetQua']);
 })->middleware('hocvien');
-
+//Quá trình học tập
+Route::prefix('/qua-trinh-hoc-tap')->group(function () {
+    Route::get('/',[QuaTrinhHocTapController::class, 'quatrinh']);
+})->middleware('hocvien');
 Route::prefix('ajax')->group(function () {
     Route::get('/cauhoi',[AjaxController::class,'getBaiHoc'])->name('ajax.cauhoi');
     

@@ -153,8 +153,19 @@ class LamBaiTapController extends Controller
         $baitap = BaiTap::where('slug',$slug)->first();
         $danhsach = LamBaiTap::where('id_baitap', $baitap->id_baitap)->where('id_hocvien',Auth::user()->id)->take($baitap->soluong_cauhoi)->orderBy('updated_at', 'DESC')->orderBy('id_cauhoi', 'ASC')->get();
 
+        $arrIDcauhoi = [];
+
+        foreach ($danhsach as $ds){
+            $arrIDcauhoi[] = $ds->id_cauhoi;
+        }
+        $cauhoi = CauHoi::whereIn('id', $arrIDcauhoi)->get();
         
-        return view('pages.baitap.result');
+        $ketqua = KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('created_at', 'DESC')->first();
+
+        $solanlambai = ThongTinLamBai::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->get();
+
+
+        return view('pages.baitap.result', ['danhsach'=>$danhsach, 'baitap'=>$baitap,'cauhoi'=>$cauhoi, 'ketqua'=>$ketqua, 'solanlambai'=>count($solanlambai)]);
     }
     
 }

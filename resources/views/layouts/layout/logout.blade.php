@@ -29,15 +29,23 @@
           <a class="dropdown-item" href="{{ route('admin.profile')}}">
              <div class="d-flex align-items-center">
                <div class=""><i class="bi bi-person-fill"></i></div>
-               <div class="ms-3"><span>Profile</span></div>
+               <div class="ms-3"><span>Thông tin cá nhân</span></div>
              </div>
            </a>
         </li>
         <li>
-          <a class="dropdown-item" href="index2.html">
+          <a class="dropdown-item" href="/qua-trinh-hoc-tap">
              <div class="d-flex align-items-center">
                <div class=""><i class="bi bi-speedometer"></i></div>
-               <div class="ms-3"><span>Dashboard</span></div>
+               <div class="ms-3"><span>Quá trình học tập</span></div>
+             </div>
+           </a>
+        </li>
+        <li>
+          <a class="dropdown-item" href="/qua-trinh-on-tap">
+             <div class="d-flex align-items-center">
+               <div class=""><i class="bi bi-speedometer"></i></div>
+               <div class="ms-3"><span>Quá trình ôn tập</span></div>
              </div>
            </a>
         </li>
@@ -46,7 +54,7 @@
           <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
             <div class="d-flex align-items-center">
               <div class=""><i class="bi bi-lock-fill"></i></div>
-              <div class="ms-3"><span>{{ __('Logout') }}</span></div>
+              <div class="ms-3"><span>{{ __('Đăng xuất') }}</span></div>
             </div>
           </a>
        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
