@@ -8,12 +8,108 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
+use Auth;
 
 class AdminInfoController extends Controller
 {
     public function getProfile(){
-        $user = Admin::all();
-        return view('info.admin', ['route' => route('admin.profile')]);
+        $user = Admin::find(Auth::user()->id_admin);
+        return view('info.admin', ['user'=>$user,'route' => route('admin.profile'),'titlePage'=>'Thông tin cá nhân','breadcrumb'=>'Thông tin cá nhân']);
+    }
+    public function update(Request $req){
+        $user = Admin::find(Auth::user()->id_admin);
+        $this->validate($req,
+    	[
+    		'name'=>'required|min:2',
+            'email'=>'required|email',
+            'img_admin'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'sdt'=>'required',
+            'dia_chi'=>'required'
+    	],
+    	[
+    		'name.required'=>'bạn chưa nhập tên ',
+            'name.min'=>'tên người dùng ít nhất 2 ký tự',
+            'email.required'=>'bạn chưa nhập email',
+            'email.email'=>'email không đúng định dạng',
+            'img_admin.required'=>'bạn chưa chọn ảnh',
+            'img_admin.max'=>'ảnh của bạn tối đa 2048Kb',
+            'img_admin.mimes'=>'ảnh của bạn không đúng định dạng jpeg,png,jpg,gif,svg',
+            'sdt.required'=>'bạn chưa nhập số điện thoại',
+            'dia_chi.required'=>'bạn chưa nhập địa chỉ'
+    	]);
+
+        if ($req->old_password){
+            if (Hash::check($req->old_password, $user->password)){
+                return back()->with('error_old', 'Không đúng mật khẩu, vui lòng nhập lại');
+            }
+            else {
+                if ($req->hasFile('img_admin')){
+                    if (File::exists('admins/'.$user->img_admin)){
+                        File::delete('admins/'.$user->img_admin);
+                    }
+                    $fileName = $req->imgName . '.' . $req->file('img_admin')->extension();        
+                    // $req->file('img_admin')->storeAs('profile/admin', $fileName);
+                    $req->file('img_admin')->move(public_path('admins'), $fileName);
+                    $user->img_admin = $fileName;
+                    $user->name = $req->name;
+                    $user->email = $req->email;
+                    $user->sdt = $req->sdt;
+                    $user->gioi_tinh = $req->gioi_tinh;
+                    $user->dia_chi = $req->dia_chi;
+                    $user->password = Hash::make($req->new_password);
+                    $user->save();
+                }
+                else {
+                    $user->name = $req->name;
+                    $user->email = $req->email;
+                    $user->sdt = $req->sdt;
+                    $user->gioi_tinh = $req->gioi_tinh;
+                    $user->dia_chi = $req->dia_chi;
+                    $user->password = Hash::make($req->new_password);
+                    $user->save();
+                }
+            }
+        }
+        else {
+            if ($req->hasFile('img_admin')){
+                if (File::exists('admins/'.$user->img_admin)){
+                    File::delete('admins/'.$user->img_admin);
+                }
+                $fileName = $req->imgName . '.' . $req->file('img_admin')->extension();        
+                // $req->file('img_admin')->storeAs('profile/admin', $fileName);
+                $req->file('img_admin')->move(public_path('admins'), $fileName);
+                $user->img_admin = $fileName;
+                $user->name = $req->name;
+                $user->email = $req->email;
+                $user->sdt = $req->sdt;
+                $user->gioi_tinh = $req->gioi_tinh;
+                $user->dia_chi = $req->dia_chi;
+                $user->save();
+            }
+            else {
+                $user->name = $req->name;
+                $user->email = $req->email;
+                $user->sdt = $req->sdt;
+                $user->gioi_tinh = $req->gioi_tinh;
+                $user->dia_chi = $req->dia_chi;
+                $user->save();
+            }
+    }
+    if ($user){
+        return redirect('/dashboard/profile')->with('success', 'Thay đổi thành công');
+    }
+    else {
+        return redirect('/dashboard/profile')->with('error', 'Có lỗi xảy ra, vui lòng thử lại');
+    }
+    }
+    public function destroy(){
+        $user = Admin::find(Auth::user()->id_admin);
+
+        $user->delete();
+
+        if ($user){
+            return redirect('/admin');
+        }
     }
     public function index(Request $req){
         $filter =[];

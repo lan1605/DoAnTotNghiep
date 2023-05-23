@@ -187,10 +187,10 @@ class BaiHocController extends Controller
         }
         $baihocs = BaiHoc::where($filter)->where(function ($query) use ($keysfilter){
             $query->where('ten_baihoc','like','%'.$keysfilter.'%')->orWhere('slug','like','%'.$keysfilter.'%');
-        })->orderBy('id_chude', 'ASC')->paginate(10);
-        $baihocmoinhat = BaiHoc::orderBy('created_at', 'DESC')->take(5)->get();
+        })->orderBy('id_chude', 'ASC');
+
         return view('pages.baihoc.index',['route'=>route('baihoc.index'),
-        'baihocs'=>$baihocs, 'baihocmoinhat'=>$baihocmoinhat]);
+        'baihocs'=>$baihocs]);
     }
     public function viewDetail($slug){
         $chitiet = BaiHoc::where('slug',$slug)->first();

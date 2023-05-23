@@ -123,8 +123,12 @@
                             <td><span>{{$user->created_at}}</span></td>
                             <td>
                                 <div class="d-flex align-items-center gap-3 fs-6">
-                                <a href="/dashboard/quantrivien/{{$user->id_admin}}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="View detail" aria-label="Views"><i class="bi bi-pencil-fill"></i></a>
-                                <i class="bi bi-trash-fill text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{$user->id_dmin}}" aria-label="Delete"></i>
+                                @if (Auth::user()->id_admin == $user->id_admin)
+                                <a href="/dashboard/profile" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="View detail" aria-label="Views"><i class="bi bi-pencil-fill"></i></a>
+                                @else
+                                    <a href="/dashboard/quantrivien/{{$user->id_admin}}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="View detail" aria-label="Views"><i class="bi bi-pencil-fill"></i></a>
+                                @endif
+                                <i class="bi bi-trash-fill text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{$user->id_admin}}" aria-label="Delete"></i>
                                 </div>
                             </td>
                         </tr>

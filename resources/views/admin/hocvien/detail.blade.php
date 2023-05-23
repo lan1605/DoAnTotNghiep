@@ -116,7 +116,10 @@
                         <p class="mb-0 text-secondary">Bình luận</p>
                       </div>
                       <div class="text-center">
-                        <h4 class="mb-0">15</h4>
+                        <h4 class="mb-0">
+                          
+                          {{count($baihocdaluu)}}
+                        </h4>
                         <p class="mb-0 text-secondary">Bài học đã lưu</p>
                       </div>
                       

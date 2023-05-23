@@ -53,6 +53,8 @@ Route::post('/admin',[LoginController::class,'adminLogin'])->name('admin.login')
 Route::middleware(['auth:admin'])->group(function () {
 Route::get('/dashboard',[DashBoardController::class,'index'])->name('quanly.trangchu');
 Route::get('/dashboard/profile',[AdminInfoController::class, 'getProfile'])->name('admin.profile');
+Route::post('/dashboard/profile',[AdminInfoController::class, 'update']);
+Route::get('/dashboard/profile/xoa',[AdminInfoController::class, 'destroy']);
 //quyền của quản trị viên
 Route::middleware(['admin'])->group(function () {
     //quản lý học viên
@@ -126,6 +128,7 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/{id}',[CauHoiController::class,'editGet']);
         Route::post('/{id}',[CauHoiController::class,'editPost']);
         Route::delete('/selected',[CauHoiController::class, 'deleteAll'])->name('cauhoi.delete.all');
+        Route::post('/import', [CauHoiController::class,'import']);
     });
     //quản lý bài tập
     Route::prefix('/dashboard/baitap')->group(function () {
@@ -158,10 +161,14 @@ Route::prefix('/baitap')->group(function () {
 Route::prefix('/qua-trinh-hoc-tap')->group(function () {
     Route::get('/',[QuaTrinhHocTapController::class, 'quatrinh']);
 })->middleware('hocvien');
+Route::prefix('/goc-hoi-dap')->group(function () {
+    Route::get('/', [BaiDangController::class,'indexPage'])->name('baidang.index');
+    Route::get('/{slug}', [BaiDangController::class,'viewDetail']);
+    Route::get('/them-moi', [BaiDangController::class,'addGet'])->name('baidang.them');
+
+});
 Route::prefix('ajax')->group(function () {
     Route::get('/cauhoi',[AjaxController::class,'getBaiHoc'])->name('ajax.cauhoi');
-    
-
 });
 
 

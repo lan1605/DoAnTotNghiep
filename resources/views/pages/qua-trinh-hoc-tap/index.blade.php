@@ -131,7 +131,7 @@
                                                                     <span>100%</span>
                                                                 @else
                                                                     <div class="progress" style="height: 5px">
-                                                                        <div class="progress-bar bg-warning" role="progressbar" style="width: {{round(abs($diff_minutes) / 10,2)}}%"></div>
+                                                                        <div class="progress-bar bg-warning" role="progressbar" style="width: {{round(abs($diff_minutes) / 10,2)*100}}%"></div>
                                                                     </div>
                                                                 @endif
                                                             

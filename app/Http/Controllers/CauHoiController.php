@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\CauHoi;
 use DB;
 use Auth;
+use App\Imports\CauHoiImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CauHoiController extends Controller
 {
@@ -53,6 +55,15 @@ class CauHoiController extends Controller
         'titlePage'=>'Quản lý câu hỏi', 'breadcrumb'=> 'Thêm câu hỏi mới', 'linkPage'=>'/dashboard/cauhoi'
         ]);
     }
+    public function import(Request $request) 
+    {
+        $data =Excel::import(new CauHoiImport,$request->file('file'));
+        
+        return back()->with('success','Tải file thành công');
+        
+    }      
+    
+    
     public function addPost(Request $req){
         $this->validate($req,
     	[

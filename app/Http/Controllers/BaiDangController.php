@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BaiDang;
 use App\Models\BinhLuan;
+use Auth;
 
 class BaiDangController extends Controller
 {
@@ -28,5 +29,34 @@ class BaiDangController extends Controller
 
         return view('admin.bai-dang.detail', ['baidang'=>$baidang, 'binhluan'=>$binhluan, 
         'titlePage'=>'Quản lý bài đăng', 'breadcrumb'=> 'Chi tiết bài đăng','linkPage'=>'dashboard/baidang']);
+    }
+    public function indexPage(Request $req){
+        $filter =[];
+        $keysfilter ='';
+        if (!empty($req->find_cate)){
+            if ($req->find_cate==0){
+                $filter[]=[];
+            }
+            else {
+                $find_cate = $req->find_cate;
+                $filter[] = ['bai_dangs.id_chude', '=', $find_cate];
+            }
+        }
+        if ($req->key_find!=null){
+            $keysfilter = $req->key_find;
+        }
+        $baidangs = BaiDang::where($filter)->where(function ($query) use ($keysfilter){
+            $query->where('ten_baidang','like','%'.$keysfilter.'%')->orWhere('slug','like','%'.$keysfilter.'%');
+        })->orderBy('id_chude', 'ASC')->paginate(20);
+        
+        return view('pages.baidang.index',['route'=>route('baidang.index'), 'baidangs'=>$baidangs]);  
+    }
+    public function viewDetail($slug){
+        $baidang = BaiDang::where('slug', $slug)->where('id_hocvien',Auth::user()->id)->first();
+
+        return view('pages.baidang.detail',['baidang'=>$baidang]);
+    }
+    public function addGet(){
+        return view('pages.baidang.add',['route'=>route('baidang.them')]);
     }
 }

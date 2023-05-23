@@ -77,7 +77,9 @@ class LamBaiTapController extends Controller
             // dd($arrLBT);
             $arrKey = [];
             $arrKey = $req->post('dapan_hocvien');
-        
+            $danop->thoigian_nopbai = date('Y-m-d G:i:s');
+            $danop->thoigian_lambai = $danop->thoigian_lambai;
+            $danop->update();
             $result = [];
             $luuthongtin = LamBaiTap::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->get();
             foreach ($luuthongtin as $item){
@@ -93,9 +95,8 @@ class LamBaiTapController extends Controller
                         ->update(['dapan_hocvien'=>null]);
                     }
                 }
-            $danop->thoigian_nopbai = date('Y-m-d G:i:s');
-            $danop->update();
             }
+            
 
             
             return redirect('baitap/'.$slug.'/nop');

@@ -81,8 +81,29 @@
                             </script>
                         </form>
                         <div class="ms-auto">
+                            <a href="#" class="btn btn-success mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-import"><i class="lni lni-exit-down me-2"></i>Import</a>
                             <a href="#" class="btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAll"><i class="bi-trash-fill me-2"></i>Xóa</a>
                             <a href="/dashboard/cauhoi/them" class="btn btn-primary mb-3 mb-lg-0"><i class="bi bi-plus-square-fill me-2"></i>Thêm mới</a>    
+                        </div>
+                        <div class="modal fade" id="exampleModal-import" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Thêm câu hỏi</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form action="/dashboard/cauhoi/import" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <input type="file" name="file" id="" class="form-control">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                            <button class="btn btn-success">Import</button>
+                                        </div>
+                                    </form>
+                                    </div>
+                                </div>
                         </div>
                       </div>
                 </div>
