@@ -43,6 +43,7 @@ class LamBaiTapController extends Controller
                 $luuthongtin->id_baitap = $baitap->id_baitap;
                 $luuthongtin->id_hocvien = Auth::user()->id;
                 $luuthongtin->thoigian_lambai = date('Y-m-d G:i:s');
+                $luuthongtin->socau_dalam = 0;
                 $luuthongtin->thoigian_nopbai = null;
                 $luuthongtin->save();
             }
@@ -55,8 +56,11 @@ class LamBaiTapController extends Controller
         }
         $dscauhoi = CauHoi::whereIn('id',$arrIDcauhoi)->get();
         $thoigian = $baitap->thoigian_lambai;
-
+        
         $thoigianlambai = ThongTinLamBai::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('thoigian_lambai', 'DESC')->first();
+        // dd($thoigianlambai);
+
+        
         
         // dd($danhsach, $dscauhoi);
         return view('pages.baitap.exam',['dscauhoi'=>$dscauhoi,'thoigian'=>$thoigian,'baitap'=> $baitap,'danhsach'=>$danhsach, 
@@ -76,10 +80,8 @@ class LamBaiTapController extends Controller
             }
             // dd($arrLBT);
             $arrKey = [];
+            $dem= 0;
             $arrKey = $req->post('dapan_hocvien');
-            $danop->thoigian_nopbai = date('Y-m-d G:i:s');
-            $danop->thoigian_lambai = $danop->thoigian_lambai;
-            $danop->update();
             $result = [];
             $luuthongtin = LamBaiTap::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->get();
             foreach ($luuthongtin as $item){
@@ -89,6 +91,7 @@ class LamBaiTapController extends Controller
                     if ($item->id_cauhoi === $key){
                         DB::table('lam_bai_taps')->where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->where('id_cauhoi', $item->id_cauhoi)
                         ->update(['dapan_hocvien'=>$value]);
+                        $dem = $dem +1;
                     }
                     else if (!$item->id_cauhoi === $key){
                         DB::table('lam_bai_taps')->where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->where('id_cauhoi', $item->id_cauhoi)
@@ -96,6 +99,8 @@ class LamBaiTapController extends Controller
                     }
                 }
             }
+            $danop->socau_dalam = $dem;
+            $danop->update();
             
 
             

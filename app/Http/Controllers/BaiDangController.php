@@ -52,11 +52,111 @@ class BaiDangController extends Controller
         return view('pages.baidang.index',['route'=>route('baidang.index'), 'baidangs'=>$baidangs]);  
     }
     public function viewDetail($slug){
-        $baidang = BaiDang::where('slug', $slug)->where('id_hocvien',Auth::user()->id)->first();
+        $baidang = BaiDang::where('slug', $slug)->first();
+        
+        $baidang->truy_cap = $baidang->truy_cap+1;
+        $baidang->save();
 
         return view('pages.baidang.detail',['baidang'=>$baidang]);
     }
     public function addGet(){
-        return view('pages.baidang.add',['route'=>route('baidang.them')]);
+        return view('pages.baidang.add');
+    }
+    public function addPost(Request $req){
+        $this->validate($req,
+    	[
+    		'ten_baidang'=>'required|min:2',
+            'noi_dung' => 'required',
+            'id_chude'=>'required',
+        ],
+    	[
+    		'ten_baidang.required'=>'bạn chưa nhập tên bài đăng ',
+            'ten_baidang.min'=>'tên bài đăng ít nhất 2 ký tự',
+            'noi_dung.required'=>'bạn chưa nhập nội dung bài đăng ',
+            'id_chude.required'=>'bạn chưa chọn chủ đề',
+    	]);
+
+        $baidang = new BaiDang;
+        $baidang->ten_baidang = $req->ten_baidang;
+        $baidang->noidung_baidang = $req->noi_dung;
+        $baidang->slug = Controller::locdau($req->ten_baidang);
+        $baidang->id_chude = $req->id_chude;
+        $baidang->id_hocvien = Auth::user()->id;
+        $baidang->save();
+
+        if ($baidang) {
+            return redirect('/goc-hoi-dap/them-moi')->with('success', 'Thêm bài đăng thành công');
+        }
+        else {
+            return redirect('/goc-hoi-dap/them-moi')->with('error', 'Thất bại, vui lòng thử lại');
+        }
+    }
+    public function indexMine(Request $req){
+        $filter =[];
+        $keysfilter ='';
+        if (!empty($req->find_cate)){
+            if ($req->find_cate==0){
+                $filter[]=[];
+            }
+            else {
+                $find_cate = $req->find_cate;
+                $filter[] = ['bai_dangs.id_chude', '=', $find_cate];
+            }
+        }
+        if ($req->key_find!=null){
+            $keysfilter = $req->key_find;
+        }
+        $baidangs = BaiDang::where($filter)->where('id_hocvien',Auth::user()->id)->where(function ($query) use ($keysfilter){
+            $query->where('ten_baidang','like','%'.$keysfilter.'%')->orWhere('slug','like','%'.$keysfilter.'%');
+        })->orderBy('id_chude', 'ASC')->paginate(20);
+
+        return view('pages.baidang.list',['route'=>route('baidang.canhan.index'), 'baidangs'=>$baidangs]);  
+    }
+    public function deleteMine($slug){
+        $baidang = BaiDang::where('slug', $slug)->where('id_hocvien', Auth::user()->id)->first();
+
+        $baidang->delete();
+
+        if ($baidang){
+            return redirect()->back()->with('success', 'Bạn đã xóa thành công!');
+        }
+        else {
+            return redirect()->back()->with('error', 'Thất bại, vui lòng thử lại!');
+        }
+    }
+    public function editGet($slug){
+        $baidang = BaiDang::where('slug', $slug)->where('id_hocvien', Auth::user()->id)->first();
+
+        return view('pages.baidang.edit',['baidang'=>$baidang]);
+    }
+    public function editPost(Request $req, $slug){
+        $baidang = BaiDang::where('slug', $slug)->where('id_hocvien', Auth::user()->id)->first();
+
+        $this->validate($req,
+    	[
+    		'ten_baidangEdit'=>'required|min:2',
+            'noi_dungEdit' => 'required',
+            'id_chudeEdit'=>'required',
+        ],
+    	[
+    		'ten_baidangEdit.required'=>'bạn chưa nhập tên bài đăng ',
+            'ten_baidangEdit.min'=>'tên bài đăng ít nhất 2 ký tự',
+            'noi_dungEdit.required'=>'bạn chưa nhập nội dung bài đăng ',
+            'id_chudeEdit.required'=>'bạn chưa chọn chủ đề',
+    	]);
+        
+        $baidang->ten_baidang = $req->ten_baidangEdit;
+        $baidang->noidung_baidang = $req->noi_dungEdit;
+        $baidang->slug = Controller::locdau($req->ten_baidangEdit);
+        $baidang->id_chude = $req->id_chudeEdit;
+        $baidang->id_hocvien = Auth::user()->id;
+        $baidang->save();
+
+        if ($baidang) {
+            return redirect('goc-hoi-dap/'.$slug.'/chinh-sua')->with('success', 'Thay đổi bài đăng thành công');
+        }
+        else {
+            return redirect('goc-hoi-dap/'.$slug.'/chinh-sua')->with('error', 'Thất bại, vui lòng thử lại');
+        }
     }
 }

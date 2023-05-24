@@ -10,8 +10,13 @@ import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
 import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder.js';
 import CKFinderUploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter.js';
 import CloudServices from '@ckeditor/ckeditor5-cloud-services/src/cloudservices.js';
+import Code from '@ckeditor/ckeditor5-basic-styles/src/code.js';
+import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock.js';
 import DocumentList from '@ckeditor/ckeditor5-list/src/documentlist.js';
+import DocumentListProperties from '@ckeditor/ckeditor5-list/src/documentlistproperties.js';
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials.js';
+import ExportPdf from '@ckeditor/ckeditor5-export-pdf/src/exportpdf.js';
+import ExportWord from '@ckeditor/ckeditor5-export-word/src/exportword.js';
 import FontColor from '@ckeditor/ckeditor5-font/src/fontcolor.js';
 import FontSize from '@ckeditor/ckeditor5-font/src/fontsize.js';
 import Heading from '@ckeditor/ckeditor5-heading/src/heading.js';
@@ -46,8 +51,13 @@ Editor.builtinPlugins = [
 	CKFinder,
 	CKFinderUploadAdapter,
 	CloudServices,
+	Code,
+	CodeBlock,
 	DocumentList,
+	DocumentListProperties,
 	Essentials,
+	ExportPdf,
+	ExportWord,
 	FontColor,
 	FontSize,
 	Heading,
@@ -76,28 +86,33 @@ Editor.builtinPlugins = [
 Editor.defaultConfig = {
 	toolbar: {
 		items: [
-			'heading',
+			'undo',
+			'redo',
 			'|',
+			'blockQuote',
+			'heading',
 			'bold',
 			'italic',
 			'underline',
 			'link',
-			'bulletedList',
+			'indent',
+			'outdent',
 			'numberedList',
+			'bulletedList',
 			'alignment',
+			'fontColor',
+			'fontSize',
+			'superscript',
+			'subscript',
 			'|',
+			'CKFinder',
 			'imageUpload',
 			'mediaEmbed',
-			'CKFinder',
-			'|',
-			'blockQuote',
 			'insertTable',
-			'undo',
-			'redo',
-			'fontSize',
-			'fontColor',
-			'subscript',
-			'superscript',
+			'exportWord',
+			'code',
+			'codeBlock',
+			'exportPdf',
 			'importWord'
 		]
 	},

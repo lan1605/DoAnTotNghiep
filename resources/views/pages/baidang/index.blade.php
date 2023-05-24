@@ -7,14 +7,15 @@
 @endsection
 @section('content')
 {{-- @include('layouts.layout.breadcrumb') --}}
-    <main>
+<main>
+        
         <div style="background-color: #f7f8fa">
             <div class="container">
                 <div class="row g-3 d-flex align-items-center mt-0 ">
                     <div class="d-sm-flex mb-3 justify-content-center gap-2">
-                        <a href="/goc-hoc-tap" class="btn btn-primary mb-3 mb-lg-0">Tất cả</a>
-                        <a href="/goc-hoc-tap/danh-sach" class="btn btn-white mb-3 mb-lg-0">Bài đăng của bạn</a>
-                        <a href="/goc-hoc-tap/them-moi" class="btn btn-white mb-3 mb-lg-0">Thêm mới</a>
+                        <a href="/goc-hoi-dap" class="btn btn-primary mb-3 mb-lg-0">Tất cả</a>
+                        <a href="/goc-hoi-dap/danh-sach" class="btn btn-white mb-3 mb-lg-0">Bài đăng của bạn</a>
+                        <a href="/goc-hoi-dap/them-moi" class="btn btn-white mb-3 mb-lg-0">Thêm mới</a>
                     </div>
                    
                 </div>
@@ -64,7 +65,7 @@
                             @if (!empty(request()->key_find))
                             {{count($baidangs).' bài đăng liên quan được tìm thấy với từ khóa "'.request()->key_find.'"'}}
                             @else
-                            {{count($baidangs).' bài đăng được tìm thấy'}}
+                           
                             @endif
                     @endif
                 </p>
@@ -72,77 +73,56 @@
                 <div class="row my-2">
                     <div class="col-12 col-lg-8 ">
                                 @foreach ($baidangs as $item)
-                                    <a href="/goc-hoi-dap/{{$item->slug}}" class="col-12 my-0 px-1">
-                                        <div class="card w-100 mb-1">
-                                            <div class="card-body" style="cursor: pointer" title="{{$item->ten_baihoc}}">
-                                                <div class="d-flex gap-3">
-                                                    {{-- <div>
-                                                        <a href="/baihoc/{{$item->slug}}">
-                                                            <h6 class="mb-0 product--title">{{$item->ten_baihoc}}</h6>
-                                                        </a>
+                                    <div class="card w-100 mb-1" onclick="location.href='/goc-hoi-dap/{{$item->slug}}'">
+                                        <div class="card-body" style="cursor: pointer" title="{{$item->ten_baihoc}}">
+                                            <div class="d-flex gap-3">
+                                                <div class="product-box">
+                                                    <img src="<?php
+                                                    $user = App\Models\User::find($item->id_hocvien);
+                                                    if ($user->img_admin==NULL){
+                                                        echo "../../assets/images/icons/user.svg";
+                                                    }
+                                                    else {
                                                         
-                                                    </div>
-                                                    @php
-                                                        $baihocdaluu = App\Models\LuuBaiHoc::all();
-                                                    @endphp
-                                                    @foreach ($baihocdaluu as $items)
-                                                        @if ($items->id_baihoc === $item->id_baihoc)
-                                                            <div class="mb-0 text-danger">
-                                                                <i class="lni lni-heart-filled" title="Đã luu bài học"></i>
-                                                            </div>
-                                                        @else
-                                                            {{''}}
-                                                        @endif
-                                                    @endforeach --}}
-                                                    {{-- <h5 class="py-0">{{$item->ten_baidang}}</h5> --}}
-                                                    <div class="product-box">
-                                                        <img src="<?php
-                                                        $user = App\Models\User::find($item->id_hocvien);
-                                                        if ($user->img_admin==NULL){
-                                                            echo "../../assets/images/icons/user.svg";
-                                                        }
-                                                        else {
-                                                            
-                                                            echo "../admins/$user->img_admin";
-                                                        }
-                                                        ?>" alt="">
-                                                    </div>
-                                                    <div class="d-flex w-100 flex-column">
-                                                        <div class="d-flex justify-content-between align-items-center w-100">
-                                                            <div class="float-start">
-                                                                <h5 class="py-0">{{$item->ten_baidang}}</h5>
-                                                            </div>
-                                                            <div class="d-flex">
-                                                                <p class="py-0 mx-2"><strong><i class="bx bx-user"></i></strong>
-                                                                    @php
-                                                                        $nguoidang = App\Models\User::find($item->id_hocvien);
-                                                                    @endphp
-                                                                    {{$nguoidang->name}}
-                                                                </p>
-                                                                <p class="py-0"><strong><i class="bx bx-calendar"></i></strong>
-                                                                    {{$nguoidang->created_at}}
-                                                                </p>
-                                                                <p class="py-0 mx-2"><strong><i class="bx bx-message-rounded"></i></strong>
-                                                                    @php
-                                                                        $cmt = App\Models\BinhLuan::where('id_baidang',$item->id)->get();
-                                                                    @endphp
-                                                                    {{count($cmt)}}
-                                                                </p>
-                                                                
-                                                            </div>
+                                                        echo "../admins/$user->img_admin";
+                                                    }
+                                                    ?>" alt="">
+                                                </div>
+                                                <div class="d-flex w-100 flex-column">
+                                                    <div class="d-flex justify-content-between align-items-center w-100">
+                                                        <div class="float-start">
+                                                            <h5 class="py-0 text-primary">{{$item->ten_baidang}}</h5>
                                                         </div>
                                                         <div class="d-flex">
-                                                            @php
-                                                                $body = $item->noidung_baidang;
-                                                                echo Str::limit($body, 200, ' ...');
-                                                            @endphp
+                                                            <p class="py-0 mx-2"><strong><i class="bx bx-user"></i></strong>
+                                                                @php
+                                                                    $nguoidang = App\Models\User::find($item->id_hocvien);
+                                                                @endphp
+                                                                {{$nguoidang->name}}
+                                                            </p>
+                                                            <p class="py-0"><strong><i class="bx bx-calendar"></i></strong>
+                                                                {{$item->created_at}}
+                                                            </p>
+                                                            <p class="py-0 mx-2"><strong><i class="bx bx-message-rounded"></i></strong>
+                                                                @php
+                                                                    $cmt = App\Models\BinhLuan::where('id_baidang',$item->id)->get();
+                                                                @endphp
+                                                                {{count($cmt)}}
+                                                            </p>
+                                                            
                                                         </div>
                                                     </div>
+                                                    <div class="d-flex">
+                                                        @php
+                                                            $body = $item->noidung_baidang;
+                                                            echo Str::limit($body, 200, ' ...');
+                                                        @endphp
+                                                    </div>
                                                 </div>
-                                                
                                             </div>
+                                            
                                         </div>
-                                    </a>
+                                    </div>
                                 @endforeach
                         </div>
                         {{ $baidangs->links('pagination.custom') }}

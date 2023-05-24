@@ -163,9 +163,13 @@ Route::prefix('/qua-trinh-hoc-tap')->group(function () {
 })->middleware('hocvien');
 Route::prefix('/goc-hoi-dap')->group(function () {
     Route::get('/', [BaiDangController::class,'indexPage'])->name('baidang.index');
+    Route::get('/danh-sach', [BaiDangController::class,'indexMine'])->name('baidang.canhan.index')->middleware('hocvien');
+    Route::get('/them-moi', [BaiDangController::class,'addGet'])->middleware('hocvien');
+    Route::post('/them-moi', [BaiDangController::class,'addPost'])->middleware('hocvien');
+    Route::get('/{slug}/chinh-sua', [BaiDangController::class,'editGet']);
+    Route::post('/{slug}/chinh-sua',[BaiDangController::class,'editPost']);
     Route::get('/{slug}', [BaiDangController::class,'viewDetail']);
-    Route::get('/them-moi', [BaiDangController::class,'addGet'])->name('baidang.them');
-
+    Route::get('/{slug}/xoa',[BaiDangController::class,'deleteMine']);
 });
 Route::prefix('ajax')->group(function () {
     Route::get('/cauhoi',[AjaxController::class,'getBaiHoc'])->name('ajax.cauhoi');

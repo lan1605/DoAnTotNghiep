@@ -187,7 +187,7 @@ class BaiHocController extends Controller
         }
         $baihocs = BaiHoc::where($filter)->where(function ($query) use ($keysfilter){
             $query->where('ten_baihoc','like','%'.$keysfilter.'%')->orWhere('slug','like','%'.$keysfilter.'%');
-        })->orderBy('id_chude', 'ASC');
+        })->orderBy('id_chude', 'ASC')->get();
 
         return view('pages.baihoc.index',['route'=>route('baihoc.index'),
         'baihocs'=>$baihocs]);
