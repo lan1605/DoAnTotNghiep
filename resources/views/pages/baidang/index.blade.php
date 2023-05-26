@@ -5,6 +5,11 @@
         @include('layouts.layout.auth')
       </div>
 @endsection
+@section('title')
+    <title>
+        Bài viết
+    </title>
+@endsection
 @section('content')
 {{-- @include('layouts.layout.breadcrumb') --}}
 <main>
@@ -71,7 +76,7 @@
                 </p>
                 
                 <div class="row my-2">
-                    <div class="col-12 col-lg-8 ">
+                    <div class="col-12 col-lg-12">
                                 @foreach ($baidangs as $item)
                                     <div class="card w-100 mb-1" onclick="location.href='/goc-hoi-dap/{{$item->slug}}'">
                                         <div class="card-body" style="cursor: pointer" title="{{$item->ten_baihoc}}">

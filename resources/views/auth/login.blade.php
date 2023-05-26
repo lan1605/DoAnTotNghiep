@@ -17,6 +17,11 @@
     @endsection
 @extends('layouts.app')
 @endif
+@section('title')
+    <title>
+        Đăng nhập hệ thống
+    </title>
+@endsection
 @section('content')
 <main class="authentication-content">
     <div class="container">

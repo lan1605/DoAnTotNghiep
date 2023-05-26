@@ -30,6 +30,8 @@ use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\QuyenController;
 use App\Http\Controllers\LamBaiTapController;
+use App\Http\Controllers\LienHeController;
+use App\Http\Controllers\BinhLuanController;
 use App\Http\Controllers\QuaTrinhHocTapController;
 
 Route::get('/', function () {
@@ -161,6 +163,7 @@ Route::prefix('/baitap')->group(function () {
 Route::prefix('/qua-trinh-hoc-tap')->group(function () {
     Route::get('/',[QuaTrinhHocTapController::class, 'quatrinh']);
 })->middleware('hocvien');
+//Bài viết
 Route::prefix('/goc-hoi-dap')->group(function () {
     Route::get('/', [BaiDangController::class,'indexPage'])->name('baidang.index');
     Route::get('/danh-sach', [BaiDangController::class,'indexMine'])->name('baidang.canhan.index')->middleware('hocvien');
@@ -171,6 +174,13 @@ Route::prefix('/goc-hoi-dap')->group(function () {
     Route::get('/{slug}', [BaiDangController::class,'viewDetail']);
     Route::get('/{slug}/xoa',[BaiDangController::class,'deleteMine']);
 });
+Route::post('/comment/store', [BinhLuanController::class, 'store'])->name('comment.add');
+Route::post('/reply/store', [BinhLuanController::class, 'replyStore'])->name('reply.add');
+Route::get('/comment/{id}/xoa', [BinhLuanController::class, 'delete']);
+Route::post('/comment/edit', [BinhLuanController::class, 'edit'])->name('comment.edit');
+//Liên hệ
+Route::get('/lien-he',[LienHeController::class,'index']);
+Route::post('/lien-he',[LienHeController::class, 'sendMail']);
 Route::prefix('ajax')->group(function () {
     Route::get('/cauhoi',[AjaxController::class,'getBaiHoc'])->name('ajax.cauhoi');
 });

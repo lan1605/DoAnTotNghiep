@@ -16,6 +16,10 @@ class BinhLuan extends Model
     }
     public function replies()
     {
-        return $this->hasMany(BinhLuan::class, 'id_traloibinhluan');
+        return $this->hasMany(BinhLuan::class, 'id_traloi');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

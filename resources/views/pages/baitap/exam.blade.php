@@ -6,6 +6,11 @@
         @include('layouts.layout.auth')
       </div>
 @endsection
+@section('title')
+    <title>
+        Bài tập {{App\Models\BaiHoc::find($baitap->id_baihoc)->ten_baihoc}}
+    </title>
+@endsection
 @section('content')
 @include('layouts.layout.breadcrumb')
     <main>

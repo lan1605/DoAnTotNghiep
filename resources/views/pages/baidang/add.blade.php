@@ -5,6 +5,11 @@
         @include('layouts.layout.auth')
       </div>
 @endsection
+@section('title')
+    <title>
+        Thêm mới bài viết
+    </title>
+@endsection
 @section('content')
 
     <main>

@@ -11,17 +11,22 @@
   <link href="../../assets/css/bootstrap-extended.css" rel="stylesheet" />
   <link href="../../assets/css/style.css" rel="stylesheet" />
   <link href="../../assets/css/icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/plugins/notifications/css/lobibox.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="../../assets/plugins/ckeditor5/build/ckeditor.js"></script>
+  
+  <script src="../../assets/plugins/notifications/js/lobibox.min.js"></script>
+  <script src="../../assets/plugins/notifications/js/notifications.min.js"></script>
+  <script src="../../assets/plugins/notifications/js/notification-custom-script.js"></script>
+  <script src="../../assets/js/pace.min.js"></script>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>
         @yield('title')
-    </title>
+
 
   {{-- <title>Snacked - Bootstrap 5 Admin Template</title> --}}
 </head>
@@ -75,15 +80,28 @@
   <script src="../../assets/plugins/metismenu/js/metisMenu.min.js"></script>
   <script src="../../assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
   <script src="../../assets/js/pace.min.js"></script>
-  <script src="../../assets/plugins/chartjs/js/Chart.min.js"></script>
-  <script src="../../assets/plugins/chartjs/js/Chart.extension.js"></script>
-  <script src="../../assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
    <!-- Vector map JavaScript -->
    <script src="../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
    <script src="../../assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
+
   <!--app-->
   <script src="../../assets/js/app.js"></script>
   <script src="../../assets/js/index.js"></script>
+  <script>
+    $(function(){
+
+  var url = window.location.pathname, 
+      urlRegExp = new RegExp(url.replace(/\$/,'') + "$"); // create regexp to match current url pathname and remove trailing slash if present as it could collide with the link in navigation in case trailing slash wasn't present there
+      // now grab every link from the navigation
+      $('.nav-link').each(function(){
+          // and test its normalized href against the url pathname regexp
+          if(urlRegExp.test(this.href.replace(/\$/,''))){
+              $(this).addClass('active');
+          }
+      });
+
+  });
+  </script>
 
   @yield('javascript')
 </body>

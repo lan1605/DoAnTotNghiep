@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('title')
-{{__('Đăng ký người dùng')}}
+@section('title')
+    <title>
+        Đăng ký tài khoản
+    </title>
+@endsection
 @endsection
 @section('login-for-users')
     <div class="d-flex ms-3 gap-3">

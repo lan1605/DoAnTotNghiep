@@ -15,8 +15,8 @@ class BaiDang extends Model
     public function chude(){
         return $this->beLongsTo('App\Models\ChuDe','id_chude', 'id_chude');
     }
-
-    public function binhluan(){
-        return $this->hasMany('App\Models\BinhLuan','id_baidang','id');
+    public function binhluan()
+    {
+        return $this->morphMany('App\Models\BinhLuan', 'commentable')->whereNull('id_traloi');
     }
 }

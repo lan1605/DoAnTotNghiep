@@ -5,6 +5,11 @@
         @include('layouts.layout.auth')
       </div>
 @endsection
+@section('title')
+    <title>
+        Chỉnh sửa bài viết {{$baidang->ten_baidang}}
+    </title>
+@endsection
 @section('content')
 
     <main>

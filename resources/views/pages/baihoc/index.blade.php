@@ -5,6 +5,11 @@
         @include('layouts.layout.auth')
       </div>
 @endsection
+@section('title')
+    <title>
+        Danh sách bài học
+    </title>
+@endsection
 @section('content')
 @include('layouts.layout.breadcrumb')
     <main>

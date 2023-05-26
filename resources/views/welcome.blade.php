@@ -5,6 +5,11 @@
         @include('layouts.layout.auth')
       </div>
 @endsection
+@section('title')
+    <title>
+        Trang chủ
+    </title>
+@endsection
 @if (Auth::check())
 
 

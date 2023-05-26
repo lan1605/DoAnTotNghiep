@@ -70,8 +70,7 @@ class LamBaiTapController extends Controller
     public function luubailam(Request $req, $slug){
         $baitap = BaiTap::where('slug',$slug)->first();
 
-        $danop = ThongTinLamBai::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('thoigian_lambai', 'DESC')->first();
-
+        
         $lambaitap = LamBaiTap::where('id_baitap', $baitap->id_baitap)->where('id_hocvien',Auth::user()->id)->get();
             // dd($req->post('dapan_hocvien'));
             $arrLBT =[];
@@ -97,9 +96,12 @@ class LamBaiTapController extends Controller
                         DB::table('lam_bai_taps')->where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->where('id_cauhoi', $item->id_cauhoi)
                         ->update(['dapan_hocvien'=>null]);
                     }
-                }
+                }   
             }
+
+            $danop = ThongTinLamBai::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('thoigian_lambai', 'DESC')->first();
             $danop->socau_dalam = $dem;
+            $danop->thoigian_nopbai = date('Y-m-d G:i:s') ;
             $danop->update();
             
 

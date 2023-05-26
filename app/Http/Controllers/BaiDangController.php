@@ -49,15 +49,19 @@ class BaiDangController extends Controller
             $query->where('ten_baidang','like','%'.$keysfilter.'%')->orWhere('slug','like','%'.$keysfilter.'%');
         })->orderBy('id_chude', 'ASC')->paginate(20);
         
-        return view('pages.baidang.index',['route'=>route('baidang.index'), 'baidangs'=>$baidangs]);  
+        $baidangmoi = BaiDang::orderBy('created_at','DESC')->inRandomOrder()->limit(10);
+        return view('pages.baidang.index',['route'=>route('baidang.index'), 'baidangs'=>$baidangs,'baidangmoi'=>$baidangmoi]);  
     }
     public function viewDetail($slug){
         $baidang = BaiDang::where('slug', $slug)->first();
         
+        $cungchude = BaiDang::where('id','!=', $baidang->id)->where('id_chude',$baidang->id_chude)->get();
+
+        $cungtacgia = BaiDang::where('id','!=', $baidang->id)->where('id_hocvien',$baidang->id_hocvien)->get();
         $baidang->truy_cap = $baidang->truy_cap+1;
         $baidang->save();
 
-        return view('pages.baidang.detail',['baidang'=>$baidang]);
+        return view('pages.baidang.detail',['baidang'=>$baidang, 'cungchude'=> $cungchude, 'cungtacgia'=>$cungtacgia]);
     }
     public function addGet(){
         return view('pages.baidang.add');
