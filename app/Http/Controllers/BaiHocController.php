@@ -258,4 +258,42 @@ class BaiHocController extends Controller
             return redirect('baihoc/'.$slug)->with('error','Lỗi, vui lòng thử lại');
         }
     }
+    public function daLuu(Request $req){
+        $daluu = Luubaihoc::all();
+
+        $arrIDthoigian = [];
+        foreach ($daluu as $item){
+            $arrIDthoigian [] = $item->id_thoigianhoc;
+        }
+
+        $thoigianhoc = ThoiGianHoc::where('id_hocvien', Auth::user()->id)->whereIn('id', $arrIDthoigian)->get();
+
+        $arrIDbaihoc = [];
+
+        foreach ($thoigianhoc as $item){
+            $arrIDbaihoc [] = $item->id_baihoc;
+        }
+        $filter =[];
+        $keysfilter ='';
+        if (!empty($req->find_cate)){
+            if ($req->find_cate==0){
+                $filter[]=[];
+            }
+            else {
+                $find_cate = $req->find_cate;
+                $filter[] = ['bai_hocs.id_chude', '=', $find_cate];
+            }
+        }
+        if ($req->key_find!=null){
+            $keysfilter = $req->key_find;
+        }
+
+        $baihocs = BaiHoc::whereIn('id_baihoc', $arrIDbaihoc)->where($filter)->where(function ($query) use ($keysfilter){
+            $query->where('ten_baihoc','like','%'.$keysfilter.'%')->orWhere('slug','like','%'.$keysfilter.'%');
+        })->orderBy('id_chude', 'ASC')->get();
+        // dd($thoigianhoc);
+        return view('pages.baihoc.list',['baihocs'=>$baihocs]);
+    }
+
+    
 }

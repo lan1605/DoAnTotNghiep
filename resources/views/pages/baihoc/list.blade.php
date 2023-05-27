@@ -7,7 +7,7 @@
 @endsection
 @section('title')
     <title>
-        Danh sách bài học đã lưu
+        Danh sách bài học
     </title>
 @endsection
 @section('content')
@@ -17,8 +17,8 @@
             <div class="container">
                 <div class="row g-3 d-flex align-items-center mt-0 ">
                     <div class="d-sm-flex mb-3 justify-content-center gap-2">
-                        <a href="/baihoc" class="btn btn-primary mb-3 mb-lg-0">Tất cả</a>
-                        <a href="/baihoc/danh-sach-da-luu" class="btn btn-white mb-3 mb-lg-0">Bài học đã lưu</a>
+                        <a href="/baihoc" class="btn btn-white mb-3 mb-lg-0">Tất cả</a>
+                        <a href="/baihoc/danh-sach-da-luu" class="btn btn-primary mb-3 mb-lg-0">Bài học đã lưu</a>
                     </div>
                    
                 </div>
@@ -113,23 +113,12 @@
                                                     </div>
                                                     @php
                                                         $baihocdaluu = App\Models\LuuBaiHoc::all();
-
-                                                        $arrid = [];
-                                                        foreach ($baihocdaluu as $item_bh) {
-                                                            $arrid[] = $item_bh->id_thoigianhoc;
-                                                        }
-                                                        $baihoc = App\Models\ThoiGianHoc::whereIn('id', $arrid)->get();
-                                                        
                                                     @endphp
-                                                    @foreach ($baihoc as $items)
-                                                        @if (isset(Auth::user()->id) && Auth::user()->id === $items->id_hocvien)
-                                                            @if ($items->id_baihoc === $item->id_baihoc)
-                                                                <div class="mb-0 text-danger">
-                                                                    <i class="lni lni-heart-filled" title="Đã luu bài học"></i>
-                                                                </div>
-                                                            @else
-                                                                {{''}}
-                                                            @endif
+                                                    @foreach ($baihocdaluu as $items)
+                                                        @if ($items->id_baihoc === $item->id_baihoc)
+                                                            <div class="mb-0 text-danger">
+                                                                <i class="lni lni-heart-filled" title="Đã luu bài học"></i>
+                                                            </div>
                                                         @else
                                                             {{''}}
                                                         @endif

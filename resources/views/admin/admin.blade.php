@@ -3,6 +3,18 @@
 @section('content')
 @if (Auth::user()->role_id==1)
     <main  class="page-content">
+      @if (session('success'))
+            <script>
+                Lobibox.notify('success', {
+                    pauseDelayOnHover: true,
+                    size: 'mini',
+                    icon: 'bx bx-check-circle',
+                    continueDelayOnInactiveTab: false,
+                    position: 'bottom right',
+                    msg: '{{session('success')}}'
+                });
+            </script>
+        @endif
         <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4">
             <div class="col">
              <div class="card rounded-4">

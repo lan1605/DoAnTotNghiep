@@ -18,7 +18,7 @@
   <link href="../../assets/css/icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-
+  <link rel="stylesheet" href="../../assets/plugins/notifications/css/lobibox.min.css" />
   <!-- loader-->
 	<link href="../../assets/css/pace.min.css" rel="stylesheet" />
 
@@ -30,6 +30,10 @@
   {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="../../assets/plugins/ckeditor5/build/ckeditor.js"></script>
+  <script src="../../assets/plugins/notifications/js/lobibox.min.js"></script>
+  <script src="../../assets/plugins/notifications/js/notifications.min.js"></script>
+  <script src="../../assets/plugins/notifications/js/notification-custom-script.js"></script>
+  <script src="../../assets/js/pace.min.js"></script>
   <title>
     @if (isset($titlePage))
         {{$titlePage}}

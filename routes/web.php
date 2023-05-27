@@ -147,10 +147,12 @@ Route::middleware(['admin'])->group(function () {
 });
 //Học bài
 Route::prefix('/baihoc')->group(function () {
+    Route::get('/danh-sach-da-luu',[BaiHocController::class,'daLuu'])->middleware('hocvien');
     Route::get('/', [BaiHocController::class,'indexPage'])->name('baihoc.index');
     Route::get('/{slug}', [BaiHocController::class,'viewDetail'])->middleware('hocvien');
     Route::get('/{slug}/luu',[BaiHocController::class, 'Luubaihoc']);
     Route::get('/{slug}/huy',[BaiHocController::class, 'xoaLuu']);
+    
 });
 // Làm bài tập
 Route::prefix('/baitap')->group(function () {
@@ -181,6 +183,10 @@ Route::post('/comment/edit', [BinhLuanController::class, 'edit'])->name('comment
 //Liên hệ
 Route::get('/lien-he',[LienHeController::class,'index']);
 Route::post('/lien-he',[LienHeController::class, 'sendMail']);
+//Thông tin học viên
+Route::get('/thong-tin-ca-nhan', [HocVienController::class, 'viewDetail'])->name('user.profile');
+Route::post('/thong-tin-ca-nhan', [HocVienController::class, 'editDetail']);
+Route::get('/thong-tin-ca-nhan/xoa', [HocVienController::class, 'deleteDetail']);
 Route::prefix('ajax')->group(function () {
     Route::get('/cauhoi',[AjaxController::class,'getBaiHoc'])->name('ajax.cauhoi');
 });

@@ -7,8 +7,8 @@
     </li>
     <li class="nav-item"> <a class="nav-link text-uppercase"  href="/baihoc"><i class='bx bx-user me-1'></i>Bài học</a>
     </li>
-    <li class="nav-item"> <a class="nav-link text-uppercase"  href="#"><i class='bx bx-category-alt me-1'></i>Bài tập</a>
-    </li>
+    {{-- <li class="nav-item"> <a class="nav-link text-uppercase"  href="#"><i class='bx bx-category-alt me-1'></i>Bài tập</a>
+    </li> --}}
     <li class="nav-item"> <a class="nav-link text-uppercase"  href="/goc-hoi-dap"><i class='bx bx-category-alt me-1'></i>Góc hỏi đáp</a>
     </li>
     <li class="nav-item"> <a class="nav-link text-uppercase"  href="/lien-he"><i class='bx bx-microphone me-1'></i>Liên hệ</a>

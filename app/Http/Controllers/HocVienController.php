@@ -8,6 +8,9 @@ use App\Models\BaiDang;
 use App\Models\BinhLuan;
 use App\Models\ThoiGianHoc;
 use App\Models\LuuBaiHoc;
+use Auth;
+use Hash;
+use Illuminate\Support\Facades\File;
 
 class HocVienController extends Controller
 {
@@ -57,5 +60,107 @@ class HocVienController extends Controller
         $id = $req->ids;
         User::whereIn('id', $id)->delete();
         return response()->json(['success'=>'Bạn đã xóa thành công']);
+    }
+    public function  viewDetail(){
+        $user = User::find(Auth::user()->id);
+        return view('pages.thong-tin-ca-nhan.index',['user'=>$user]);
+    }
+    public function editDetail(Request $req){
+        $user = User::find(Auth::user()->id);
+        $this->validate($req,
+    	[
+    		'name'=>'required|min:2',
+            'email'=>'required|email',
+            'img_hocvien'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'sdt'=>'required',
+            'dia_chi'=>'required'
+    	],
+    	[
+    		'name.required'=>'bạn chưa nhập tên ',
+            'name.min'=>'tên người dùng ít nhất 2 ký tự',
+            'email.required'=>'bạn chưa nhập email',
+            'email.email'=>'email không đúng định dạng',
+            'img_hocvien.required'=>'bạn chưa chọn ảnh',
+            'img_hocvien.max'=>'ảnh của bạn tối đa 2048Kb',
+            'img_hocvien.mimes'=>'ảnh của bạn không đúng định dạng jpeg,png,jpg,gif,svg',
+            'sdt.required'=>'bạn chưa nhập số điện thoại',
+            'dia_chi.required'=>'bạn chưa nhập địa chỉ'
+    	]);
+
+        if ($req->old_password){
+            if (Hash::check($req->old_password, $user->password)){
+                return back()->with('error_old', 'Không đúng mật khẩu, vui lòng nhập lại');
+            }
+            else {
+                if ($req->hasFile('img_hocvien')){
+                    if (File::exists('admins/'.$user->img_hocvien)){
+                        File::delete('admins/'.$user->img_hocvien);
+                    }
+                    $fileName = $req->imgName . '.' . $req->file('img_hocvien')->extension();        
+                    // $req->file('img_hocvien')->storeAs('profile/admin', $fileName);
+                    $req->file('img_hocvien')->move(public_path('hocviens'), $fileName);
+                    $user->img_hocvien = $fileName;
+                    $user->name = $req->name;
+                    $user->email = $req->email;
+                    $user->sdt = $req->sdt;
+                    $user->gioi_tinh = $req->gioi_tinh;
+                    $user->dia_chi = $req->dia_chi;
+                    $user->password = Hash::make($req->new_password);
+                    $user->save();
+                }
+                else {
+                    $user->name = $req->name;
+                    $user->email = $req->email;
+                    $user->sdt = $req->sdt;
+                    $user->gioi_tinh = $req->gioi_tinh;
+                    $user->dia_chi = $req->dia_chi;
+                    $user->password = Hash::make($req->new_password);
+                    $user->save();
+                }
+            }
+        }
+        else {
+            if ($req->hasFile('img_hocvien')){
+                if (File::exists('admins/'.$user->img_hocvien)){
+                    File::delete('admins/'.$user->img_hocvien);
+                }
+                $fileName = $req->imgName . '.' . $req->file('img_hocvien')->extension();        
+                // $req->file('img_hocvien')->storeAs('profile/admin', $fileName);
+                $req->file('img_hocvien')->move(public_path('admins'), $fileName);
+                $user->img_hocvien = $fileName;
+                $user->name = $req->name;
+                $user->email = $req->email;
+                $user->sdt = $req->sdt;
+                $user->gioi_tinh = $req->gioi_tinh;
+                $user->dia_chi = $req->dia_chi;
+                $user->save();
+            }
+            else {
+                $user->name = $req->name;
+                $user->email = $req->email;
+                $user->sdt = $req->sdt;
+                $user->gioi_tinh = $req->gioi_tinh;
+                $user->dia_chi = $req->dia_chi;
+                $user->save();
+            }
+    }
+    if ($user){
+        return redirect('/thong-tin-ca-nhan')->with('success', 'Thay đổi thành công');
+    }
+    else {
+        return redirect('/thong-tin-ca-nhan')->with('error', 'Có lỗi xảy ra, vui lòng thử lại');
+    }
+    }
+    public function deleteDetail(){
+        $user = User::find(Auth::user()->id);
+
+        $user->delete();
+
+        if ($user){
+            return redirect('/');
+        }
+        else {
+            return back()->with('error', 'Thất bại, vui lòng thử lại');
+        }
     }
 }

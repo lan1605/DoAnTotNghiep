@@ -13,6 +13,42 @@
 @section('content')
 @include('layouts.layout.breadcrumb')
     <main>
+        @if (session('success'))
+            <script>
+                Lobibox.notify('success', {
+                    pauseDelayOnHover: true,
+                    size: 'mini',
+                    icon: 'bx bx-check-circle',
+                    continueDelayOnInactiveTab: false,
+                    position: 'bottom right',
+                    msg: '{{session('success')}}'
+                });
+            </script>
+        @endif
+        @if (session('error'))
+            <script>
+                Lobibox.notify('error', {
+                    pauseDelayOnHover: true,
+                    size: 'mini',
+                    icon: 'bx bx-x-circle',
+                    continueDelayOnInactiveTab: false,
+                    position: 'bottom right',
+                    msg: '{{session('error')}}'
+                });
+            </script>
+        @endif
+        @if (session('already'))
+            <script>
+                Lobibox.notify('warning', {
+                    pauseDelayOnHover: true,
+                    size: 'mini',
+                    icon: 'bx bx-error',
+                    continueDelayOnInactiveTab: false,
+                    position: 'bottom right',
+                    msg: '{{session('already')}}'
+                });
+            </script>
+        @endif
         <div style="background-color: white">
             <div class="container mt-2">
                 

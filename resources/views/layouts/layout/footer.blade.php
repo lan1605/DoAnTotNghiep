@@ -1,6 +1,6 @@
 
 
-<footer class="fixed-bottom">
+<footer class="">
     <div class="pt-3 pb-2 text-white" style="background: #1a2232">
       <div class="container">
         <div class="row">
@@ -37,22 +37,17 @@
             </div>
             <div class="py-1">
               <div class="d-flex flex-column">
-                  <div class="ms-2 fs-7"> <a href="/" class="text-white">Trang chủ</a></div>
+                  <div class="ms-2 fs-7"> <a href="/bai-hoc" class="text-white">Bài học</a></div>
               </div>
             </div>
             <div class="py-1">
               <div class="d-flex flex-column">
-                  <div class="ms-2 fs-7"> <a href="/" class="text-white">Trang chủ</a></div>
+                  <div class="ms-2 fs-7"> <a href="/goc-hoi-dap" class="text-white">Góc hỏi đáp</a></div>
               </div>
             </div>
             <div class="py-1">
               <div class="d-flex flex-column">
-                  <div class="ms-2 fs-7"> <a href="/" class="text-white">Trang chủ</a></div>
-              </div>
-            </div>
-            <div class="py-1">
-              <div class="d-flex flex-column">
-                  <div class="ms-2 fs-7"> <a href="/" class="text-white">Trang chủ</a></div>
+                  <div class="ms-2 fs-7"> <a href="/lien-he" class="text-white">Liên hệ</a></div>
               </div>
             </div>
           </div>
