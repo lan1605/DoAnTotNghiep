@@ -33,6 +33,6 @@ class QuaTrinhHocTapController extends Controller
 
         // dd($lichsu);
 
-        return view('pages.qua-trinh-hoc-tap.index',['baihoc'=>$baihocs, 'lichsu'=>$lichsu]);
+        return view('pages.qua-trinh-hoc-tap.index',['baihoc'=>$baihocs, 'lichsu'=>$lichsu, 'page'=>'Quá trình học tập',  'title'=>'Quá trình học tập']);
     }
 }

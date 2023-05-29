@@ -11,7 +11,7 @@
     </title>
 @endsection
 @section('content')
-@include('layouts.layout.breadcrumb')
+{{-- @include('layouts.layout.breadcrumb') --}}
     <main>
         <div style="background-color: white">
             <div class="container mt-2">

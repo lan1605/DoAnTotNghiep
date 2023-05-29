@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\BaiTap;
 use App\Models\CauHoi;
 use App\Models\LamBaiTap;
-use App\Models\ThongTinLamBai;
+// use App\Models\ThongTinLamBai;
 use App\Models\KetQua;
+use App\Models\BaiHoc;
 use Auth;
 use DB;
 class LamBaiTapController extends Controller
@@ -34,7 +35,7 @@ class LamBaiTapController extends Controller
         $results = array_diff(array_map('serialize',$arrCH), array_map('serialize',$arrLBT));
         // dd($results);
         //Nếu có số lượng phần tử khác nhau bằng với số lượng câu hỏi mà mỗi bài tập quy định
-        $luuthongtin = new ThongTinLamBai;
+        $luuthongtin = new KetQua;
         if (count($results)==$baitap->soluong_cauhoi)
             {
                 //Lưu thông tin vào bảng lam_bai_taps thông qua mảng $arr
@@ -42,9 +43,8 @@ class LamBaiTapController extends Controller
                 
                 $luuthongtin->id_baitap = $baitap->id_baitap;
                 $luuthongtin->id_hocvien = Auth::user()->id;
-                $luuthongtin->thoigian_lambai = date('Y-m-d G:i:s');
-                $luuthongtin->socau_dalam = 0;
-                $luuthongtin->thoigian_nopbai = null;
+                $luuthongtin->created_at = now();
+                $luuthongtin->updated_at = null;
                 $luuthongtin->save();
             }
         //Lấy danh sách id câu hỏi đã lưu
@@ -57,14 +57,14 @@ class LamBaiTapController extends Controller
         $dscauhoi = CauHoi::whereIn('id',$arrIDcauhoi)->get();
         $thoigian = $baitap->thoigian_lambai;
         
-        $thoigianlambai = ThongTinLamBai::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('thoigian_lambai', 'DESC')->first();
+        $thoigianlambai = KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('created_at', 'DESC')->first();
         // dd($thoigianlambai);
 
         
-        
+        $baihoc = BaiHoc::find($baitap->id_baihoc);
         // dd($danhsach, $dscauhoi);
         return view('pages.baitap.exam',['dscauhoi'=>$dscauhoi,'thoigian'=>$thoigian,'baitap'=> $baitap,'danhsach'=>$danhsach, 
-        'thoigian_lambai'=> $thoigianlambai->thoigian_lambai,'thoigian_nopbai'=> $thoigianlambai->thoigian_nopbai]);
+        'thoigian_lambai'=> $thoigianlambai->created_at,'thoigian_nopbai'=> $thoigianlambai->updated_at, 'page'=>'Bài tập', 'link'=>'baihoc/'.$baihoc->slug, 'title'=>$baitap->ten_baitap]);
     }
 
     public function luubailam(Request $req, $slug){
@@ -81,28 +81,48 @@ class LamBaiTapController extends Controller
             $arrKey = [];
             $dem= 0;
             $arrKey = $req->post('dapan_hocvien');
+            
+            $luuthongtin = LamBaiTap::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('created_at','DESC')->take($baitap->soluong_cauhoi)->get();
+            
             $result = [];
-            $luuthongtin = LamBaiTap::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->get();
-            foreach ($luuthongtin as $item){
-                foreach ($arrKey as $key=>$value){
-                    $item->updated_at =date('Y-m-d G:i:s');
-                    $item->update();
-                    if ($item->id_cauhoi === $key){
-                        DB::table('lam_bai_taps')->where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->where('id_cauhoi', $item->id_cauhoi)
-                        ->update(['dapan_hocvien'=>$value]);
-                        $dem = $dem +1;
-                    }
-                    else if (!$item->id_cauhoi === $key){
-                        DB::table('lam_bai_taps')->where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->where('id_cauhoi', $item->id_cauhoi)
-                        ->update(['dapan_hocvien'=>null]);
-                    }
-                }   
+            foreach ($luuthongtin as  $item){
+                $result[]= $item->id_cauhoi; 
             }
+            $resultKey=[];
+            if ($arrKey==null){
+                $resultKey[] = null;
+            }
+            else {
+                foreach ($arrKey as  $item=>$value){
+                    $resultKey[]= $item; 
+                }
+            }
+            
+            $results = array_diff(array_map('serialize',$result), array_map('serialize',$resultKey));
+            $a = [];
 
-            $danop = ThongTinLamBai::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('thoigian_lambai', 'DESC')->first();
+            // foreach ($results as )
+            dd($luuthongtin, $arrKey, $results);
+                foreach ($luuthongtin as $item){
+                    foreach ($arrKey as $key=>$value){
+                        if ($item->id_cauhoi === $key){
+                            DB::table('lam_bai_taps')->where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->where('id_cauhoi', $item->id_cauhoi)
+                            ->update(['dapan_hocvien'=>$value,'updated_at'=>now()]);
+                            $dem = $dem +1;
+                        }
+                        else if (!$item->id_cauhoi === $key){
+                            DB::table('lam_bai_taps')->where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->where('id_cauhoi', $item->id_cauhoi)
+                            ->update(['dapan_hocvien'=>null, 'updated_at'=>now()]);
+                        }
+                    }   
+                }
+            
+
+            $danop = KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('created_at', 'DESC')->first();
             $danop->socau_dalam = $dem;
-            $danop->thoigian_nopbai = date('Y-m-d G:i:s') ;
+            $danop->updated_at = now();
             $danop->update();
+            
             
 
             
@@ -114,7 +134,7 @@ class LamBaiTapController extends Controller
         $baitap = BaiTap::where('slug',$slug)->first();
         $danhsach = LamBaiTap::where('id_baitap', $baitap->id_baitap)->where('id_hocvien',Auth::user()->id)->take($baitap->soluong_cauhoi)->orderBy('updated_at', 'DESC')->orderBy('id_cauhoi', 'ASC')->get();
         // dd($danhsach);
-        $luu = ThongTinLamBai::where('id_baitap', $baitap->id_baitap)->where('id_hocvien',Auth::user()->id)->orderBy('thoigian_nopbai', 'DESC')->first();
+        // $luu = ThongTinLamBai::where('id_baitap', $baitap->id_baitap)->where('id_hocvien',Auth::user()->id)->orderBy('thoigian_nopbai', 'DESC')->first();
         $arrIdCauhoi = [];
 
         foreach ($danhsach as $ds){
@@ -138,20 +158,23 @@ class LamBaiTapController extends Controller
         $tongdiem = $diem * $socaudung;
         
 
-        $thoigianlambai = ThongTinLamBai::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('thoigian_lambai', 'DESC')->first();
+        // $thoigianlambai = ThongTinLamBai::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('thoigian_lambai', 'DESC')->first();
 
-        if ($luu->thoigian_nopbai!=null){
-            $ketqua = new KetQua;
-            $ketqua->id_baitap = $baitap->id_baitap;
-            $ketqua->id_hocvien = Auth::user()->id;
+        // if ($luu->thoigian_nopbai!=null){
+        //     $ketqua = new KetQua;
+        //     $ketqua->id_baitap = $baitap->id_baitap;
+        //     $ketqua->id_hocvien = Auth::user()->id;
+        //     $ketqua->tong_diem = $tongdiem;
+        //     $ketqua->soluong_caudung = $socaudung;
+        //     $ketqua->created_at = now();
+        //     $ketqua->updated_at = now();
+        //     $ketqua->save();
+        // }
+        
+            $ketqua =KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('updated_at', 'DESC')->first();;
             $ketqua->tong_diem = $tongdiem;
             $ketqua->soluong_caudung = $socaudung;
-            $ketqua->created_at = date('Y-m-d G:i:s');
-            $ketqua->updated_at = date('Y-m-d G:i:s');
-            $ketqua->save();
-        }
-        
-        
+            $ketqua->update();
         return view('pages.baitap.finish', ['danhsach'=>$danhsach, 'baitap'=>$baitap]);
          // dd($danhsach);
         
@@ -170,7 +193,7 @@ class LamBaiTapController extends Controller
         
         $ketqua = KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('created_at', 'DESC')->first();
 
-        $solanlambai = ThongTinLamBai::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->get();
+        $solanlambai = KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->get();
 
 
         return view('pages.baitap.result', ['danhsach'=>$danhsach, 'baitap'=>$baitap,'cauhoi'=>$cauhoi, 'ketqua'=>$ketqua, 'solanlambai'=>count($solanlambai)]);

@@ -219,7 +219,7 @@ class BaiHocController extends Controller
         
 
         $cungchude = BaiHoc::where('id_baihoc','!=' ,$chitiet->id_baihoc)->where('id_chude', $chitiet->id_chude)->get();
-        return view('pages.baihoc.detail',[ 'chitiet'=>$chitiet, 'cungchude'=>$cungchude, 'next'=> $next_id, 'prev'=> $prev_id]); 
+        return view('pages.baihoc.detail',[ 'chitiet'=>$chitiet, 'cungchude'=>$cungchude, 'next'=> $next_id, 'prev'=> $prev_id, 'page'=>'Bài học', 'link'=>'/baihoc', 'title'=>$chitiet->ten_baihoc]); 
     }
     public function Luubaihoc($slug){
         $baihoc_id= BaiHoc::where('slug',$slug)->first();

@@ -33,6 +33,7 @@ use App\Http\Controllers\LamBaiTapController;
 use App\Http\Controllers\LienHeController;
 use App\Http\Controllers\BinhLuanController;
 use App\Http\Controllers\QuaTrinhHocTapController;
+use App\Http\Controllers\QuaTrinhOnTapController;
 
 Route::get('/', function () {
 return view('welcome');
@@ -187,6 +188,9 @@ Route::post('/lien-he',[LienHeController::class, 'sendMail']);
 Route::get('/thong-tin-ca-nhan', [HocVienController::class, 'viewDetail'])->name('user.profile');
 Route::post('/thong-tin-ca-nhan', [HocVienController::class, 'editDetail']);
 Route::get('/thong-tin-ca-nhan/xoa', [HocVienController::class, 'deleteDetail']);
+//Quá trình ôn tập
+Route::get('/qua-trinh-on-tap', [QuaTrinhOnTapController::class, 'index']);
+Route::get('/qua-trinh-on-tap/{slug}', [QuaTrinhOnTapController::class, 'viewDetail']);
 Route::prefix('ajax')->group(function () {
     Route::get('/cauhoi',[AjaxController::class,'getBaiHoc'])->name('ajax.cauhoi');
 });

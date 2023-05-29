@@ -56,7 +56,7 @@
                     <div class="col-12 col-lg-8 ">
                         <div >
                             <div class="card-header py-2 " >
-                                <h2 class="fw-500 text-primary">{{$chitiet->ten_baihoc}}</h2>
+                                <h1 class="fw-500 text-primary">{{$chitiet->ten_baihoc}}</h1>
                                 <p>Thời gian đọc: <span>
                                     @php
                                         Str::macro('readDuration', function(...$body) {
@@ -69,13 +69,13 @@
                                     $est = Str::readDuration($chitiet->noi_dung). ' phút';
                                     echo $est;
                                     @endphp </span></p>
-                                <p class="py-0"><strong>
+                                <h2 class="py-0"><strong>
                                     <?php
                                         $chude = App\Models\ChuDe::find($chitiet->id_chude);
                                         echo $chude->ten_chude;    
                                     ?>
                                     </strong>
-                                </p>
+                                </h2>
                                 <div class="d-flex mt-2 justify-content-center gap-2">
                                     <?php
                                         $check = App\Models\LuuBaiHoc::where('id_baihoc', $chitiet->id_baihoc)->first();
@@ -108,9 +108,9 @@
                             @endif
                             <div class="card-body">
                                 <div class="row g-2 mt-1">
-                                    <div class="col-12" id="contents">
+                                    <article>
                                         {!! $chitiet->noi_dung !!}
-                                    </div>
+                                    </article>
                                     <div class="d-flex justify-content-between">
                                         @if ($prev)
                                         @php
@@ -186,107 +186,105 @@
 
     </main>
 @endsection
+<style>
+    .toc-h2 { margin-left: 0.5em }
+    .toc-h3 { margin-left: 1.75em }
+    .toc-h4 { margin-left: 3em }
+    .toc-h5 { margin-left: 4.25em }
+    .toc-h6 { margin-left: 5.5em }
+</style>
 @section('javascript')
 <script>
+    // Lấy tất cả các heading trong bài viết
+        // const contents = document.querySelector("#contents");
+        const headings = document.querySelectorAll('article h1, article  h2, article  h3, article  h4, article h5, article h6');
+        // if (headings.length === 0) return;
 
-    class TableOfContents {
-    /*
-        The parameters from and to must be Element objects in the DOM.
-    */
-    constructor({ from, to }) {
-        this.fromElement = from;
-        this.toElement = to;
-        // Get all the ordered headings.
-        this.headingElements = this.fromElement.querySelectorAll("h1, h2, h3, h4, h5, h6");
-        this.tocElement = document.createElement("div");
-    }
+        // Khai bào nơi mà TOC sẽ được chèn vào
+        const tocContainer = document.querySelector('#toc');
 
-    /*
-        Get the most important heading level.
-        For example if the article has only <h2>, <h3> and <h4> tags
-        this method will return 2.
-    */
-    getMostImportantHeadingLevel() {
-        let mostImportantHeadingLevel = 6; // <h6> heading level
-        for (let i = 0; i < this.headingElements.length; i++) {
-            let headingLevel = TableOfContents.getHeadingLevel(this.headingElements[i]);
-            mostImportantHeadingLevel = (headingLevel < mostImportantHeadingLevel) ?
-                headingLevel : mostImportantHeadingLevel;
-        }
-        return mostImportantHeadingLevel;
-    }
+        // Xác định cấp độ bắt đầu của TOC (bởi vì không phải bài viết nào cũng có thẻ H1, hoặc H2)
+        const startingLevel = headings[0].tagName[1];
 
-    /*
-        Generate a unique id string for the heading from its text content.
-    */
-    static generateId(headingElement) {
-        return headingElement.textContent.replace(/\s+/g, "_");
-    }
+        // Tạo TOC rỗng
+        const toc = document.createElement('ul');
+        toc.style = 'list-style: none';
 
-    /*
-        Convert <h1> to 1 … <h6> to 6.
-    */
-    static getHeadingLevel(headingElement) {
-        switch (headingElement.tagName.toLowerCase()) {
-            case "h1": return 1;
-            case "h2": return 2;
-            case "h3": return 3;
-            case "h4": return 4;
-            case "h5": return 5;
-            case "h6": return 6;
-            default: return 1;
-        }
-    }
+        // Theo dõi các cấp độ heading trước đó
+        const prevLevels = [0, 0, 0, 0, 0, 0];
 
-    generateToc() {
-        let currentLevel = this.getMostImportantHeadingLevel() - 1,
-            currentElement = this.tocElement;
+        // Lặp qua từng heading và thêm chúng vào TOC
+        for (let i = 0; i < headings.length; i++) {
+        const heading = headings[i];
+        const level = parseInt(heading.tagName[1]);
 
-        for (let i = 0; i < this.headingElements.length; i++) {
-            let headingElement = this.headingElements[i],
-                headingLevel = TableOfContents.getHeadingLevel(headingElement),
-                headingLevelDifference = headingLevel - currentLevel,
-                linkElement = document.createElement("a");
-
-            if (!headingElement.id) {
-                headingElement.id = TableOfContents.generateId(headingElement);
-            }
-            linkElement.href = `#${headingElement.id}`;
-            linkElement.textContent = headingElement.textContent;
-
-            if (headingLevelDifference > 0) {
-                // Go down the DOM by adding list elements.
-                for (let j = 0; j < headingLevelDifference; j++) {
-                    let listElement = document.createElement("ol"),
-                        listItemElement = document.createElement("li");
-                    listElement.appendChild(listItemElement);
-                    currentElement.appendChild(listElement);
-                    currentElement = listItemElement;
-                }
-                currentElement.appendChild(linkElement);
-            } else {
-                // Go up the DOM.
-                for (let j = 0; j < -headingLevelDifference; j++) {
-                    currentElement = currentElement.parentNode.parentNode;
-                }
-                let listItemElement = document.createElement("li");
-                listItemElement.appendChild(linkElement);
-                currentElement.parentNode.appendChild(listItemElement);
-                currentElement = listItemElement;
-            }
-
-            currentLevel = headingLevel;
+        // Tăng các cấp độ trước đó lên đến cấp độ hiện tại
+        prevLevels[level - 1]++
+        for (let j = level; j < prevLevels.length; j++) {
+            prevLevels[j] = 0;
         }
 
-        this.toElement.appendChild(this.tocElement.firstChild);
-    }
-}
+        // Tạo số mục cho mục đó dựa trên các cấp độ trước đó
+        // và loại bỏ số 0 nếu trường hợp h1 -> h3 (không có h2)
+        // Sẽ tạo ra các đề mục ví dụ như:
+        // 1. Heading h1a
+        //     1.1 Heading h2
+        // 2. Heading h1b
+        //          2.1 Heading h3 (đẹp hơn 2.0.1 Heading h3)
+        const sectionNumber = prevLevels.slice(startingLevel - 1, level).join('.').replace(/\.0/g, "")
 
-document.addEventListener("DOMContentLoaded", () =>
-    new TableOfContents({
-        from: document.querySelector("#contents"),
-        to: document.querySelector("#toc")
-    }).generateToc()
-);
+        // Tạo ID mới và gán vào heading
+        // Phải làm phần này để click vào mục lục có thể di chuyển đến được.
+        const newHeadingId = `${heading.textContent.toLowerCase().replace(/ /g, '-')}`
+        heading.id = newHeadingId
+
+        // Tạo liên kết mục cho heading
+        const anchor = document.createElement('a')
+        anchor.setAttribute('href', `#${newHeadingId}`)
+        anchor.textContent = heading.textContent
+
+        // Thêm event listener để cuộn đến liên kết khi nhấp chuột
+        anchor.addEventListener('click', (event) => {
+            event.preventDefault()
+            const targetId = event.target.getAttribute('href').slice(1)
+            const targetElement = document.getElementById(targetId)
+            targetElement.scrollIntoView({ behavior: 'smooth' })
+            // Thêm anchor vào URL khi click
+            history.pushState(null, null, `#${targetId}`)
+        })
+
+        // Tạo thẻ <li> để thêm vào TOC
+        const listItem = document.createElement('li')
+        listItem.textContent = sectionNumber
+        listItem.appendChild(anchor)
+
+        // Thêm CSS class cho từng mục lục
+        // Ví dụ "toc-item toc-h1", "toc-item toc-h2"
+        const className = `toc-${heading.tagName.toLowerCase()}`
+        listItem.classList.add('toc-item')
+        listItem.classList.add(className)
+
+        // Bỏ thẻ <li> vừa tạo vào TOC
+        toc.appendChild(listItem)
+        }
+
+        // Thêm các TOC item vào toc contaner
+        tocContainer.innerHTML = ''  
+        tocContainer.appendChild(toc);
+
+        // Kiểm tra xem URL có chứa anchor hay không
+  if (window.location.hash) {
+    // Decode hash để lấy ID của anchor
+    const anchorId = decodeURIComponent(window.location.hash.slice(1));
+
+    // Lấy phần tử có ID tương ứng với anchor
+    const anchorElement = document.getElementById(anchorId);
+
+    // Nếu phần tử tồn tại, cuộn mượt đến phần tử đó 
+    if (anchorElement) {
+      anchorElement.scrollIntoView({behavior: 'smooth'});
+    }
+  }
+
 </script>
 @endsection
