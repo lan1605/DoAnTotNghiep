@@ -13,13 +13,13 @@
 @section('content')
 {{-- @include('layouts.layout.breadcrumb') --}}
 <main>
-        
+    @include('layouts.layout.breadcrumb')
         <div style="background-color: #f7f8fa">
             <div class="container">
                 <div class="row g-3 d-flex align-items-center mt-0 ">
                     <div class="d-sm-flex mb-3 justify-content-center gap-2">
                         <a href="/goc-hoi-dap" class="btn btn-primary mb-3 mb-lg-0">Tất cả</a>
-                        <a href="/goc-hoi-dap/danh-sach" class="btn btn-white mb-3 mb-lg-0">Bài đăng của bạn</a>
+                        <a href="/goc-hoi-dap/danh-sach" class="btn btn-white mb-3 mb-lg-0">Bài viết của bạn</a>
                         <a href="/goc-hoi-dap/them-moi" class="btn btn-white mb-3 mb-lg-0">Thêm mới</a>
                     </div>
                    
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div style="background-color: white">
-            <div class="container mt-2">
+            <div class="container mt-2 mb-5">
                 <p class=" text-right mt-2">
                     <form action="" method="get" class="d-sm-flex mb-3 justify-content-center">
                         <div class="col-lg-4 col-12 col-md-12 mb-2 mb-sm-0 ms-2">
@@ -59,16 +59,16 @@
                             <?php
                                 $cate = App\Models\ChuDe::find(request()->find_cate);
                             ?>
-                            {{count($baidangs).' bài đăng liên quan chủ đề "'.$cate->ten_chude.'" được tìm thấy với từ khóa "'.request()->key_find.'"'}}
+                            {{count($baidangs).' bài viết liên quan chủ đề "'.$cate->ten_chude.'" được tìm thấy với từ khóa "'.request()->key_find.'"'}}
                             @else
                             <?php
                                 $cate = App\Models\ChuDe::find(request()->find_cate);
                             ?>
-                            {{count($baidangs).' bài đăng liên quan chủ đề "'.$cate->ten_chude.'" được tìm thấy '}}
+                            {{count($baidangs).' bài viết liên quan chủ đề "'.$cate->ten_chude.'" được tìm thấy '}}
                             @endif
                     @else
                             @if (!empty(request()->key_find))
-                            {{count($baidangs).' bài đăng liên quan được tìm thấy với từ khóa "'.request()->key_find.'"'}}
+                            {{count($baidangs).' bài viết liên quan được tìm thấy với từ khóa "'.request()->key_find.'"'}}
                             @else
                            
                             @endif

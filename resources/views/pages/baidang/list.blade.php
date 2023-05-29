@@ -13,12 +13,13 @@
 @section('content')
 {{-- @include('layouts.layout.breadcrumb') --}}
     <main>
+        @include('layouts.layout.breadcrumb')
         <div style="background-color: #f7f8fa">
             <div class="container">
                 <div class="row g-3 d-flex align-items-center mt-0 ">
                     <div class="d-sm-flex mb-3 justify-content-center gap-2">
                         <a href="/goc-hoi-dap" class="btn btn-white mb-3 mb-lg-0">Tất cả</a>
-                        <a href="/goc-hoi-dap/danh-sach" class="btn btn-primary mb-3 mb-lg-0">Bài đăng của bạn</a>
+                        <a href="/goc-hoi-dap/danh-sach" class="btn btn-primary mb-3 mb-lg-0">Bài viết của bạn</a>
                         <a href="/goc-hoi-dap/them-moi" class="btn btn-white mb-3 mb-lg-0">Thêm mới</a>
                     </div>
                    
@@ -38,8 +39,8 @@
                         <div class="col-12 col-xl-5 order-xl-2">
                             <div class="card-body p-4 p-sm-5 d-flex align-items-center justify-content-center flex-column">
                                 <p class="py-0">
-                                    Có vẻ như bạn chưa có bài đăng nào. Bạn có thể thêm bài đăng đầu tiên của mình bằng cách nhấp vào nút "Thêm mới" ở dưới.
-                                    Sau khi thực hiện xong, bạn có thể quay lại đây để truy cập tất cả các bài đăng đã thêm trước đây của mình.
+                                    Có vẻ như bạn chưa có bài viết nào. Bạn có thể thêm bài viết đầu tiên của mình bằng cách nhấp vào nút "Thêm mới" ở dưới.
+                                    Sau khi thực hiện xong, bạn có thể quay lại đây để truy cập tất cả các bài viết đã thêm trước đây của mình.
                                 </p>
                                 <a href="/goc-hoi-dap/them-moi" class="btn btn-primary mb-3 mb-lg-0">Thêm mới</a>
                             </div>
@@ -78,16 +79,16 @@
                             <?php
                                 $cate = App\Models\ChuDe::find(request()->find_cate);
                             ?>
-                            {{count($baidangs).' bài đăng liên quan chủ đề "'.$cate->ten_chude.'" được tìm thấy với từ khóa "'.request()->key_find.'"'}}
+                            {{count($baidangs).' bài viết liên quan chủ đề "'.$cate->ten_chude.'" được tìm thấy với từ khóa "'.request()->key_find.'"'}}
                             @else
                             <?php
                                 $cate = App\Models\ChuDe::find(request()->find_cate);
                             ?>
-                            {{count($baidangs).' bài đăng liên quan chủ đề "'.$cate->ten_chude.'" được tìm thấy '}}
+                            {{count($baidangs).' bài viết liên quan chủ đề "'.$cate->ten_chude.'" được tìm thấy '}}
                             @endif
                     @else
                             @if (!empty(request()->key_find))
-                            {{count($baidangs).' bài đăng liên quan được tìm thấy với từ khóa "'.request()->key_find.'"'}}
+                            {{count($baidangs).' bài viết liên quan được tìm thấy với từ khóa "'.request()->key_find.'"'}}
                             @else
                            
                             @endif

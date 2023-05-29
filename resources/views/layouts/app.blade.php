@@ -40,10 +40,10 @@
             <div class="d-flex align-items-center justify-content-between w-100">
               <div class="d-flex">
                 <div class="phone">
-                  Số điện thoại:
+                  Số điện thoại: 02583831149
                 </div>
                 <div class="ms-2">
-                  Email:
+                  Email: tinhocdaicuongantu@gmail.com
                 </div>
               </div>
               @yield('login-for-users')

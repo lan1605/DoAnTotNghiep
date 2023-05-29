@@ -13,18 +13,19 @@
 @section('content')
 
     <main>
+        @include('layouts.layout.breadcrumb')
         <div style="background-color: #f7f8fa">
             <div class="container">
                 <div class="row g-3 d-flex align-items-center mt-0 ">
                     <div class="d-sm-flex mb-3 justify-content-center gap-2">
                         <a href="/goc-hoi-dap" class="btn btn-white mb-3 mb-lg-0">Tất cả</a>
-                        <a href="/goc-hoi-dap/danh-sach" class="btn btn-white mb-3 mb-lg-0">Bài đăng của bạn</a>
+                        <a href="/goc-hoi-dap/danh-sach" class="btn btn-white mb-3 mb-lg-0">Bài viết của bạn</a>
                         <a href="/goc-hoi-dap/them-moi" class="btn btn-primary mb-3 mb-lg-0">Thêm mới</a>
                     </div>
                 </div>
             </div>
         </div>
-        @include('layouts.layout.breadcrumb')
+        
         <div style="background-color: white">
             <div class="container mt-2">
                 <div class="row my-2">
@@ -82,7 +83,7 @@
                                     <div class="row">
                                         <label class="col-sm-3 col-form-label"></label>
                                         <div class="col-sm-9">
-                                            <button type="submit" class="btn btn-primary px-5">Register</button>
+                                            <button type="submit" class="btn btn-primary px-5">Thêm bài viết mới</button>
                                         </div>
                                     </div>
                                 </form>

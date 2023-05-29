@@ -5,6 +5,11 @@
         @include('layouts.layout.auth')
       </div>
 @endsection
+@section('title')
+    <title>
+        Thông tin cá nhân của {{$user->name}}
+    </title>
+@endsection
 @section('content')
 @include('layouts.layout.breadcrumb')
     <main>

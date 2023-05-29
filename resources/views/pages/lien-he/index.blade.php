@@ -5,6 +5,9 @@
         @include('layouts.layout.auth')
       </div>
 @endsection
+@section('title')
+    <title>Liên hệ</title>
+@endsection
 @section('content')
 <main>
     @include('layouts.layout.breadcrumb')
