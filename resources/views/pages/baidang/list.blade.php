@@ -29,25 +29,6 @@
         <div style="background-color: white">
             <div class="container mt-2">
                 @include('layouts.notication')
-                @if (count($baidangs)==0)
-
-                <div class="card rounded overflow-hidden shadow-none bg-white border mt-5 mb-5">
-                    <div class="row g-0 d-flex align-items-center justify-content-center">
-                        <div class="col-12 order-1 col-xl-7 d-flex align-items-center justify-content-center border-end">
-                            <img src="/assets/images/error/img-goc-hoi-dap.png" class="img-fluid" alt="">
-                        </div>
-                        <div class="col-12 col-xl-5 order-xl-2">
-                            <div class="card-body p-4 p-sm-5 d-flex align-items-center justify-content-center flex-column">
-                                <p class="py-0">
-                                    Có vẻ như bạn chưa có bài viết nào. Bạn có thể thêm bài viết đầu tiên của mình bằng cách nhấp vào nút "Thêm mới" ở dưới.
-                                    Sau khi thực hiện xong, bạn có thể quay lại đây để truy cập tất cả các bài viết đã thêm trước đây của mình.
-                                </p>
-                                <a href="/goc-hoi-dap/them-moi" class="btn btn-primary mb-3 mb-lg-0">Thêm mới</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @else
                 <p class=" text-right mt-2">
                     <form action="" method="get" class="d-sm-flex mb-3 justify-content-center">
                         <div class="col-lg-4 col-12 col-md-12 mb-2 mb-sm-0 ms-2">
@@ -67,7 +48,7 @@
                         <div class=" col-lg-6 col-12 col-md-12 mb-2 mb-sm-0 ms-2">
                             <div class="ms-auto position-relative">
                                 <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-search"></i></div>
-                                <input class="form-control ps-5" type="text" placeholder="tìm kiếm bài học..."name="key_find" value="{{Request()->key_find}}">
+                                <input class="form-control ps-5" type="text" placeholder="tìm kiếm bài viết..."name="key_find" value="{{Request()->key_find}}">
                             </div>
                         </div>
                         <div class="mb-2 mb-sm-0 ms-2">
@@ -94,7 +75,24 @@
                             @endif
                     @endif
                 </p>
-                
+                @if (count($baidangs)==0)
+                    <div class="card rounded overflow-hidden shadow-none bg-white border mt-5 mb-5">
+                        <div class="row g-0 d-flex align-items-center justify-content-center">
+                            <div class="col-12 order-1 col-xl-7 d-flex align-items-center justify-content-center border-end">
+                                <img src="/assets/images/error/img-goc-hoi-dap.png" class="img-fluid" alt="">
+                            </div>
+                            <div class="col-12 col-xl-5 order-xl-2">
+                                <div class="card-body p-4 p-sm-5 d-flex align-items-center justify-content-center flex-column">
+                                    <p class="py-0">
+                                        Có vẻ như bạn chưa có bài viết nào. Bạn có thể thêm bài viết đầu tiên của mình bằng cách nhấp vào nút "Thêm mới" ở dưới.
+                                        Sau khi thực hiện xong, bạn có thể quay lại đây để truy cập tất cả các bài viết đã thêm trước đây của mình.
+                                    </p>
+                                    <a href="/goc-hoi-dap/them-moi" class="btn btn-primary mb-3 mb-lg-0">Thêm mới</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @else
                 <div class="row my-2">
                     <div class="col-12 col-lg-12 ">
                                 @foreach ($baidangs as $item)

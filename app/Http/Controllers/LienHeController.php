@@ -8,7 +8,7 @@ use App\Models\LienHe;
 class LienHeController extends Controller
 {
     public function index(){
-        return view('pages.lien-he.index');
+        return view('pages.lien-he.index',['page'=>'Liên hệ', 'title'=>'Liên hệ với chúng tôi']);
     }
     public function sendMail(Request $req){
         $this->validate($req,

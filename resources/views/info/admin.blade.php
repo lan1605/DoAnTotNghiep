@@ -136,7 +136,7 @@
                     ?>" alt="" id="img" class=" rounded-circle shadow " width="120" height="120">
                                     <input type="hidden" name="imgName" id="imgName" >
                                     <input type="file" name="img_admin" title="" value="{{$user->img_admin}}" id="img_admin" style="display:none" accept="image/png, image/gif, image/jpeg" >
-                                    <label for="img_admin" class="bg-white hover-btn position-absolute px-2 py-1 rounded-circle shadow" style="z-index: 10000"><i class="bi bi-upload "></i></label>
+                                    <label for="img_admin" class="bg-white hover-btn position-absolute px-2 py-1 rounded-circle shadow" ><i class="bi bi-upload "></i></label>
                                     <style>
                                       .hover-btn{
                                         left: 55%;

@@ -147,7 +147,7 @@ Route::middleware(['admin'])->group(function () {
     });
 });
 //Học bài
-Route::prefix('/baihoc')->group(function () {
+Route::prefix('/bai-hoc')->group(function () {
     Route::get('/danh-sach-da-luu',[BaiHocController::class,'daLuu'])->middleware('hocvien');
     Route::get('/', [BaiHocController::class,'indexPage'])->name('baihoc.index');
     Route::get('/{slug}', [BaiHocController::class,'viewDetail'])->middleware('hocvien');
@@ -156,7 +156,7 @@ Route::prefix('/baihoc')->group(function () {
     
 });
 // Làm bài tập
-Route::prefix('/baitap')->group(function () {
+Route::prefix('/bai-tap')->group(function () {
     Route::get('/{slug}', [LamBaiTapController::class,'index']);
     Route::post('/{slug}', [LamBaiTapController::class, 'luubailam']);
     Route::get('/{slug}/nop', [LamBaiTapController::class, 'NopBaiLam']);

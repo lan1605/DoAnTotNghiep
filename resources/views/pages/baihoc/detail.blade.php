@@ -81,16 +81,17 @@
                                         $check = App\Models\LuuBaiHoc::where('id_baihoc', $chitiet->id_baihoc)->first();
                                     ?>
                                     @if (isset($check->id_baihoc))
-                                        <a href="/baihoc/{{$chitiet->slug}}/huy" class="btn btn-danger px-5" id="huybaihoc"> <i class="bi bi-bookmark-check-fill"></i>Xóa khỏi danh sách</a>
+                                        <a href="/bai-hoc/{{$chitiet->slug}}/huy" class="btn btn-danger px-5" id="huybaihoc"> <i class="bi bi-bookmark-check-fill"></i>Xóa khỏi danh sách</a>
                                         
                                     @else
-                                        <a href="/baihoc/{{$chitiet->slug}}/luu" class="btn btn-danger px-5" id="luubaihoc"> <i class="bi bi-bookmark-check-fill"></i> Lưu bài học</a>
+                                        <a href="/bai-hoc/{{$chitiet->slug}}/luu" class="btn btn-danger px-5" id="luubaihoc"> <i class="bi bi-bookmark-check-fill"></i> Lưu bài học</a>
                                     @endif
                                     <?php
                                         $baitap = App\Models\BaiTap::where('id_baihoc', $chitiet->id_baihoc)->first();
                                     ?>
                                         @if (isset($baitap->id_baihoc))
-                                            <a href="/baitap/{{$baitap->slug}}" class="btn btn-success px-5" id="lambaitap"> <i class="bx bx-credit-card-front"></i> Làm bài tập</a>
+                                            <a href="/bai-tap/{{$baitap->slug}}" class="btn btn-success px-5" id="lambaitap"> <i class="bx bx-credit-card-front"></i> Làm bài tập</a>
+
                                         @else
                                             
                                         @endif
@@ -118,7 +119,7 @@
                                         @endphp
                                             <h5>
                                                 <div class="d-flex align-items-center">
-                                                    <a href="/baihoc/{{$baitruoc->slug}}" title="{{$baitruoc->ten_baihoc}}">
+                                                    <a href="/bai-hoc/{{$baitruoc->slug}}" title="{{$baitruoc->ten_baihoc}}">
                                                         <i class="bx bx-chevron-left-circle"></i>
                                                         {{$baitruoc->ten_baihoc}}
                                                     </a>
@@ -131,7 +132,7 @@
                                         @endphp
                                             <h5>
                                                 <div class="d-flex align-items-center">
-                                                    <a href="/baihoc/{{$baitruoc->slug}}" title="{{$baitruoc->ten_baihoc}}">
+                                                    <a href="/bai-hoc/{{$baitruoc->slug}}" title="{{$baitruoc->ten_baihoc}}">
                                                         {{$baitruoc->ten_baihoc}}
                                                         <i class="bx bx-chevron-right-circle"></i>
                                                     </a>                                                
@@ -166,7 +167,7 @@
                                     @foreach ($cungchude as $item)
                                     <div class="d-flex justify-content-between align-items-center py-1">
                                         <div>
-                                            <a href="/baihoc/{{$item->slug}}">
+                                            <a href="/bai-hoc/{{$item->slug}}">
                                                 <h6 class="mb-0 product--title">{{$item->ten_baihoc}}</h6>
                                             </a>
                                             

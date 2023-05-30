@@ -107,29 +107,47 @@
                     <img src="../../assets/images/icons/user.svg" class="rounded-circle shadow" width="120" height="120" alt="">
                   </div>
                   <div class="d-flex align-items-center justify-content-around mt-5 gap-3">
-                      <div class="text-center">
-                        <h4 class="mb-0">45</h4>
-                        <p class="mb-0 text-secondary">Bài đăng</p>
-                      </div>
-                      <div class="text-center">
-                        <h4 class="mb-0">15</h4>
-                        <p class="mb-0 text-secondary">Bình luận</p>
-                      </div>
-                      <div class="text-center">
-                        <h4 class="mb-0">
-                          
-                          {{count($baihocdaluu)}}
-                        </h4>
-                        <p class="mb-0 text-secondary">Bài học đã lưu</p>
-                      </div>
-                      
-                  </div>
-                  <div class="text-center mt-4">
-                    <h4 class="mb-1">{{$user->name}}</h4>
-                    <p class="mb-0 text-secondary">{{$user->email}}</p>
-                    <div class="mt-4"></div>
-                  </div>
-                  <hr>
+                    <div class="text-center">
+                    <h4 class="mb-0"> 
+                        @php
+                            $baitap = App\Models\KetQua::where('id_hocvien', $user->id)->orderBy('created_at')->get()->groupBy(function($data) {
+                                return $data->id_baitap;
+                            });
+                        @endphp
+                        {{count($baitap)}}
+                    </h4>
+                    <p class="mb-0 text-secondary">
+                        Bài tập đã làm
+                    </p>
+                    </div>
+                    <div class="text-center">
+                    <h4 class="mb-0">
+                        @php
+                        $baihoc = App\Models\ThoiGianHoc::where('id_hocvien', $user->id)->get();
+                        @endphp
+                        {{count($baihoc)}}
+                    </h4>
+                    <p class="mb-0 text-secondary">Bài học đã học</p>
+                    </div>
+                    <div class="text-center">
+                    <h4 class="mb-0">
+                        @php
+                        $baidang = App\Models\BaiDang::where('id_hocvien', $user->id)->get();
+                        @endphp
+                        {{count($baidang)}}
+                    </h4>
+                    <p class="mb-0 text-secondary">Bài viết đã đăng</p>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                <h4 class="mb-1">{{$user->name}}</h4>
+                <div class="mt-4">{{'Học viên'}}</div>
+                <p class="mb-0 text-secondary">{{$user->email}}</p>
+                <p class="mb-0 text-secondary">Trường Đại học Nha Trang</p>
+                </div>
+                
+                <hr>
+                  
                   <div class="text-start">
                     <h5 class="">Chi tiết về tài khoản học viên</h5>
                   </div>

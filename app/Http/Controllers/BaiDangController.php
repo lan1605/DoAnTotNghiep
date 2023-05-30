@@ -47,10 +47,11 @@ class BaiDangController extends Controller
         }
         $baidangs = BaiDang::where($filter)->where(function ($query) use ($keysfilter){
             $query->where('ten_baidang','like','%'.$keysfilter.'%')->orWhere('slug','like','%'.$keysfilter.'%');
-        })->orderBy('id_chude', 'ASC')->paginate(20);
+        })->orderBy('id_chude', 'ASC')->paginate(10);
         
         $baidangmoi = BaiDang::orderBy('created_at','DESC')->inRandomOrder()->limit(10);
-        return view('pages.baidang.index',['route'=>route('baidang.index'), 'baidangs'=>$baidangs,'baidangmoi'=>$baidangmoi]);  
+        return view('pages.baidang.index',['route'=>route('baidang.index'), 'baidangs'=>$baidangs,'baidangmoi'=>$baidangmoi,
+        'page'=>'Góc hỏi đáp', 'title'=>'Danh sách']);  
     }
     public function viewDetail($slug){
         $baidang = BaiDang::where('slug', $slug)->first();
@@ -61,10 +62,10 @@ class BaiDangController extends Controller
         $baidang->truy_cap = $baidang->truy_cap+1;
         $baidang->save();
 
-        return view('pages.baidang.detail',['baidang'=>$baidang, 'cungchude'=> $cungchude, 'cungtacgia'=>$cungtacgia]);
+        return view('pages.baidang.detail',['baidang'=>$baidang, 'cungchude'=> $cungchude, 'cungtacgia'=>$cungtacgia, 'page'=>'Góc hỏi đáp', 'title'=>$baidang->ten_baidang, 'link'=>'/goc-hoi-dap']);
     }
     public function addGet(){
-        return view('pages.baidang.add');
+        return view('pages.baidang.add',['page'=>'Góc hỏi đáp', 'title'=>'Thêm mới bài viết', 'link'=>'/goc-hoi-dap']);
     }
     public function addPost(Request $req){
         $this->validate($req,
@@ -112,9 +113,9 @@ class BaiDangController extends Controller
         }
         $baidangs = BaiDang::where($filter)->where('id_hocvien',Auth::user()->id)->where(function ($query) use ($keysfilter){
             $query->where('ten_baidang','like','%'.$keysfilter.'%')->orWhere('slug','like','%'.$keysfilter.'%');
-        })->orderBy('id_chude', 'ASC')->paginate(20);
+        })->orderBy('id_chude', 'ASC')->paginate(10);
 
-        return view('pages.baidang.list',['route'=>route('baidang.canhan.index'), 'baidangs'=>$baidangs]);  
+        return view('pages.baidang.list',['route'=>route('baidang.canhan.index'), 'baidangs'=>$baidangs,'page'=>'Góc hỏi đáp', 'title'=>'Danh sách bài viết của bạn', 'link'=>'/goc-hoi-dap']);  
     }
     public function deleteMine($slug){
         $baidang = BaiDang::where('slug', $slug)->where('id_hocvien', Auth::user()->id)->first();
@@ -131,7 +132,7 @@ class BaiDangController extends Controller
     public function editGet($slug){
         $baidang = BaiDang::where('slug', $slug)->where('id_hocvien', Auth::user()->id)->first();
 
-        return view('pages.baidang.edit',['baidang'=>$baidang]);
+        return view('pages.baidang.edit',['baidang'=>$baidang, 'page'=>'Góc hỏi đáp', 'title'=>$baidang->ten_baidang, 'link'=>'/goc-hoi-dap']);
     }
     public function editPost(Request $req, $slug){
         $baidang = BaiDang::where('slug', $slug)->where('id_hocvien', Auth::user()->id)->first();

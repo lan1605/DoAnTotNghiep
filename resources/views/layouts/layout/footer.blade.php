@@ -1,5 +1,3 @@
-
-
 <footer class="">
     <div class="pt-3 pb-2 text-white" style="background: #1a2232">
       <div class="container">

@@ -59,7 +59,7 @@
                                             
                                         </div>
                                     </div>
-                                    <div class="d-flex">
+                                    <div class="">
                                         
                                         {!! $baidang->noidung_baidang !!}
                                     </div>
@@ -96,11 +96,15 @@
                                 <h5>Cùng tác giả</h5>
                             </div>
                             <div class="card-body">
+                                @if (count($cungtacgia)==0)
+                                    Không có bài viết nào
+                                @else
                                 @foreach ($cungtacgia as $item)
-                                    <a href="/goc-hoi-dap/{{$item->slug}}">
-                                        <p class="mb-0 product--title">{{$item->ten_baidang}}</p>
-                                    </a>
-                                @endforeach
+                                <a href="/goc-hoi-dap/{{$item->slug}}">
+                                    <p class="mb-0 product--title">{{$item->ten_baidang}}</p>
+                                </a>
+                            @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -185,7 +189,7 @@
                                                 
                                             </div>
                                         </div>
-                                        <div class="d-flex">
+                                        <div class="">
                                             
                                             {!! $baidang->noidung_baidang !!}
                                         </div>

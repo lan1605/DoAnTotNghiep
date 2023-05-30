@@ -13,6 +13,7 @@
 @section('content')
 
     <main>
+        @include('layouts.layout.breadcrumb')
         <div style="background-color: #f7f8fa">
             <div class="container">
                 <div class="row g-3 d-flex align-items-center mt-0 ">
@@ -24,7 +25,7 @@
                 </div>
             </div>
         </div>
-        @include('layouts.layout.breadcrumb')
+        
         <div style="background-color: white">
             <div class="container mt-2">
                 @include('layouts.notication')

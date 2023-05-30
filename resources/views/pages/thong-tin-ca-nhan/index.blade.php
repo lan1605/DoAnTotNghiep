@@ -30,7 +30,7 @@
                             @csrf
                             <div class="col-6">
                                 <label class="form-label">Họ tên</label>
-                                <input type="text" class="form-control @error('name') is-invalid  @enderror" value="{{$user->name}}" name='name' id="name">
+                                <input type="text" class="form-control @error('name') is-invalid  @enderror" value="{{$user->name}}" name='name' id="name" placeholder="Họ tên học viên">
                                 @error('name')
                                     <span class="invalid-feedback" role="alert" >
                                         <strong>{{ $message }}</strong>
@@ -39,7 +39,7 @@
                             </div>
                             <div class="col-6">
                                 <label class="form-label">Địa chỉ email</label>
-                                <input type="text" class="form-control @error('email') is-invalid  @enderror" value="{{$user->email}}" name="email">
+                                <input type="text" class="form-control @error('email') is-invalid  @enderror" value="{{$user->email}}" name="email" placeholder="Địa chỉ email">
                                 @error('email')
                                     <span class="invalid-feedback" role="alert" >
                                         <strong>{{ $message }}</strong>
@@ -48,7 +48,7 @@
                             </div>
                                 <div class="col-6">
                                 <label class="form-label">Số điện thoại</label>
-                                <input type="text" class="form-control @error('sdt') is-invalid  @enderror" value="{{$user->sdt}}" name="sdt">
+                                <input type="text" class="form-control @error('sdt') is-invalid  @enderror" value="{{$user->sdt}}" name="sdt" placeholder="Số điện thoại">
                                 @error('sdt')
                                     <span class="invalid-feedback" role="alert" >
                                         <strong>{{ $message }}</strong>
@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Địa chỉ</label>
-                                <input type="text" class="form-control @error('dia_chi') is-invalid  @enderror" value="{{$user->dia_chi}}" name="dia_chi">
+                                <input type="text" class="form-control @error('dia_chi') is-invalid  @enderror" value="{{$user->dia_chi}}" name="dia_chi" placeholder="Địa chỉ">
                                 @error('dia_chi')
                                     <span class="invalid-feedback" role="alert" >
                                         <strong>{{ $message }}</strong>
@@ -87,14 +87,14 @@
                             <div class="col-6">
                                 <label class="form-label">Mật khẩu hiện tại</label>
                                 <div class="ms-auto position-relative">
-                                    <input class="form-control ps-5 @error('name') is-invalid  @enderror" type="password" placeholder="mật khẩu hiện tại"name="old_password" value="" id='old_pw'>
+                                    <input class="form-control ps-5 @error('name') is-invalid  @enderror" type="password" placeholder="Mật khẩu hiện tại" name="old_password" value="" id='old_pw'>
                                     <div class="position-absolute top-50 translate-middle-y search-icon px-3 fs-5"><i class="bx bx-show" id='ic_old'></i></div>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <label class="form-label">Mật khẩu mới</label>
                                 <div class="ms-auto position-relative">
-                                    <input class="form-control ps-5" type="password" placeholder="mật khẩu mới"name="new_password" value="" id='new_pw'>
+                                    <input class="form-control ps-5" type="password" placeholder="Mật khẩu mới" name="new_password" value="" id='new_pw'>
                                     <div class="position-absolute top-50 translate-middle-y search-icon px-3 fs-5"><i class="bx bx-show" id='ic_new'></i></div>
                                 </div>
                             </div>
@@ -141,7 +141,7 @@
                             echo "../../assets/images/icons/user.svg";
                         }
                         else {
-                            echo "../../admins/$user->img_hocvien";
+                            echo "../../hocviens/$user->img_hocvien";
                         }
                         ?>" alt="" id="img" class=" rounded-circle shadow " width="120" height="120">
                                         <input type="hidden" name="imgName" id="imgName" >
@@ -192,12 +192,14 @@
                             <div class="text-center">
                             <h4 class="mb-0"> 
                                 @php
-                                $baitap = App\Models\ThongTinLamBai::where('id_hocvien', $user->id)->get();
+                                    $baitap = App\Models\KetQua::where('id_hocvien', $user->id)->orderBy('created_at')->get()->groupBy(function($data) {
+                                        return $data->id_baitap;
+                                    });
                                 @endphp
                                 {{count($baitap)}}
                             </h4>
                             <p class="mb-0 text-secondary">
-                                Số lần làm bài tập
+                                Bài tập đã làm
                             </p>
                             </div>
                             <div class="text-center">
@@ -220,7 +222,7 @@
                             </div>
                         </div>
                         <div class="text-center mt-4">
-                        <h4 class="mb-1">{{$user->name}}, 27</h4>
+                        <h4 class="mb-1">{{$user->name}}</h4>
                         <div class="mt-4"></div>
                         <h6 class="mb-1">
                            Học viên

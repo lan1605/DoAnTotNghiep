@@ -63,7 +63,7 @@ class HocVienController extends Controller
     }
     public function  viewDetail(){
         $user = User::find(Auth::user()->id);
-        return view('pages.thong-tin-ca-nhan.index',['user'=>$user]);
+        return view('pages.thong-tin-ca-nhan.index',['user'=>$user, 'page'=>'Thông tin cá nhân', 'title'=>'Chi tiết thông tin']);
     }
     public function editDetail(Request $req){
         $user = User::find(Auth::user()->id);
@@ -72,8 +72,6 @@ class HocVienController extends Controller
     		'name'=>'required|min:2',
             'email'=>'required|email',
             'img_hocvien'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'sdt'=>'required',
-            'dia_chi'=>'required'
     	],
     	[
     		'name.required'=>'bạn chưa nhập tên ',
@@ -93,8 +91,8 @@ class HocVienController extends Controller
             }
             else {
                 if ($req->hasFile('img_hocvien')){
-                    if (File::exists('admins/'.$user->img_hocvien)){
-                        File::delete('admins/'.$user->img_hocvien);
+                    if (File::exists('hocviens/'.$user->img_hocvien)){
+                        File::delete('hocviens/'.$user->img_hocvien);
                     }
                     $fileName = $req->imgName . '.' . $req->file('img_hocvien')->extension();        
                     // $req->file('img_hocvien')->storeAs('profile/admin', $fileName);
@@ -121,12 +119,12 @@ class HocVienController extends Controller
         }
         else {
             if ($req->hasFile('img_hocvien')){
-                if (File::exists('admins/'.$user->img_hocvien)){
-                    File::delete('admins/'.$user->img_hocvien);
+                if (File::exists('hocviens/'.$user->img_hocvien)){
+                    File::delete('hocviens/'.$user->img_hocvien);
                 }
                 $fileName = $req->imgName . '.' . $req->file('img_hocvien')->extension();        
                 // $req->file('img_hocvien')->storeAs('profile/admin', $fileName);
-                $req->file('img_hocvien')->move(public_path('admins'), $fileName);
+                $req->file('img_hocvien')->move(public_path('hocviens'), $fileName);
                 $user->img_hocvien = $fileName;
                 $user->name = $req->name;
                 $user->email = $req->email;

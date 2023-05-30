@@ -1,3 +1,24 @@
+@if ($solanlambai==3)
+@extends('layouts.app')
+@include('layouts.layout.menu')
+@section('login-for-users')
+    <div class="d-flex ms-3 gap-3">
+        @include('layouts.layout.auth')
+      </div>
+@endsection
+@section('title')
+    <title>
+        Bài tập {{App\Models\BaiHoc::find($baitap->id_baihoc)->ten_baihoc}}
+    </title>
+@endsection
+@section('content')
+    <main>
+        <div class="bg-white">
+            
+        </div>
+    </main>
+@endsection
+@else
 @if ($thoigian_nopbai === null)
 @extends('layouts.app')
 @include('layouts.layout.menu')
@@ -23,7 +44,7 @@
                             <div class="card-header py-2 " >
                                 <h2 class="fw-500 text-primary">Danh sách câu hỏi</h2>
                             </div>
-                            <form action="/baitap/{{$baitap->slug}}" method="post" id="formSubmit">
+                            <form action="/bai-tap/{{$baitap->slug}}" method="post" id="formSubmit">
                                 @csrf
                             <div class="card-body">
                                 <div class="row g-2 mt-1">
@@ -170,6 +191,8 @@
 @else
 @php
     $baihoc = App\Models\BaiHoc::find($baitap->id_baihoc);
+    // return session()->flash('already', 'Vui lòng chờ hệ thống cập nhật thêm câu hỏi...');
 @endphp
-<script>window.location = "/baihoc/{{$baihoc->slug}}";</script>
+<script>window.location = "/bai-hoc/{{$baihoc->slug}}";</script>
+@endif
 @endif

@@ -28,27 +28,7 @@ class QuaTrinhOnTapController extends Controller
             return $data->id_baitap;
         });
 
-        foreach($users as $timezone => $userList) {
-            echo '<ul>';
-                echo '<li>' . $timezone . '</li>';
-                $baitap = BaiTap::find($timezone);
-                // $baihoc = BaiHoc::find($baitap->id_baihoc);
-                // $chude = ChuDe::find($baihoc->id_chude);
-                // echo $chude->ten_chude;
-                echo '<ul>'; 
-                $dem = 0;
-                
-                foreach($userList as $user) {
-                    echo '<li>User Email: ' . $user->id_baitap . $user->tong_diem.$user->updated_at. '</li>';
-                    $cauhoi = LamBaiTap::where('id_baitap', $baitap->id_baitap)->where('updated_at', $user->updated_at)->where('id_hocvien',Auth::user()->id)->take($baitap->soluong_cauhoi)->orderBy('updated_at', 'DESC')->orderBy('id_cauhoi', 'ASC')->get();
-                    $dem = $dem +1;
-                    
-                }
-                echo '</ul>';
-                
-                echo '</ul>';
-                dd($cauhoi);
-                echo $dem;
-            }
-    }
+        
+        return view('pages.qua-trinh-on-tap.result',['baitap'=>$baitap, 'users'=>$users,'page'=>'Quá trình ôn tập', 'link'=>'/qua-trinh-on-tap','title'=>$baitap->ten_baitap]);        
+}
 }

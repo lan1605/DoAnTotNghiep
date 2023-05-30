@@ -1129,7 +1129,7 @@ a {
 .profile-cover {
     background-image: linear-gradient(to bottom right, rgb(26 30 33 / 50%), rgb(0 0 0 / 50%)), url(../images/gallery/33.png);
     background-size: cover;
-    height: 6rem;
+    height: 5rem;
     background-position: center;
     margin: -4.0rem 0rem 0rem -1.5rem;
     padding: 1.5rem 1.5rem 6.5rem 1.5rem;

@@ -78,7 +78,7 @@
                 <div class="row my-2">
                     <div class="col-12 col-lg-12">
                                 @foreach ($baidangs as $item)
-                                    <div class="card w-100 mb-1" onclick="location.href='/goc-hoi-dap/{{$item->slug}}'">
+                                    <div class="card w-100 mb-1" onclick="location.href='/goc-hoi-dap/{{$item->slug}}'" title="{{$item->ten_baidang}}">
                                         <div class="card-body" style="cursor: pointer" title="{{$item->ten_baihoc}}">
                                             <div class="d-flex gap-3">
                                                 <div class="product-box">
@@ -96,7 +96,12 @@
                                                 <div class="d-flex w-100 flex-column">
                                                     <div class="d-flex justify-content-between align-items-center w-100">
                                                         <div class="float-start">
-                                                            <h5 class="py-0 text-primary">{{$item->ten_baidang}}</h5>
+                                                            <h5 class="py-0 text-primary">
+                                                                @php
+                                                                    $ten = $item->ten_baidang;
+                                                                    echo Str::limit($ten, 100, ' ...');
+                                                                @endphp
+                                                            </h5>
                                                         </div>
                                                         <div class="d-flex">
                                                             <p class="py-0 mx-2"><strong><i class="bx bx-user"></i></strong>

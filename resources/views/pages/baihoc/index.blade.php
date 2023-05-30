@@ -17,8 +17,8 @@
             <div class="container">
                 <div class="row g-3 d-flex align-items-center mt-0 ">
                     <div class="d-sm-flex mb-3 justify-content-center gap-2">
-                        <a href="/baihoc" class="btn btn-primary mb-3 mb-lg-0">Tất cả</a>
-                        <a href="/baihoc/danh-sach-da-luu" class="btn btn-white mb-3 mb-lg-0">Bài học đã lưu</a>
+                        <a href="/bai-hoc" class="btn btn-primary mb-3 mb-lg-0">Tất cả</a>
+                        <a href="/bai-hoc/danh-sach-da-luu" class="btn btn-white mb-3 mb-lg-0">Bài học đã lưu</a>
                     </div>
                    
                 </div>
@@ -106,7 +106,7 @@
                                             <div class="card-body" style="cursor: pointer" title="{{$item->ten_baihoc}}">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div>
-                                                        <a href="/baihoc/{{$item->slug}}">
+                                                        <a href="/bai-hoc/{{$item->slug}}">
                                                             <h6 class="mb-0 product--title">{{$item->ten_baihoc}}</h6>
                                                         </a>
                                                         
