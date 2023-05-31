@@ -6,6 +6,7 @@
     @include('layouts.breadcrumb')
     <!--end breadcrumb-->
 
+    @include('layouts.notificationLogin')
     <div class="card">
         <div class="card-header py-3">
         <h6 class="mb-0">{{$titlePage}}</h6>
@@ -20,7 +21,7 @@
                         <form class="row g-3" method="post" action="/dashboard/quyen/">
                             @csrf
                             <div class="col-12">
-                            <label class="form-label">Tên chủ đề</label>
+                            <label class="form-label">Tên quyền quản trị</label>
                             <input type="text" class="form-control @error('ten_quyen') is-invalid  @enderror " placeholder="Tên quyền..." name="ten_quyen" value="{{ old('ten_quyen')}}">
                             @error('ten_quyen')
                                 <span class="invalid-feedback" role="alert" >
@@ -71,15 +72,15 @@
                     </thead>
                     <tbody>
                         @foreach ($roles as $role)
-                        <tr id="role_ids{{$user->id_quyen}}">
+                        <tr id="role_ids{{$role->id}}">
                             <td>
-                                <input class="form-check-input checkbox-item" type="checkbox" name="ids" value="{{$role->id_quyen}}">
+                                <input class="form-check-input checkbox-item" type="checkbox" name="ids" value="{{$role->id}}">
                             </td>
                             <td>
                                 {{$role->ten_quyen}}
                             </td>
                             <td>
-                                @if ($role->create_at==null)
+                                @if ($role->created_at==null)
                                     {{"_"}}
                                 @else
                                 {{$role->created_at}}
@@ -165,6 +166,51 @@
         </div><!--end row-->
         </div>
     </div>
-
+    <div class="modal fade" id="exampleModal-deleteAll" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xóa quyền</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Bạn có chắc muốn xóa không?</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <a href="#" id="deleteAll" class="btn btn-danger">Xóa</a>
+                </div>
+            </div>
+        </div>
+    </div>  
 </main>
+@endsection
+@section('javascript')
+<script>
+    $(function(e){
+        $("#select_all").click(function(){
+            $('.checkbox-item').prop('checked', $(this).prop('checked'));
+        });
+    $('#deleteAll').click(function(e){
+        e.preventDefault();
+        var all_ids =[];
+        $('input:checkbox[name=ids]:checked').each(function(){
+            all_ids.push($(this).val());
+        });
+
+        $.ajax({
+            url:'{{ route('quyen.delete.all')}}',
+            type:'DELETE',
+            data:{
+                ids: all_ids,
+                _token: '{{ csrf_token() }}',
+            },
+            success:function(response){
+                $.each(all_ids, function(key, val){
+                    $('#role_ids'+val).remove();
+                })
+                location.reload();
+            }
+        });
+    });
+    });
+</script>
 @endsection

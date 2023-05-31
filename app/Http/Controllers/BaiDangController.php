@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BaiDang;
 use App\Models\BinhLuan;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class BaiDangController extends Controller
 {

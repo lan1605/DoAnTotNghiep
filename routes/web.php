@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +85,7 @@ Route::middleware(['admin'])->group(function () {
         Route::post('/',[QuyenController::class,'addPost']);
         Route::get('/{id}',[QuyenController::class,'editPost']);
         Route::get('/xoa/{id}',[QuyenController::class,'delete']);
+        Route::delete('/selected',[QuyenController::class, 'deleteAll'])->name('quyen.delete.all');
         
     });
     //quản lý bài đăng
@@ -91,6 +93,13 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/',[BaiDangController::class, 'index'])->name('quanly.baidang');
         Route::get('/xoa/{id}',[BaiDangController::class, 'delete']);
         Route::get('/{id}',[BaiDangController::class, 'detailGet']);
+    });
+    //Quản lý liên hệ
+    Route::prefix('/dashboard/lienhe')->group(function () {
+        Route::get('/',[LienHeController::class, 'store']);
+        Route::get('/{id}',[LienHeController::class, 'detail']);
+        Route::get('/xoa/{id}',[LienHeController::class, 'delete']);
+        Route::delete('/selected',[LienHeController::class, 'deleteAll'])->name('lienhe.delete.all');
     });
 });
     //quản lý chủ đề

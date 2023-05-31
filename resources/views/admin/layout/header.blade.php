@@ -20,7 +20,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
               <li>
-                 <a class="dropdown-item" href="#">
+                 <a class="dropdown-item" href="{{ route('admin.profile')}}">
                    <div class="d-flex align-items-center">
                       <img src="assets_admin/images/avatars/avatar-1.png" alt="" class="rounded-circle" width="54" height="54">
                       <div class="ms-3">
@@ -41,24 +41,17 @@
                   <a class="dropdown-item" href="{{ route('admin.profile')}}">
                      <div class="d-flex align-items-center">
                        <div class=""><i class="bi bi-person-fill"></i></div>
-                       <div class="ms-3"><span>Profile</span></div>
+                       <div class="ms-3"><span>Thông tin cá nhân</span></div>
                      </div>
                    </a>
                 </li>
-                <li>
-                  <a class="dropdown-item" href="index2.html">
-                     <div class="d-flex align-items-center">
-                       <div class=""><i class="bi bi-speedometer"></i></div>
-                       <div class="ms-3"><span>Dashboard</span></div>
-                     </div>
-                   </a>
-                </li>
+                
                 <li><hr class="dropdown-divider"></li>
                 <li>
                   <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                     <div class="d-flex align-items-center">
                       <div class=""><i class="bi bi-lock-fill"></i></div>
-                      <div class="ms-3"><span>{{ __('Logout') }}</span></div>
+                      <div class="ms-3"><span>{{ __('Đăng xuất') }}</span></div>
                     </div>
                   </a>
                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

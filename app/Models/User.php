@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Notifications\customResetPasswordNotification as customResetPasswordNotification;
+use App\Notifications\customResetPasswordUserNotification as customResetPasswordUserNotification;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -49,7 +49,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new customResetPasswordNotification($token));
+        $this->notify(new customResetPasswordUserNotification($token));
     }
 
     public function baidang(){

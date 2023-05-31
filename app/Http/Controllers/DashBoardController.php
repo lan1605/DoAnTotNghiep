@@ -48,11 +48,14 @@ class DashBoardController extends Controller
         }
         //tổng số lượng truy cập
         $soluong = TruyCap::count();
+
+        $baihoc_truycap = BaiHoc::orderBy('luotxem', 'DESC')->take(20)->get();
+        $baidang_truycap = BaiDang::orderBy('truy_cap', 'DESC')->take(20)->get();
         return view('admin.admin',['route'=>route('quanly.trangchu'),'admin'=>$admin,
         // 'giangvien'=>$giangvien, 
         'hocvien'=>$hocvien, 'baitap'=>$baitap,
         'baihoc' => $baihoc, 'baidang'=>$baidang,
-        'chude' => $chude, 'cauhoi'=>$cauhoi, 'truycap' => $soluong
-            ]);
+        'chude' => $chude, 'cauhoi'=>$cauhoi, 'truycap' => $soluong, 'baihoc_truycap'=>$baihoc_truycap, 'baidang_truycap'=>$baidang_truycap,
+        'truycap_hientai'=>$truycap, 'tong_thangtruoc'=>$tong_thangtruoc, 'tong_thangnay'=>$tong_thangnay]);
     }
 }

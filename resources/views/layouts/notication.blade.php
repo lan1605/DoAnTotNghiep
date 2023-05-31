@@ -17,7 +17,7 @@
         </div>
         <div class="ms-3">
             <div class="text-danger">Lỗi</div>
-            <div class="text-danger">{{$errors}}</div>
+            <div class="text-danger"></div>
         </div>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

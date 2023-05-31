@@ -9,7 +9,7 @@ use App\Models\KetQua;
 use App\Models\LuuBaiHoc;
 use App\Models\ThoiGianHoc;
 use File;
-use Auth; 
+use Illuminate\Support\Facades\Auth; 
 class BaiHocController extends Controller
 {
     public function index(Request $req){
@@ -189,7 +189,7 @@ class BaiHocController extends Controller
         }
         $baihocs = BaiHoc::where($filter)->where(function ($query) use ($keysfilter){
             $query->where('ten_baihoc','like','%'.$keysfilter.'%')->orWhere('slug','like','%'.$keysfilter.'%');
-        })->orderBy('id_chude', 'ASC')->get();
+        })->where('tinh_trang','=',1)->orderBy('id_chude', 'ASC')->get();
 
         return view('pages.baihoc.index',['route'=>route('baihoc.index'),
         'baihocs'=>$baihocs,'page'=>'Bài học', 'title'=>'Danh sách bài học']);

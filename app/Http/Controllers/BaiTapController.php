@@ -50,14 +50,12 @@ class BaiTapController extends Controller
     public function add(Request $req){
         $this->validate($req,
     	[
-    		'ten_baitap'=>'required|min:2',
+    		
             'soluong'=>'required',
             // 'thoigian'=>'required',
             'id_baihoc'=>'required'
         ],
     	[
-    		'ten_baitap.required'=>'bạn chưa nhập tên bài tập ',
-            'ten_baitap.min'=>'tên bài tập ít nhất 2 ký tự',
             'soluong.required'=>'bạn chưa nhập số lượng câu hỏi',
             // 'thoigian.required'=>'bạn chưa nhập thời gian làm bài',
             'id_baihoc.required'=>'bạn chọn bài học',
@@ -75,12 +73,13 @@ class BaiTapController extends Controller
                 // dd($num);
                 $baitap->id_baitap = 'BT-'.$num;
             }
-        $baitap->ten_baitap = $req->ten_baitap;
+        $ten_baihoc = BaiHoc::find($req->id_baihoc)->ten_baihoc;
+        $baitap->ten_baitap = $ten_baihoc;
         $baitap->soluong_cauhoi = $req->soluong;
-        $baitap->thoigian_lambai = '20';
+        $baitap->thoigian_lambai = $req->soluong*1;
         $tong_cauhoi = CauHoi::where('id_baihoc', $req->id_baihoc)->get();
         $baitap->tong_cauhoi = count($tong_cauhoi);
-        $baitap->slug = Controller::locdau($req->ten_baitap);
+        $baitap->slug = Controller::locdau($ten_baihoc);
         $baitap->id_baihoc = $req->id_baihoc;
         $baitap->save();
 
@@ -95,26 +94,24 @@ class BaiTapController extends Controller
     public function editPost(Request $req, $id){
         $this->validate($req,
     	[
-    		'ten_baitapEdit'=>'required|min:2',
             'soluongEdit'=>'required',
             // 'thoigian'=>'required',
             'id_baihocEdit'=>'required'
         ],
     	[
-    		'ten_baitapEdit.required'=>'bạn chưa nhập tên bài tập ',
-            'ten_baitapEdit.min'=>'tên bài tập ít nhất 2 ký tự',
             'soluongEdit.required'=>'bạn chưa nhập số lượng câu hỏi',
             // 'thoigian.required'=>'bạn chưa nhập thời gian làm bài',
             'id_baihocEdit.required'=>'bạn chọn bài học',
     	]);
 
         $baitap = BaiTap::find($id);
-        $baitap->ten_baitap = $req->ten_baitapEdit;
+        $ten_baihoc = BaiHoc::find($req->id_baihocEdit)->ten_baihoc;
         $baitap->soluong_cauhoi = $req->soluongEdit;
-        // $baitap->thoigian_lambai = $req->thoigian;
+        $baitap->ten_baitap = $ten_baihoc;
+        $baitap->thoigian_lambai = $req->soluongEdit * 1;
         $tong_cauhoi = CauHoi::where('id_baihoc', $req->id_baihocEdit)->get();
         $baitap->tong_cauhoi = count($tong_cauhoi);
-        $baitap->slug = Controller::locdau($req->ten_baitapEdit);
+        $baitap->slug = Controller::locdau($ten_baihoc);
         $baitap->id_baihoc = $req->id_baihocEdit;
         $baitap->save();
 

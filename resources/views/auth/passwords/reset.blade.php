@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    {{ __('Thay đổi mật khẩu dành cho học viên')}}
+<title>Thay đổi mật khẩu dành cho học viên</title>
 @endsection
 @section('content')
 <div class="container">

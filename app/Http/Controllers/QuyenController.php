@@ -76,4 +76,10 @@ class QuyenController extends Controller
 
     return redirect('/dashboard/quyen')->with('error','Thất bại, vui lòng thử lại sau.');
 } 
+public function deleteAll(Request $req){
+    $id = $req->ids;
+    Role::whereIn('id', $id)->delete();
+    
+    return response()->json(['success'=>'Bạn đã xóa thành công']);
+}
 }

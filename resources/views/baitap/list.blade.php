@@ -5,7 +5,7 @@
     <!--breadcrumb-->
     @include('layouts.breadcrumb')
     <!--end breadcrumb-->
-
+    @include('layouts.notificationLogin')
     <div class="card">
         <div class="card-header py-3">
             <div class="card-body">
@@ -23,45 +23,18 @@
                                         @if ($route)
                                         <form class="row g-3" method="post" action="/dashboard/baitap/">
                                             @csrf
-                                                <div class="col-6">
-                                                    <label class="form-label">Tên bài tập: </label>
-                                                <input type="text" class="text form-control @error('ten_baitap') is-invalid  @enderror" placeholder="Tên bài tập..." name="ten_baitap" value="{{ old('ten_baitap') }}">
-                                                @error('ten_baitap')
-                                                    <span class="invalid-feedback" role="alert" >
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                                <span id="result-text" class="invalid-feedback"></span>
-                                                <script>
-                                                    const text = document.querySelector('.text');
-                                                    text.addEventListener('keyup', function(){
-                                                        var value = text.value;
-                                                        
-                                                        if (value==''){
-                                                            document.querySelector('#result-text').textContent = "";
-                                                        }
-                                                        else{
-                                                            
-                                                            if (/^[a-zA-Z0-9-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]*$/.test(value) == false || value==''){
-                                                            document.querySelector('#result-text').textContent = "Nhập sai định dạng, vui lòng nhập lại";
-                                                            text.classList.add('is-invalid');
-                                                        }
-                                                        else{
-                                                            document.querySelector('#result-text').textContent = "";
-                                                            text.classList.remove('is-invalid');
-                                                        }
-                                                        }
-                                                    })
-                                                </script>
-                                                </div>
-                                                <div class="col-6">
+
+                                                
+                                                <div class="col-12">
                                                     <label class="form-label">Số lượng câu hỏi: </label>
-                                                    <input type="text" class="form-control @error('soluong') is-invalid  @enderror" placeholder="Số lượng câu hỏi..." name="soluong" value="{{ old('soluong') }}">
+                                                    <input type="text" class="text form-control @error('soluong') is-invalid  @enderror" placeholder="Số lượng câu hỏi..." name="soluong" value="{{ old('soluong') }}">
                                                     @error('soluong')
                                                         <span class="invalid-feedback" role="alert" >
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
+                                                    <span id="result-text" class="invalid-feedback"></span>
+                
                                                 </div>
                                                 
                                                 <div class="col-12 mt-2">
@@ -247,12 +220,8 @@
                                                                 @csrf
                                                                     <div class="col-6">
                                                                         <label class="form-label">Tên bài tập: </label>
-                                                                    <input type="text" class="form-control @error('ten_baitapEdit') is-invalid  @enderror" placeholder="Tên bài tập..." name="ten_baitapEdit" value="{{ $baitap->ten_baitap }}">
-                                                                    @error('ten_baitapEdit')
-                                                                        <span class="invalid-feedback" role="alert" >
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
+                                                                    <input type="text" class="form-control @error('ten_baitapEdit') is-invalid  @enderror" placeholder="Tên bài tập..." name="ten_baitapEdit" value="{{ $baitap->ten_baitap }}" readonly>
+                                                                    
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <label class="form-label">Số lượng câu hỏi: </label>

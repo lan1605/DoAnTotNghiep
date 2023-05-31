@@ -4,7 +4,7 @@
       
       @include('layouts.breadcrumb')
       @include('layouts.notication')
-
+      @include('layouts.notificationLogin')
         <div class="row">
           <div class="col-12 col-lg-8">
             <div class="card shadow-sm border-0">

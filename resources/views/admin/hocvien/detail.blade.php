@@ -1,7 +1,7 @@
 @extends('admin.layout.index')
     @section('content')
     <main class="page-content">
-
+      @include('layouts.notificationLogin')
         <!--breadcrumb-->
         @include('layouts.breadcrumb')
         <!--end breadcrumb-->

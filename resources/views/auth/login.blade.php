@@ -84,13 +84,8 @@
                                 
             
                                 <div class="row g-3 mb-5">
-                                    <div class="col-7">
-                                        <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="remember">Ghi nhớ đăng nhập</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-5 text-end">	
+                                    
+                                    <div class="col-5 ">	
                                         @if  (isset($route))
                                         <a  href="{{ $route.'-password/reset' }}">
                                             {{ __('Quên mật khẩu?') }}

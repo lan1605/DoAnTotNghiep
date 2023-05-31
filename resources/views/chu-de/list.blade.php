@@ -5,7 +5,7 @@
     <!--breadcrumb-->
     @include('layouts.breadcrumb')
     <!--end breadcrumb-->
-
+    @include('layouts.notificationLogin')
     <div class="card">
         <div class="card-header py-3">
         <h6 class="mb-0">{{$titlePage}}</h6>
@@ -13,7 +13,7 @@
         <div class="card-body">
         <div class="row">
             @include('layouts.notication')
-            <div class="col-12 col-lg-4 d-flex">
+            <div class="col-12 col-lg-4 ">
                 <div class="card border shadow-none w-100">
                     <div class="card-body">
                         @if ($route)
@@ -47,7 +47,7 @@
                     </div>
                     </div>
             </div>
-            <div class="col-12 col-lg-8 d-flex">
+            <div class="col-12 col-lg-8 ">
             <div class="card border shadow-none w-100">
                 <div class="card-body">
                     <form action="" method="get" class="d-sm-flex mb-3">
@@ -141,7 +141,7 @@
                                             <br>
                                             <div class="col-12">
                                                 <label class="form-label">Mô tả </label>
-                                                <textarea name="mo_ta" id="editorChude{{$chude->id_chude}}" cols="30" rows="10" placeholder="Mô tả chủ đề..." class="form-control @error('mo_ta') is-invalid  @enderror">{{$chude->mo_ta}}</textarea>
+                                                <textarea name="mo_ta" id="editorChude{{$chude->id_chude}}" cols="20" rows="10" placeholder="Mô tả chủ đề..." class="form-control @error('mo_ta') is-invalid  @enderror">{!! $chude->mo_ta !!}</textarea>
                                                 @error('mo_ta')
                                                 <span class="invalid-feedback" role="alert" >
                                                     <strong>{{ $message }}</strong>
@@ -161,21 +161,21 @@
                         </div>
                         <script>
                             //ckeditor 2
-        ClassicEditor
-            .create( document.querySelector( '#editorChude{{ $chude->id_chude }}' ), {
+                            
+        ClassicEditor.create( document.querySelector( '#editorChude{{ $chude->id_chude }}' ), {
                 ckfinder:{
                     uploadUrl: '{{ route('images.upload').'?_token='.csrf_token() }}',
                 },
                 // More configuration options.
                 // ...
             } )
-            .then( error => {
-                console.log( error );
-            } )
+            .then( editor => {
+        // console.log( error );
+        // editor.ui.view.editable.element.style.height = '100px';
+    } )
             .catch( error => {
                 console.log( error );
-            } );
-            
+            });
         </script>
                         @endforeach
                         
@@ -210,6 +210,23 @@
     
     @section('javascript')
     <script>
+        //ckeditor 1
+        ClassicEditor
+            .create( document.querySelector( '#editorChude' ), {
+                ckfinder:{
+                    uploadUrl: '{{ route('images.upload').'?_token='.csrf_token() }}',
+                },
+                // More configuration options.
+                // ...editor.ui.view.editable.element.style.height = '500px';
+                
+            } )
+            .then( editor => {
+        // console.log( error );
+        editor.ui.view.editable.element.style.height = '100px';
+    } )
+            .catch( error => {
+                console.log( error );
+            } );
         $(function(e){
             $("#select_all").click(function(){
                 $('.checkbox-item').prop('checked', $(this).prop('checked'));
@@ -237,21 +254,7 @@
             });
         });
         });
-        //ckeditor 1
-        ClassicEditor
-            .create( document.querySelector( '#editorChude' ), {
-                ckfinder:{
-                    uploadUrl: '{{ route('images.upload').'?_token='.csrf_token() }}',
-                },
-                // More configuration options.
-                // ...
-            } )
-            .then( error => {
-                console.log( error );
-            } )
-            .catch( error => {
-                console.log( error );
-            } );
+        
     </script>
     @endsection
 </main>

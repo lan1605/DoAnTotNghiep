@@ -15,7 +15,7 @@
                         <div class="mb-2 mb-sm-0 ms-2">
                             <div class="ms-auto position-relative">
                                 <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-search"></i></div>
-                                <input class="form-control ps-5" type="text" placeholder="tìm kiếm học viên..."name="key_find" value="{{Request()->key_find}}">
+                                <input class="form-control ps-5" type="text" placeholder="tìm kiếm..."name="key_find" value="{{Request()->key_find}}">
                             </div>
                         </div>
                         <div class="mb-2 mb-sm-0 ms-2">
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="card-body">
-            @if (count($users)==0)
+            @if (count($lienhes)==0)
                 {{"Không có thông tin hiển thị"}}   
             @else  
             <div class="table-responsive">
@@ -41,85 +41,57 @@
                                 <input class="form-check-input" type="checkbox" id="select_all">
                             </div>
                         </th>
-                        <th>Ảnh</th>
-                        <th>Tên học viên</th>
+                        <th>STT</th>
+                        <th>Người liên hệ</th>
                         <th>Email</th>
-                        <th>Giới tính</th>
-                        <th>Địa chỉ</th>
                         <th>Số điện thoại</th>
-                        <th>Trạng thái</th>
-                        <th>Kích hoạt Email</th>
+                        <th>Nội dung liên hệ</th>
+                        <th>Tìm trạng</th>
                         <th>Tùy chọn</th>
                     </tr>
-    
-                    @foreach ($users as $user)
-                        <tr id="hocvien_ids{{$user->id}}">
+                    <?php $dem = 0?>
+                    @foreach ($lienhes as $lienhe)
+                    <?php $dem = $dem +1?>
+                        <tr id="lienhe_ids{{$lienhe->id}}">
                             <td>
                                 <div class="form-check">
-                                <input class="form-check-input checkbox-item" type="checkbox" name="ids" value="{{$user->id}}">
+                                <input class="form-check-input checkbox-item" type="checkbox" name="ids" value="{{$lienhe->id}}">
                                 </div>
                             </td>
                             <td class="productlist">
-                                <a class="d-flex align-items-center gap-2" href="#">
-                                <div class="product-box">
-                                    <img src="assets/images/products/01.png" alt="">
-                                </div>
-                                </a>
+                                {{$dem}}
                             </td>
-                            <td><span><h6 class="mb-0 product-title">{{$user->name}}</h6></span></td>
-                            <td><span>{{$user->email}}</span></td>
-                            <td><span>
-                                <?php
-                                    if ($user->gioi_tinh==0){
-                                        echo "Nam";
-                                    }
-                                    else{
-                                        echo "Nữ";
-                                    }
-                                ?>    
-                            </span></td>
-                            <td><span>@if (isset($user->dia_chi))
-                                {{$user->dia_chi}}
+                            <td><span><h6 class="mb-0 product-title">{{$lienhe->ten}}</h6></span></td>
+                            <td><span>{{$lienhe->email}}</span></td>
+                            <td><span>@if (isset($lienhe->sdt))
+                                {{$lienhe->sdt}}
                             @else
                                 {{"_"}}
                             @endif</span></td>
-                            <td><span>@if (isset($user->sdt))
-                                {{$user->sdt}}
+                            <td><span>{{$lienhe->noidung_lienhe}}</span></td>
+                            <td><span>@if (isset($lienhe->noidung_phanhoi))
+                                <span class="badge rounded-pill bg-success">Đã phản hồi</span>
                             @else
-                                {{"_"}}
+                            <span class="badge rounded-pill bg-danger">Chưa phản hồi</span>
                             @endif</span></td>
-                            <td>@if ($user->truy_cap >= now()->subMinutes(1))
-                                <span class="badge rounded-pill bg-success">Đang hoạt động</span>
-                            @else
-                            <span class="badge rounded-pill bg-danger">Không hoạt động</span>
-                            @endif</td>
-                            <td><span class="badge rounded-pill bg-danger"><?php
-                                $check=$user->email_verified_at;
-                                if ($check==NULL){
-                                    echo "Chưa kích hoạt";
-                                }
-                                else {
-                                    echo "Đã kích hoạt";
-                                }
-                            ?></span></td>
                             <td>
                                 <div class="d-flex align-items-center gap-3 fs-6">
-                                <a href="/dashboard/hocvien/{{$user->id}}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="View detail" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-                                <i class="bi bi-trash-fill text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{$user->id}}" aria-label="Delete"></i>
+                                <a href="/dashboard/lienhe/{{$lienhe->id}}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" ><i class="bx bx-mail-send"></i></a>
+                                <i class="bi bi-trash-fill text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{$lienhe->id}}" ></i>
                                 </div>
                             </td>
                         </tr>
-                        <div class="modal fade" id="exampleModal-{{$user->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="exampleModal-{{$lienhe->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Xóa tài khoản của học viên</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Xóa liên hệ</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">Bạn có chắc muốn xóa tài khoản này?</div>
+                                    <div class="modal-body">Bạn có chắc muốn xóa không?</div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                        <a href="/dashboard/hocvien/xoa/{{$user->id}}" class="btn btn-danger">Xóa tài khoản</a>
+                                        <a href="/dashboard/lienhe/xoa/{{$lienhe->id}}" class="btn btn-danger">Xóa</a>
                                     </div>
                                 </div>
                             </div>
@@ -127,9 +99,9 @@
                     @endforeach
                 </tbody>
                 </table>
-                {{ $users->links('pagination.custom') }}
+                {{ $lienhes->links('pagination.custom') }}
                 <div class="float-start mt-2">
-                    Hiển thị {{ $users->firstItem() }} đến {{ $users->lastItem() }} trong tổng số {{$users->total()}} dòng
+                    Hiển thị {{ $lienhes->firstItem() }} đến {{ $lienhes->lastItem() }} trong tổng số {{$lienhes->total()}} dòng
                 </div>
             </div>
 
@@ -140,13 +112,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Xóa tài khoản của học viên</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Xóa liên hệ</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">Bạn có chắc muốn xóa tài khoản?</div>
+            <div class="modal-body">Bạn có chắc muốn xóa hay không?</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <a href="#" id="deleteAll" class="btn btn-danger">Xóa tài khoản</a>
+                <a href="#" id="deleteAll" class="btn btn-danger">Xóa</a>
             </div>
         </div>
     </div>
@@ -171,7 +143,7 @@
             });
 
             $.ajax({
-                url:'{{ route('hocvien.delete.all')}}',
+                url:'{{ route('lienhe.delete.all')}}',
                 type:'DELETE',
                 data:{
                     ids: all_ids,
@@ -179,7 +151,7 @@
                 },
                 success:function(response){
                     $.each(all_ids, function(key, val){
-                        $('#hocvien_ids'+val).remove();
+                        $('#lienhe_ids'+val).remove();
                     })
                     location.reload();
                 }

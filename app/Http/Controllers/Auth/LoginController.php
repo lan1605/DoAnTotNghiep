@@ -53,7 +53,7 @@ class LoginController extends Controller
         ]);
 
         if (\Auth::guard('admin')->attempt($request->only('email','password'), $request->get('remember'))){
-            return redirect()->intended('/dashboard')->with('success','Chào mừng bạn đã quay trở lại.');
+            return redirect()->intended('/dashboard')->with('success_login','Chào mừng bạn đã quay trở lại.');
         }
 
         return back()->withInput($request->only('email', 'remember'));

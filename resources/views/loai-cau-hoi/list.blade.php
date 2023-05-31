@@ -5,7 +5,7 @@
     <!--breadcrumb-->
     @include('layouts.breadcrumb')
     <!--end breadcrumb-->
-
+    @include('layouts.notificationLogin')
     <div class="card">
         <div class="card-header py-3">
         <h6 class="mb-0">{{$titlePage}}</h6>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\CauHoi;
 use DB;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Imports\CauHoiImport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -55,13 +55,31 @@ class CauHoiController extends Controller
         'titlePage'=>'Quản lý câu hỏi', 'breadcrumb'=> 'Thêm câu hỏi mới', 'linkPage'=>'/dashboard/cauhoi'
         ]);
     }
-    public function import(Request $request) 
-    {
-        $data =Excel::import(new CauHoiImport,$request->file('file'));
+    // public function import(Request $request) 
+    // {
+    //     // $data =Excel::import(new CauHoiImport,$request->file('file'));
         
-        return back()->with('success','Tải file thành công');
+    //     // dd($data);
+    //     // try {
+    //     //     Excel::import(new CauHoiImport,  request()->file('file'));
+    //     //     return redirect('/da')->with('success', 'File Imported Successfully!');
+    //     // } catch (\Exception $e) {
+    //     //     dd($e->getMessage());
+    //     //     return back()->with('error', __('Invalid File Structure!'));
+    //     // }
+    //     // return back()->with('success','Tải file thành công');
         
-    }      
+    // }      
+    
+    public function import(Request $request){
+        // Excel::import(new CauHoiImport, $request->file('file'));
+        // return redirect()->back()->with('success','Tải file thành công');
+        try {
+            $this->userImport->import($request->file('file_user'));
+        } catch (\Exception $e) {
+            report($e);
+        }
+    }
     
     
     public function addPost(Request $req){

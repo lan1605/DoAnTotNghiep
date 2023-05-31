@@ -2,6 +2,7 @@
 @section('content')
 <main class="page-content">
     @include('layouts.breadcrumb')
+    @include('layouts.notificationLogin')
     <form action="/dashboard/baihoc/them" method="post" enctype="multipart/form-data">
         @csrf
     @include('layouts.notication')

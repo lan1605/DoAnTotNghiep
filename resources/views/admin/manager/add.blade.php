@@ -4,6 +4,7 @@
 <main class="page-content">
 <!--breadcrumb-->
 @include('layouts.breadcrumb')
+@include('layouts.notificationLogin')
 <!--end breadcrumb-->
 <form action="/dashboard/quantrivien/them" method="post" enctype="multipart/form-data">
     @csrf

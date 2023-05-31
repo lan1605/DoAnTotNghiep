@@ -89,7 +89,7 @@
      
     </li> 
     <li>
-      <a href="/dashboard/baidang">
+      <a href="/dashboard/lienhe">
         <div class="parent-icon"><i class="bx bx-envelope-open"></i>
         </div>
         <div class="menu-title">Liên hệ</div>

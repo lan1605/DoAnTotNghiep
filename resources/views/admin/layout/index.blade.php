@@ -29,11 +29,11 @@
   <link href="../../assets/css/header-colors.css" rel="stylesheet" />
   {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script src="../../assets/plugins/ckeditor5/build/ckeditor.js"></script>
-  <script src="../../assets/plugins/notifications/js/lobibox.min.js"></script>
-  <script src="../../assets/plugins/notifications/js/notifications.min.js"></script>
-  <script src="../../assets/plugins/notifications/js/notification-custom-script.js"></script>
-  <script src="../../assets/js/pace.min.js"></script>
+  <script  src="../../assets/plugins/ckeditor5/build/ckeditor.js"></script>
+  <script  src="../../assets/plugins/notifications/js/lobibox.min.js"></script>
+  <script  src="../../assets/plugins/notifications/js/notifications.min.js"></script>
+  <script  src="../../assets/plugins/notifications/js/notification-custom-script.js"></script>
+  <script async src="../../assets/js/pace.min.js"></script>
   <title>
     @if (isset($titlePage))
         {{$titlePage}}
@@ -66,6 +66,7 @@
        <!--end sidebar -->
 
        <!--start content-->
+       
     @yield('content')
        <!--end page main-->
 
@@ -92,6 +93,7 @@
   <!--app-->
   <script src="../../assets/js/app.js"></script>
   <script src="../../assets/js/index.js"></script>
+
 
   @yield('javascript')
 <script>

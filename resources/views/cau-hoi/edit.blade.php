@@ -2,6 +2,7 @@
 @section('content')
 <main class="page-content">
     @include('layouts.breadcrumb')
+    @include('layouts.notificationLogin')
     <form action="/dashboard/cauhoi/{{$cauhoi->id}}" method="post" enctype="multipart/form-data">
         @csrf
     @include('layouts.notication')

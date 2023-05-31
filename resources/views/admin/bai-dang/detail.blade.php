@@ -5,7 +5,7 @@
     <!--breadcrumb-->
     @include('layouts.breadcrumb')
     <!--end breadcrumb-->
-
+    @include('layouts.notificationLogin')
     <div class="card">
         <div class="card-header py-3">
             <div class="card-body">

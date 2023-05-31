@@ -4,8 +4,20 @@
 <main class="page-content">
     <!--breadcrumb-->
     @include('layouts.breadcrumb')
+    @include('layouts.notificationLogin')
     <!--end breadcrumb-->
-
+    @if (session('success_login'))
+            <script>
+                Lobibox.notify('success_login', {
+                    pauseDelayOnHover: true,
+                    size: 'mini',
+                    icon: 'bx bx-check-circle',
+                    continueDelayOnInactiveTab: false,
+                    position: 'bottom right',
+                    msg: '{{session('success_login')}}'
+                });
+            </script>
+        @endif
     <div class="card">
         <div class="card-header py-3">
             @include('layouts.notication')
@@ -99,7 +111,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                            <button class="btn btn-success">Import</button>
+                                            <button type="submit" class="btn btn-success">Import</button>
                                         </div>
                                     </form>
                                     </div>
