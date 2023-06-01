@@ -17,12 +17,11 @@ class loginForStudy
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check()){
-            
-            return redirect('/login');
-        }
-        else {
-            return $next($request);
-        }
+        
+        if(Auth::check())
+            {
+                return $next($request);
+            }
+        else  return redirect('/login');
     }
 }

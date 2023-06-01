@@ -46,7 +46,7 @@
                         <th>Email</th>
                         <th>Số điện thoại</th>
                         <th>Nội dung liên hệ</th>
-                        <th>Tìm trạng</th>
+                        <th>Tình trạng</th>
                         <th>Tùy chọn</th>
                     </tr>
                     <?php $dem = 0?>

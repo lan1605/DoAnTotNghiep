@@ -14,15 +14,15 @@ class sendMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data;
+    public $details;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($details)
     {
-        $this->data = $data;
+        $this->details = $details;
     }
 
     /**
@@ -33,6 +33,6 @@ class sendMail extends Mailable
     public function build()
     {
         return $this->subject('Liên hệ với chúng tôi ')
-                    ->view('emails.contact.send');
+                    ->view('emails.send');
     }
 }

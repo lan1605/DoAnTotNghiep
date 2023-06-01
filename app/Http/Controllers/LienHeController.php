@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\LienHe;
+use App\Mail\sendMail;
 
 class LienHeController extends Controller
 {
@@ -72,7 +73,23 @@ class LienHeController extends Controller
 
         return view('admin.lien-he.send', ['lienhe'=>$lienhe,'titlePage'=>'Quản lý liên hệ', 'breadcrumb'=> 'Trả lời liên hệ','linkPage'=>'/dashboard/lienhe']);
     }
-    // public function sendmail(Request $req){
 
-    // }
+    public function send(Request $req, $id){
+        $lienhe = LienHe::find($id);
+
+        $lienhe->noidung_phanhoi = $req->noi_dung;
+        $lienhe->save();
+
+        $details = [
+            'ten'=>$lienhe->ten,
+            'email'=>$lienhe->email,
+            'sdt'=>$lienhe->sdt,
+            'noidung_lienhe'=>$lienhe->noidung_lienhe,
+            'noidung_phanhoi'=>$req->noi_dung,
+
+        ];
+        \Mail::to($lienhe->email)->send(new sendMail($details));
+
+        return back()->with('success', 'Đã gửi phản hồi thành công');
+    }
 }

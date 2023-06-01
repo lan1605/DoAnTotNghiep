@@ -10,32 +10,39 @@ use App\Models\CauHoi;
 class BaiTapController extends Controller
 {
     public function index(Request $req){
-        $filter =[];
-        $query=[];
+        $queryFilter=[];
         $keysfilter ='';
-        if (!empty($req->find_cate)){
-            if ($req->find_cate===0){
-                dd($query);
+        if (isset($req->find_cate)){
+            if ($req->find_cate==0){
+                $all = BaiHoc::all();
+                foreach ($all as $item){
+                    $queryFilter[]=$item->id_baihoc;
+                }
             }
             else {
                 $find_cate = $req->find_cate;
                 $find_lession = BaiHoc::where('id_chude', $find_cate)->get();
                 foreach ($find_lession as $item){
-                    $filter[] = $item->id_baihoc;
+                    $queryFilter[] = $item->id_baihoc;
                 }
-                // dd($filter);
-                $query[] = ['bai_taps.id_baihoc', 'IN', $filter];
-                
-                // dd($query);
+
             }
-        }
+        } 
+        else{
+            $all = BaiHoc::all();
+                foreach ($all as $item){
+                    $queryFilter[]=$item->id_baihoc;
+                }
+        } 
+        // dd($queryFilter);
         if ($req->key_find!=null){
             $keysfilter = $req->key_find;
         }
         
-        $baitaps =  BaiTap::whereIn('id_baihoc',$filter)->where(function ($query) use ($keysfilter){
+        $baitaps =  BaiTap::whereIn('id_baihoc',$queryFilter)->where(function ($query) use ($keysfilter){
             $query->where('ten_baitap','like','%'.$keysfilter.'%')->orWhere('slug','like','%'.$keysfilter.'%');
-        })->paginate(10);   
+        })->paginate(10);  
+        // dd($baitaps); 
         return view('baitap.list', ['route'=>route('quanly.baitap'), 'baitaps'=>$baitaps,'titlePage'=>'Quản lý bài tập', 'breadcrumb'=> 'Danh sách bài tập']);
     }
     public function delete($id_baitap){

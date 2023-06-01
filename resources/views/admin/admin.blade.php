@@ -61,8 +61,8 @@
                  <div class="d-flex align-items-center">
                    <div class="">
                      <p class="mb-1">Liên hệ</p>
-                     <h4 class="mb-0">9853</h4>
-                     <a href="/dashboard/quantrivien">Xem chi tiết <i class="bi bi-arrow-right"></i></a>
+                     <h4 class="mb-0">{{$lienhe}}</h4>
+                     <a href="/dashboard/lienhe">Xem chi tiết <i class="bi bi-arrow-right"></i></a>
                    </div>
                    <div class="ms-auto widget-icon bg-info text-white">
                      <i class="bi bi-people-fill"></i>
@@ -119,22 +119,7 @@
                   </div>
                 </div>
                </div>
-            <div class="col">
-                <div class="card rounded-4">
-                  <div class="card-body">
-                    <div class="d-flex align-items-center">
-                      <div class="">
-                        <p class="mb-1">Câu hỏi</p>
-                        <h4 class="mb-0">{{$truycap}}</h4>
-                        <a href="/dashboard/cauhoi">Xem chi tiết <i class="bi bi-arrow-right"></i></a>
-                      </div>
-                      <div class="ms-auto widget-icon bg-success text-white">
-                        <i class=" bx bx-question-mark"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
+            
         </div>
         <div class="row">
           <div class="col d-flex">
@@ -156,7 +141,7 @@
                       Lượng truy cập tháng này
                     </th>
                     <th>
-                      Lượng truy cập hiện tại
+                      Đang hoạt động
                     </th>
                   </thead>
                   <tbody>

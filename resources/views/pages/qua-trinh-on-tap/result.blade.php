@@ -6,6 +6,11 @@
       </div>
 @endsection
 @section('content')
+@section('title')
+    <title>
+        Quá trình làm bài 
+    </title>
+@endsection
 @include('layouts.layout.breadcrumb')
     <main>
         @foreach ($users as $item=>$value)

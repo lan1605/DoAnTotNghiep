@@ -11,6 +11,7 @@ use App\Models\BaiDang;
 use App\Models\CauHoi;
 use App\Models\ChuDe;
 use App\Models\TruyCap;
+use App\Models\LienHe;
 use Carbon\Carbon;
 
 class DashBoardController extends Controller
@@ -24,7 +25,7 @@ class DashBoardController extends Controller
         $hocvien = User::count();
         $baidang = BaiDang::count();
         $cauhoi = CauHoi::count();
-
+        $lienhe = LienHe::count();
         //thống kê lượt truy cập 
         $user_ip = $req->ip();
         $early_last_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString(); //đầu tháng trước
@@ -33,12 +34,15 @@ class DashBoardController extends Controller
         $oneyear = Carbon::now('Asia/Ho_Chi_Minh')->subDays(365)->toDateString();
         $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
         //tổng truy cập tháng trước
-        $thangtruoc = TruyCap::whereBetween('thoigian_truycap',[$early_last_month, $end_of_last_month])->get();
+        $thangtruoc = User::whereBetween('created_at',[$early_last_month, $end_of_last_month])->get();
+        
         $tong_thangtruoc = $thangtruoc->count();
         //tổng truy cập tháng này
-        $thangnay = TruyCap::whereBetween('thoigian_truycap',[$early_this_month, $now])->get();
+        $thangnay = User::whereBetween('created_at',[$end_of_last_month, $now])->get();
         $tong_thangnay = $thangnay->count();
-        $truycap_hientai = TruyCap::where('diachi_ip', $user_ip)->get();
+        // dd($thangnay);
+        // $truycap_hientai = TruyCap::where('diachi_ip', $user_ip)->get();
+        $truycap_hientai=User::where('truy_cap','>=',now()->subMinutes(5))->get();
         $truycap = $truycap_hientai->count();
         if ($truycap < 1){
             $truycap_moi = new TruyCap;
@@ -47,7 +51,7 @@ class DashBoardController extends Controller
             $truycap_moi->save();
         }
         //tổng số lượng truy cập
-        $soluong = TruyCap::count();
+        $soluong = User::count();
 
         $baihoc_truycap = BaiHoc::orderBy('luotxem', 'DESC')->take(20)->get();
         $baidang_truycap = BaiDang::orderBy('truy_cap', 'DESC')->take(20)->get();
@@ -55,7 +59,7 @@ class DashBoardController extends Controller
         // 'giangvien'=>$giangvien, 
         'hocvien'=>$hocvien, 'baitap'=>$baitap,
         'baihoc' => $baihoc, 'baidang'=>$baidang,
-        'chude' => $chude, 'cauhoi'=>$cauhoi, 'truycap' => $soluong, 'baihoc_truycap'=>$baihoc_truycap, 'baidang_truycap'=>$baidang_truycap,
+        'chude' => $chude, 'cauhoi'=>$cauhoi, 'lienhe'=>$lienhe,'truycap' => $soluong, 'baihoc_truycap'=>$baihoc_truycap, 'baidang_truycap'=>$baidang_truycap,
         'truycap_hientai'=>$truycap, 'tong_thangtruoc'=>$tong_thangtruoc, 'tong_thangnay'=>$tong_thangnay]);
     }
 }

@@ -205,8 +205,8 @@ class BaiHocController extends Controller
 
         $daluu = ThoiGianHoc::where('id_baihoc',$chitiet->id_baihoc)->where('id_hocvien',Auth::user()->id)->orderBy('created_at', 'DESC')->first();
         $baitap = BaiTap::where('id_baihoc', $chitiet->id_baihoc)->first();
-        $solanlambai = KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
-        $thoigianlambai = KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('created_at', 'DESC')->first();
+        // $solanlambai = KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
+        // $thoigianlambai = KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('created_at', 'DESC')->first();
         if(isset($daluu)){
             $capnhat = ThoiGianHoc::find($daluu->id);
             $capnhat->updated_at = date('Y-m-d G:i:s');
@@ -224,12 +224,12 @@ class BaiHocController extends Controller
 
         $cungchude = BaiHoc::where('id_baihoc','!=' ,$chitiet->id_baihoc)->where('id_chude', $chitiet->id_chude)->get();
         return view('pages.baihoc.detail',[ 'chitiet'=>$chitiet, 'cungchude'=>$cungchude, 'next'=> $next_id, 'prev'=> $prev_id, 
-        'page'=>'Bài học', 'link'=>'/baihoc', 'title'=>$chitiet->ten_baihoc, 'solanlambai'=>count($solanlambai),'thoigian'=>$thoigianlambai]); 
+        'page'=>'Bài học', 'link'=>'/bai-hoc', 'title'=>$chitiet->ten_baihoc]); 
     }
     public function Luubaihoc($slug){
         $baihoc_id= BaiHoc::where('slug',$slug)->first();
 
-        $id = ThoiGianHoc::where('id_baihoc', $baihoc_id->id_baihoc)->orderBy('created_at', 'DESC')->first();
+        $id = ThoiGianHoc::where('id_baihoc', $baihoc_id->id_baihoc)->where('id_hocvien', Auth::user()->id)->orderBy('created_at', 'DESC')->first();
         $luubaihoc = new LuuBaiHoc;
         
         $baihocdaluu = LuuBaiHoc::where('id_baihoc', $baihoc_id->id_baihoc)->first();
@@ -250,10 +250,9 @@ class BaiHocController extends Controller
     public function xoaLuu($slug){
         $baihoc_id= BaiHoc::where('slug',$slug)->first();
 
-        $id = ThoiGianHoc::where('id_baihoc', $baihoc_id->id_baihoc)->orderBy('created_at', 'DESC')->first();
+        $id = ThoiGianHoc::where('id_hocvien', Auth::user()->id)->where('id_baihoc', $baihoc_id->id_baihoc)->first();
         
-        $baihocdaluu = LuuBaiHoc::where('id_baihoc', $baihoc_id->id_baihoc)->first();
-
+        $baihocdaluu = LuuBaiHoc::where('id_thoigianhoc', $id->id)->first();
         $baihocdaluu->delete();
 
         if ($baihocdaluu){

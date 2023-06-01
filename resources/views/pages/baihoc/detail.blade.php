@@ -90,7 +90,14 @@
                                         $baitap = App\Models\BaiTap::where('id_baihoc', $chitiet->id_baihoc)->first();
                                     ?>
                                         @if (isset($baitap->id_baihoc))
-                                            <a href="/bai-tap/{{$baitap->slug}}" class="btn btn-success px-5" id="lambaitap"> <i class="bx bx-credit-card-front"></i> Làm bài tập</a>
+                                            @php
+                                                $solanlambai = App\Models\KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->get();
+                                            @endphp
+                                            @if (count($solanlambai)==3)
+                                                
+                                            @else
+                                                <a href="/bai-tap/{{$baitap->slug}}" class="btn btn-success px-5" id="lambaitap"> <i class="bx bx-credit-card-front"></i> Làm bài tập</a>
+                                            @endif
 
                                         @else
                                             

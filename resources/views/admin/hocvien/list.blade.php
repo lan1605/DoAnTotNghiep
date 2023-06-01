@@ -88,7 +88,7 @@
                             @else
                                 {{"_"}}
                             @endif</span></td>
-                            <td>@if ($user->truy_cap >= now()->subMinutes(1))
+                            <td>@if ($user->truy_cap >= now()->subMinutes(5))
                                 <span class="badge rounded-pill bg-success">Đang hoạt động</span>
                             @else
                             <span class="badge rounded-pill bg-danger">Không hoạt động</span>

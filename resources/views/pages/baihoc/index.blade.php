@@ -7,7 +7,7 @@
 @endsection
 @section('title')
     <title>
-        Danh sách bài học đã lưu
+        Danh sách bài học
     </title>
 @endsection
 @section('content')

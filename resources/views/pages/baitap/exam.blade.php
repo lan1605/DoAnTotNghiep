@@ -1,24 +1,3 @@
-@if ($solanlambai==3)
-@extends('layouts.app')
-@include('layouts.layout.menu')
-@section('login-for-users')
-    <div class="d-flex ms-3 gap-3">
-        @include('layouts.layout.auth')
-      </div>
-@endsection
-@section('title')
-    <title>
-        Bài tập {{App\Models\BaiHoc::find($baitap->id_baihoc)->ten_baihoc}}
-    </title>
-@endsection
-@section('content')
-    <main>
-        <div class="bg-white">
-            
-        </div>
-    </main>
-@endsection
-@else
 @if ($thoigian_nopbai === null)
 @extends('layouts.app')
 @include('layouts.layout.menu')
@@ -194,5 +173,4 @@
     // return session()->flash('already', 'Vui lòng chờ hệ thống cập nhật thêm câu hỏi...');
 @endphp
 <script>window.location = "/bai-hoc/{{$baihoc->slug}}";</script>
-@endif
 @endif

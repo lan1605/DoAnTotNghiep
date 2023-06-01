@@ -6,6 +6,7 @@
     @include('layouts.breadcrumb')
     <!--end breadcrumb-->
     @include('layouts.notificationLogin')
+    @include('layouts.notication')
         <div class="row">
             <div class="col-xl-9 mx-auto">
 						<div class="card">
@@ -60,13 +61,16 @@
                                                 <form action="/dashboard/lienhe/{{$lienhe->id}}" method="post">
                                                     @csrf
                                                     <textarea name="noi_dung" id="" cols="30"  placeholder="Nội dung phản hồi.." class="form-control"></textarea>
-                                                </form>
+                                                
                                             </div>
                                             <div class="col-lg-12 text-md-end mt-2">
                                                 <button type="submit" class="btn btn-primary">Gửi phản hồi</button>
                                             </div>
+                                        </form>
                                             @else
+                                            <div class="col-sm-12">
                                                 {{$lienhe->noidung_phanhoi}}
+                                            </div>
                                             @endif
 										
 									</div>

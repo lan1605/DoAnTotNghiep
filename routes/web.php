@@ -33,7 +33,7 @@ use App\Http\Controllers\QuyenController;
 use App\Http\Controllers\LamBaiTapController;
 use App\Http\Controllers\LienHeController;
 use App\Http\Controllers\BinhLuanController;
-use App\Http\Controllers\QuaTrinhHocTapController;
+use App\Http\Controllers\ThongTinLamBaiController;
 use App\Http\Controllers\QuaTrinhOnTapController;
 
 Route::get('/', function () {
@@ -98,8 +98,15 @@ Route::middleware(['admin'])->group(function () {
     Route::prefix('/dashboard/lienhe')->group(function () {
         Route::get('/',[LienHeController::class, 'store']);
         Route::get('/{id}',[LienHeController::class, 'detail']);
+        Route::post('/{id}',[LienHeController::class, 'send']);
         Route::get('/xoa/{id}',[LienHeController::class, 'delete']);
         Route::delete('/selected',[LienHeController::class, 'deleteAll'])->name('lienhe.delete.all');
+    });
+    //Quản lý thông tin bài làm
+    Route::prefix('/dashboard/thongtinlambai')->group(function () {
+        Route::get('/', [ThongTinLamBaiController::class,'index'])->name('quanly.thongtinlambai');
+        Route::get('/xoa/{slug}', [ThongTinLamBaiController::class,'delete']);
+        Route::delete('/selected',[ThongTinLamBaiController::class, 'deleteAll'])->name('thongtinlambai.delete.all');
     });
 });
     //quản lý chủ đề
@@ -171,10 +178,6 @@ Route::prefix('/bai-tap')->group(function () {
     Route::get('/{slug}/nop', [LamBaiTapController::class, 'NopBaiLam']);
     Route::get('/{slug}/ketqua', [LamBaiTapController::class, 'KetQua']);
 })->middleware('hocvien');
-//Quá trình học tập
-Route::prefix('/qua-trinh-hoc-tap')->group(function () {
-    Route::get('/',[QuaTrinhHocTapController::class, 'quatrinh']);
-})->middleware('hocvien');
 //Bài viết
 Route::prefix('/goc-hoi-dap')->group(function () {
     Route::get('/', [BaiDangController::class,'indexPage'])->name('baidang.index');
@@ -194,12 +197,14 @@ Route::post('/comment/edit', [BinhLuanController::class, 'edit'])->name('comment
 Route::get('/lien-he',[LienHeController::class,'index']);
 Route::post('/lien-he',[LienHeController::class, 'sendMail']);
 //Thông tin học viên
-Route::get('/thong-tin-ca-nhan', [HocVienController::class, 'viewDetail'])->name('user.profile');
+Route::middleware(['hocvien'])->group(function () {
+    Route::get('/thong-tin-ca-nhan', [HocVienController::class, 'viewDetail'])->name('user.profile');
 Route::post('/thong-tin-ca-nhan', [HocVienController::class, 'editDetail']);
 Route::get('/thong-tin-ca-nhan/xoa', [HocVienController::class, 'deleteDetail']);
+});
 //Quá trình ôn tập
-Route::get('/qua-trinh-on-tap', [QuaTrinhOnTapController::class, 'index']);
-Route::get('/qua-trinh-on-tap/{slug}', [QuaTrinhOnTapController::class, 'viewDetail']);
+Route::get('/qua-trinh-on-tap', [QuaTrinhOnTapController::class, 'index'])->middleware('hocvien');
+Route::get('/qua-trinh-on-tap/{slug}', [QuaTrinhOnTapController::class, 'viewDetail'])->middleware('hocvien');
 Route::prefix('ajax')->group(function () {
     Route::get('/cauhoi',[AjaxController::class,'getBaiHoc'])->name('ajax.cauhoi');
 });
