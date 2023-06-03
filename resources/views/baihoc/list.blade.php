@@ -50,22 +50,25 @@
             @else  
             
             <div class="table-responsive">
-                <table class="table align-middle table-striped">
+                <table class="table align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="select_all">
+                                    </div>
+                            </th>
+                            <th>Mã bài học</th>
+                            <th>Tên bài học</th>
+                            <th>Đường dẫn tĩnh</th>
+                            <th>Chủ đề</th>
+                            <th>Trạng thái</th>
+                            <th>Người đăng</th>
+                            <th>Tùy chọn</th>
+                        </tr>
+                    </thead>
                 <tbody>
-                    <tr>
-                        <th>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="select_all">
-                                </div>
-                        </th>
-                        <th>Mã bài học</th>
-                        <th>Tên bài học</th>
-                        <th>Đường dẫn tĩnh</th>
-                        <th>Chủ đề</th>
-                        <th>Trạng thái</th>
-                        <th>Người đăng</th>
-                        <th>Tùy chọn</th>
-                    </tr>
+                    
     
                     @foreach ($baihocs as $baihoc)
                         <tr id="baihoc_ids{{$baihoc->id_baihoc}}">
@@ -193,7 +196,7 @@
                 $.each(all_ids, function(key, val){
                     $('#baihoc_ids'+val).remove();
                 });
-                location.reload();
+                location.replace('/dashboard/baihoc');
             }
         });
     });

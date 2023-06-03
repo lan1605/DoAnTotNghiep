@@ -5,35 +5,35 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="../../assets/images/logo-dai-hoc-nha-trang.png" type="image/png" />
+  <link rel="icon" href="{{asset('assets/images/logo-dai-hoc-nha-trang.png')}}" type="image/png" />
   <!--plugins-->
-  <link href="../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
-  <link href="../../assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
-  <link href="../../assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
-  <link href="../../assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+  <link href="{{asset('assets/plugins/vectormap/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet"/>
+  <link href="{{asset('assets/plugins/simplebar/css/simplebar.css')}}" rel="stylesheet" />
+  <link href="{{asset('assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" />
+  <link href="{{asset('assets/plugins/metismenu/css/metisMenu.min.css')}}" rel="stylesheet" />
   <!-- Bootstrap CSS -->
-  <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../../assets/css/bootstrap-extended.css" rel="stylesheet" />
-  <link href="../../assets/css/style.css" rel="stylesheet" />
-  <link href="../../assets/css/icons.css" rel="stylesheet">
+  <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" />
+  <link href="{{asset('assets/css/bootstrap-extended.css')}}" rel="stylesheet" />
+  <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" />
+  <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="../../assets/plugins/notifications/css/lobibox.min.css" />
+  <link rel="stylesheet" href="{{asset('assets/plugins/notifications/css/lobibox.min.css')}}" />
   <!-- loader-->
-	<link href="../../assets/css/pace.min.css" rel="stylesheet" />
+	<link href="{{asset('assets/css/pace.min.css')}}" rel="stylesheet" />
 
   <!--Theme Styles-->
-  <link href="../../assets/css/dark-theme.css" rel="stylesheet" />
-  <link href="../../assets/css/light-theme.css" rel="stylesheet" />
-  <link href="../../assets/css/semi-dark.css" rel="stylesheet" />
-  <link href="../../assets/css/header-colors.css" rel="stylesheet" />
+  <link href="{{asset('assets/css/dark-theme.css')}}" rel="stylesheet" />
+  <link href="{{asset('assets/css/light-theme.css')}}" rel="stylesheet" />
+  <link href="{{asset('assets/css/semi-dark.css')}}" rel="stylesheet" />
+  <link href="{{asset('assets/css/header-colors.css')}}" rel="stylesheet" />
   {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script  src="../../assets/plugins/ckeditor5/build/ckeditor.js"></script>
-  <script  src="../../assets/plugins/notifications/js/lobibox.min.js"></script>
-  <script  src="../../assets/plugins/notifications/js/notifications.min.js"></script>
-  <script  src="../../assets/plugins/notifications/js/notification-custom-script.js"></script>
-  <script async src="../../assets/js/pace.min.js"></script>
+  <script  src="{{asset('assets/plugins/ckeditor5/build/ckeditor.js')}}"></script>
+  <script  src="{{asset('assets/plugins/notifications/js/lobibox.min.js')}}"></script>
+  <script  src="{{asset('assets/plugins/notifications/js/notifications.min.js')}}"></script>
+  <script  src="{{asset('assets/plugins/notifications/js/notification-custom-script.js')}}"></script>
+  <script src="{{asset('assets/js/pace.min.js')}}"></script>
   <title>
     @if (isset($titlePage))
         {{$titlePage}}
@@ -77,26 +77,27 @@
 
 
   <!-- Bootstrap bundle JS -->
-  <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+  <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
   <!--plugins-->
-  <script src="../../assets/js/jquery.min.js"></script>
-  <script src="../../assets/plugins/simplebar/js/simplebar.min.js"></script>
-  <script src="../../assets/plugins/metismenu/js/metisMenu.min.js"></script>
-  <script src="../../assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
-  <script src="../../assets/js/pace.min.js"></script>
-  <script src="../../assets/plugins/chartjs/js/Chart.min.js"></script>
-  <script src="../../assets/plugins/chartjs/js/Chart.extension.js"></script>
-  <script src="../../assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+  <script src="{{asset('assets/js/jquery.min.js')}}"></script>
+  <script src="{{asset('assets/plugins/simplebar/js/simplebar.min.js')}}"></script>
+  <script src="{{asset('assets/plugins/metismenu/js/metisMenu.min.js')}}"></script>
+  <script src="{{asset('assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js')}}"></script>
+  <script src="{{asset('assets/js/pace.min.js')}}"></script>
+  <script src="{{asset('assets/plugins/chartjs/js/Chart.min.js')}}"></script>
+  <script src="{{asset('assets/plugins/chartjs/js/Chart.extension.js')}}"></script>
+  <script src="{{asset('assets/plugins/apexcharts-bundle/js/apexcharts.min.js')}}"></script>
    <!-- Vector map JavaScript -->
-   <script src="../../assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
-   <script src="../../assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
+   <script src="{{asset('assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js')}}"></script>
+   <script src="{{asset('assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
   <!--app-->
-  <script src="../../assets/js/app.js"></script>
-  <script src="../../assets/js/index.js"></script>
+  <script src="{{asset('assets/js/app.js')}}"></script>
+  <script src="{{asset('assets/js/index.js')}}"></script>
 
 
   @yield('javascript')
 <script>
+  
 ClassicEditor
     .create( document.querySelector( '#editor' ), {
         ckfinder:{

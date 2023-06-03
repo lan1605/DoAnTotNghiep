@@ -202,7 +202,7 @@
                     $.each(all_ids, function(key, val){
                         $('#admin_ids'+val).remove();
                     })
-                    location.reload();
+                    location.replace('/dashboard/quantrivien');
                 }
             });
         });

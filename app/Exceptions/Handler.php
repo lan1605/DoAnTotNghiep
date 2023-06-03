@@ -59,6 +59,7 @@ class Handler extends ExceptionHandler
             return redirect()->guest('/admin');
         }
         
+        
         return redirect()->guest(route('/'));
     }
 }

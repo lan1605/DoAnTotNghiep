@@ -207,7 +207,7 @@
                 $.each(all_ids, function(key, val){
                     $('#role_ids'+val).remove();
                 })
-                location.reload();
+                location.replace('/dashboard/quyen');
             }
         });
     });

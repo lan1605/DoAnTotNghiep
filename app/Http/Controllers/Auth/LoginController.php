@@ -49,7 +49,7 @@ class LoginController extends Controller
     {
         $this->validate($request, [
             'email'   => 'required|email',
-            'password' => 'required|min:6|confirm'
+            'password' => 'required|min:6'
         ]);
 
         if (\Auth::guard('admin')->attempt($request->only('email','password'), $request->get('remember'))){

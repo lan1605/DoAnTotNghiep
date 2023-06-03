@@ -249,7 +249,7 @@
                     $.each(all_ids, function(key, val){
                         $('#chude_ids'+val).remove();
                     })
-                    location.reload();
+                    location.replace('/dashboard/chude');
                 }
             });
         });

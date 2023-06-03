@@ -104,10 +104,54 @@
                                         <h5 class="modal-title" id="exampleModalLabel">Thêm câu hỏi</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form action="/dashboard/cauhoi/import" method="post" enctype="multipart/form-data">
+                                    <form action="/dashboard/cauhoi/" method="post" enctype="multipart/form-data">
                                         @csrf
                                         <div class="modal-body">
-                                            <input type="file" name="file" id="" class="form-control">
+                                            <label class="form-label">Loại câu hỏi<span class="text-danger">*</span></label>
+                                            <select name="id_loaicauhoi_excel" id="" class="form-select @error('id_loaicauhoi') is-invalid @enderror">
+                                                <?php
+                                                    $loaicauhois = App\Models\LoaiCauHoi::all();
+                                                ?>
+                                                @foreach ($loaicauhois as $item)
+                                                    <option value="{{$item->id}}" >{{$item->ten_loaicauhoi}}</option>
+                                                @endforeach
+                                            </select>
+                                            <label class="form-label">Chủ đề<span class="text-danger">*</span></label>
+                                            <select name="id_chude_excel" id="chude_excel" class="form-select">
+                                                <option value="0">-Chọn chủ đề-</option>
+                                                <?php
+                                                    $chudes = App\Models\ChuDe::all();
+                                                    
+                                                ?>
+                                                @foreach ($chudes as $item)
+                                                    <option value="{{$item->id_chude}}"  >{{$item->ten_chude}}</option>
+                                                @endforeach
+                                            </select>
+                                            <label class="form-label">Bài học<span class="text-danger">*</span></label>
+                                            <select name="id_baihoc_excel" id="baihoc_excel" class="form-select">
+                                                <option value="0">-Chọn bài học-</option>
+                                            </select>
+                                            <script>
+                                                $(document).ready(function () {
+                                                $('#chude_excel').on('change', function () {
+                                                    var chudeID = this.value;
+                                                    $.ajax({
+                                                        url: '{{ route('ajax.cauhoi') }}?id_chude='+chudeID,
+                                                        type: 'get',
+                                                        success: function (res) {
+                                                            $('#baihoc_excel').html('<option value="">-Chọn bài học-</option>');
+                                                            $.each(res, function (key, value) {
+                                                                $('#baihoc_excel').append('<option value="' + value
+                                                                    .id_baihoc + '">' + value.ten_baihoc + '</option>');
+                                                            });
+                                                        }
+                                                        
+                                                    });
+                                                });
+                                            });
+                    
+                                            </script>
+                                            <input type="file" name="file" id="" class="form-control mt-2">
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
@@ -126,23 +170,25 @@
                 {{"Không có thông tin hiển thị"}}   
             @else  
             <div class="table-responsive">
-                <table class="table align-middle table-striped">
+                <table class="table align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="select_all">
+                                    </div>
+                            </th>
+                            <th>STT</th>
+                            <th>Tên câu hỏi</th>
+                            <th>Nội dung</th>
+                            <th>Loại câu hỏi</th>
+                            <th>Bài học</th>
+                            <th>Người tạo</th>
+                            <th>Thời gian tạo</th>
+                            <th>Tùy chọn</th>
+                        </tr>
+                    </thead>
                 <tbody>
-                    <tr>
-                        <th>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="select_all">
-                                </div>
-                        </th>
-                        <th>STT</th>
-                        <th>Tên câu hỏi</th>
-                        <th>Nội dung</th>
-                        <th>Loại câu hỏi</th>
-                        <th>Bài học</th>
-                        <th>Người tạo</th>
-                        <th>Thời gian tạo</th>
-                        <th>Tùy chọn</th>
-                    </tr>
                     <?php $stt = 0?>
                     @foreach ($cauhois as $cauhoi)
                     <?php
@@ -285,7 +331,7 @@
                 $.each(all_ids, function(key, val){
                     $('#cauhoi_ids'+val).remove();
                 });
-                location.reload();
+                location.replace('/dashboard/cauhoi');
             }
         });
     });

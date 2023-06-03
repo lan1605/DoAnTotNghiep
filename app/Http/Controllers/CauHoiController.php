@@ -8,6 +8,8 @@ use DB;
 use Illuminate\Support\Facades\Auth;
 use App\Imports\CauHoiImport;
 use Maatwebsite\Excel\Facades\Excel;
+use Input;
+use File;
 
 class CauHoiController extends Controller
 {
@@ -71,14 +73,15 @@ class CauHoiController extends Controller
         
     // }      
     
-    public function import(Request $request){
-        // Excel::import(new CauHoiImport, $request->file('file'));
-        // return redirect()->back()->with('success','Tải file thành công');
-        try {
-            $this->userImport->import($request->file('file_user'));
-        } catch (\Exception $e) {
-            report($e);
+    public function import(Request $req){
+        if($req->hasFile('file')){
+            Excel::import(new CauHoiImport, $req->file('file'));
+            return redirect()->back()->with('success','Tải file thành công');
         }
+        else {
+            return redirect()->back()->with('error','Đã có lỗi, vui lòng thử lại ');
+        }
+        
     }
     
     

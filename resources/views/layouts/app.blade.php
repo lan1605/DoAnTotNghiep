@@ -4,7 +4,7 @@
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="../../assets/images/logo-dai-hoc-nha-trang.png" type="image/png" />
   <!-- Bootstrap CSS -->
   <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -101,6 +101,12 @@
       });
 
   });
+  const listImg = document.querySelectorAll("article img");
+  if (document.body.clientWidth < 767){
+    listImg.forEach(item => {
+      item.classList.add('img-fluid');
+    });
+  }
   </script>
 
   @yield('javascript')

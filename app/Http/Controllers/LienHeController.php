@@ -71,7 +71,7 @@ class LienHeController extends Controller
     public function detail($id){
         $lienhe = LienHe::find($id);
 
-        return view('admin.lien-he.send', ['lienhe'=>$lienhe,'titlePage'=>'Quản lý liên hệ', 'breadcrumb'=> 'Trả lời liên hệ','linkPage'=>'/dashboard/lienhe']);
+        return view('admin.lien-he.send', ['lienhe'=>$lienhe,'titlePage'=>'Quản lý liên hệ', 'breadcrumb'=> 'Chi tiết liên hệ của '.$lienhe->ten,'linkPage'=>'/dashboard/lienhe']);
     }
 
     public function send(Request $req, $id){

@@ -61,20 +61,23 @@
                                     }
                                 @endphp --}}
                                 <div class="table-responsive">
-                                    <table class="table align-middle table-striped">
+                                    <table class="table align-middle">
+                                        <thead class="table-light">
+                                            <tr >
+                                                <th>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="select_all">
+                                                    </div>
+                                                </th>
+                                                <th>STT</th>
+                                                <th>Bài tập</th>
+                                                <th>Chủ đề</th>
+                                                <th>Số lượng học viên đã làm</th>
+                                                <th>Tùy chọn</th>
+                                            </tr>
+                                        </thead>
                                     <tbody>
-                                        <tr >
-                                            <th>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="select_all">
-                                                </div>
-                                            </th>
-                                            <th>STT</th>
-                                            <th>Bài tập</th>
-                                            <th>Chủ đề</th>
-                                            <th>Số lượng học viên đã làm</th>
-                                            <th>Tùy chọn</th>
-                                        </tr>
+                                        
                                             @php
                                             $dem = 0;
                                             @endphp
@@ -90,7 +93,7 @@
                                                     </td>
                                                     <td>
                                                         <span>
-                                                            {{$dem}}
+                                                            {{$dem}} 
                                                         </span>
                                                     </td>
                                                     <td>
@@ -147,8 +150,8 @@
                                             @endforeach
                                     </tbody>
                                     </table>
-                                    {{-- {{ $thongtin->links('pagination.custom') }} --}}
-                                    {{-- <div class="float-start mt-2">
+                                    {{-- {{ $thongtin->links('pagination.custom') }} 
+                                   <div class="float-start mt-2">
                                         Hiển thị {{ $thongtin->firstItem() }} đến {{ $thongtin->lastItem() }} trong tổng số {{$thongtin->total()}} dòng
                                     </div> --}}
                                 </div>
@@ -207,7 +210,7 @@
                     $.each(all_ids, function(key, val){
                         $('#thongtin_ids'+val).remove();
                     })
-                    location.reload();
+                    location.replace('/dashboard/thongtinlambai');
                 }
             });
         });

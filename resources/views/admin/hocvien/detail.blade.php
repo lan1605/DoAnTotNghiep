@@ -14,57 +14,124 @@
                   <h5 class="mb-0">Hoạt động của học viên</h5>
                   <hr>
                   <div class="card shadow-none border">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between align-items-center">
                       <h6 class="mb-0">Bài tập đã làm</h6>
+                      @if (count($thongtin)==0)
+                          
+                      @else
+                        <i class="bi-trash-fill me-2 btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAllBT" ></i>
+                      @endif
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
-                        <table class="table align-middle table-striped">
-                        <tbody>
-                            <tr>
-                                <th>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox">
-                                        </div>
-                                </th>
-                                <th>Bài tập</th>
-                                <th>Bài học</th>
-                                <th>Số điểm</th>
-                                <th>Số câu trả lời sai</th>
-                                <th>Thời gian bắt đầu</th>
-                                <th>Thời gian kết thúc</th>
-                                <th>Tùy chọn</th>
-                            </tr>
-                            
-                        </tbody>
+                        <table class="table align-middle ">
+                          <thead class="table-light">
+                          <tr>
+                            <th>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="select_all_bt">
+                                  </div>
+                              </th>
+                              <th>STT</th>
+                              <th>Tên bài tập</th>
+                              <th>Chủ đề</th>
+                              <th>Số lần làm bài</th>
+                              <th>Tùy chọn</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                              @php
+                                  $dem = 0;
+                              @endphp
+                              @foreach ($thongtin as $item=>$value)
+                              @php
+                                  $dem = $dem +1;
+                              @endphp
+                                  <tr id="bt_ids{{$item}}">
+                                    <td>
+                                      <input type="checkbox" name="ids_BT" id="" class="form-check-input checkbox_BT" value="{{$item}}">
+                                    </td>
+                                      <td>
+                                          <span>
+                                              {{$dem}}
+                                          </span>
+                                      </td>
+                                      <td>
+                                          <span>
+                                              @php
+                                                  $baitap = App\Models\BaiTap::find($item);
+                                                  // dd($baitap);
+                                              @endphp
+                                              {{$baitap->ten_baitap}}
+                                          </span>
+                                      </td>
+                                      <td>
+                                          <span>
+                                              @php
+                                                  $baihoc = App\Models\BaiHoc::find($baitap->id_baihoc);
+                                                  $chude = App\Models\ChuDe::find($baihoc->id_chude);
+                                                  echo $chude->ten_chude;
+                                              @endphp
+                                          </span>
+                                      </td>
+                                      <td>
+                                          <span>
+                                              {{-- @php
+                                                  $count = 0;
+                                                  foreach($value as $user_kq) {
+                                                      $count++;
+                                                  }
+                                              @endphp --}}
+                                              {{count($value)}}
+                                          </span>
+                                      </td>
+                                      <td>
+                                          <span>
+                                              <a href="/dashboard/thongtinlambai/{{$baitap->slug}}/{{$user->id}}">Xem chi tiết </a>
+
+                                          </span>
+                                      </td>
+                                  </tr>
+                              @endforeach
+                          </tbody>
                         </table>
+                        @include('admin.hocvien.deleteBT')
                     </div>
                     </div>
                   </div>
                   <div class="card shadow-none border">
-                    <div class="card-header">
+                    <div class="card-header d-flex align-items-center justify-content-between">
                       <h6 class="mb-0">Bài đăng</h6>
+                      
+                      @if (count($baidang)==0)
+                          
+                      @else
+                        <i class="bi-trash-fill me-2 btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAllBD" ></i>
+                      @endif
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
-                        <table class="table align-middle table-striped">
-                        <tbody>
+                        <table class="table align-middle ">
+                          <thead class="table-light">
                             <tr>
-                                <th>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox">
-                                        </div>
-                                </th>
-                                <th>Tên bài đăng</th>
-                                <th>Chủ đề</th>
-                                <th>Thời gian đăng</th>
-                                <th>Bình luận</th>
-                                {{-- <th>Tùy chọn</th> --}}
-                            </tr>
+                              <th>
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox"  id="select_all_bd">
+                                  </div>
+                              </th>
+                              <th>Tên bài đăng</th>
+                              <th>Chủ đề</th>
+                              <th>Thời gian đăng</th>
+                              <th>Bình luận</th>
+                              {{-- <th>Tùy chọn</th> --}}
+                          </tr>
+                          </thead>
+                        <tbody>
+                            
                             @foreach ($baidang as $item)
-                                <tr>
+                                <tr id="bd_ids{{$item->id}}">
                                   <td>
-                                    <input type="checkbox" name="" id="" class="form-check-input">
+                                    <input type="checkbox" name="ids_BD" id="" class="form-check-input checkbox_BD" value="{{$item->id}}">
                                   </td>
                                   <td><span>{{$item->ten_baidang}}</span>
                                   </td>
@@ -90,10 +157,16 @@
                                         ?>
                                     </span>
                                   </td>
+                                  <td>
+                                    <span>
+
+                                    </span>
+                                  </td>
                                 </tr>
                             @endforeach
                         </tbody>
                         </table>
+                        @include('admin.hocvien.deleteBD')
                     </div>
                     </div>
                   </div>
@@ -116,7 +189,7 @@
                         @endphp
                         {{count($baitap)}}
                     </h4>
-                    <p class="mb-0 text-secondary">
+                    <p class="mb-0 text-secondary ">
                         Bài tập đã làm
                     </p>
                     </div>
@@ -127,7 +200,7 @@
                         @endphp
                         {{count($baihoc)}}
                     </h4>
-                    <p class="mb-0 text-secondary">Bài học đã học</p>
+                    <p class="mb-0 text-secondary ">Bài học đã học</p>
                     </div>
                     <div class="text-center">
                     <h4 class="mb-0">
@@ -136,10 +209,10 @@
                         @endphp
                         {{count($baidang)}}
                     </h4>
-                    <p class="mb-0 text-secondary">Bài viết đã đăng</p>
+                    <p class="mb-0 text-secondary ">Bài viết đã đăng</p>
                     </div>
                 </div>
-                <div class="text-center mt-4">
+                <div class="text-center mt-4 ">
                 <h4 class="mb-1">{{$user->name}}</h4>
                 <div class="mt-4">{{'Học viên'}}</div>
                 <p class="mb-0 text-secondary">{{$user->email}}</p>
@@ -148,11 +221,11 @@
                 
                 <hr>
                   
-                  <div class="text-start">
+                  <div class="text-start ">
                     <h5 class="">Chi tiết về tài khoản học viên</h5>
                   </div>
               </div>
-              <ul class="list-group list-group-flush">
+              <ul class="list-group list-group-flush ">
                 <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">
                   Ngày tạo
                   <span class=" ">{{$user->created_at}}</span>

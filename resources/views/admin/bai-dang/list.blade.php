@@ -29,7 +29,7 @@
                         <div class="mb-2 mb-sm-0 ms-2">
                             <div class="ms-auto position-relative">
                                 <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-search"></i></div>
-                                <input class="form-control ps-5" type="text" placeholder="tìm kiếm bài đăng..."name="key_find" value="{{Request()->key_find}}">
+                                <input class="form-control ps-5" type="text" placeholder="tìm kiếm bài viết..."name="key_find" value="{{Request()->key_find}}">
                             </div>
                         </div>
 
@@ -48,8 +48,8 @@
                 {{"Không có thông tin hiển thị"}}   
             @else  
             <div class="table-responsive">
-                <table class="table align-middle table-striped">
-                <tbody>
+                <table class="table align-middle">
+                <thead class="table-light">
                     <tr>
                         <th>
                             <div class="form-check">
@@ -57,14 +57,17 @@
                             </div>
                         </th>
                         <th>STT</th>
-                        <th>Tên bài đăng</th>
-                        <th>Đường dẫn bài đăng</th>
+                        <th>Tên bài viết</th>
+                        <th>Đường dẫn bài viết</th>
                         <th>Chủ đề</th>
-                        <th>Người đăng</th>
-                        <th>Ngày đăng</th>
+                        <th>Người viết</th>
+                        <th>Ngày viết</th>
                         <th>Ngày chỉnh sửa</th>
                         <th>Tùy chọn</th>
                     </tr>
+                </thead>
+                <tbody>
+                    
                     <?php
                     $dem = 0;
                     ?>
@@ -109,7 +112,7 @@
                             <td><span>{{isset($baidang->updated) ? $baidang->updated : "_"}}</span></td>
                             <td>
                                 <div class="d-flex align-items-center gap-3 fs-6">
-                                <a href="/dashboard/baidang/{{$baidang->id}}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="View detail" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
+                                <a href="/dashboard/baiviet/{{$baidang->id}}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="View detail" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
                                 <i class="bi bi-trash-fill text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{$baidang->id}}" aria-label="Xóa"></i>
                                 </div>
                             </td>
@@ -118,13 +121,13 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Xóa bài đăng</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Xóa bài viết</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">Bạn có chắc muốn xóa bài đăng này?</div>
+                                    <div class="modal-body">Bạn có chắc muốn xóa bài viết này?</div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                        <a href="/dashboard/baidang/xoa/{{$baidang->id}}" class="btn btn-danger">Xóa bài đăng</a>
+                                        <a href="/dashboard/baiviet/xoa/{{$baidang->id}}" class="btn btn-danger">Xóa bài viết</a>
                                     </div>
                                 </div>
                             </div>
@@ -147,10 +150,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Xóa bài đăng</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Xóa bài viết</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">Bạn có chắc muốn xóa bài đăng này?</div>
+            <div class="modal-body">Bạn có chắc muốn xóa bài viết này?</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                 <a href="#" id="deleteAll" class="btn btn-danger">Xóa</a>
@@ -159,7 +162,7 @@
     </div>
 </div>
 @section('javascript')
-{{-- <script>
+<script>
     $(function(e){
         $("#select_all").click(function(){
             $('.checkbox-item').prop('checked', $(this).prop('checked'));
@@ -180,14 +183,14 @@
             },
             success:function(response){
                 $.each(all_ids, function(key, val){
-                    $('#hocvien_ids'+val).remove();
+                    $('#baidang_ids'+val).remove();
                 })
-                location.reload();
+                location.replace('/dashboard/baiviet');
             }
         });
     });
     });
-</script> --}}
+</script>
 @endsection
 </main>
 @endsection

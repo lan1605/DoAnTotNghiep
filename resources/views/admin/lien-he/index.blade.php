@@ -33,22 +33,25 @@
                 {{"Không có thông tin hiển thị"}}   
             @else  
             <div class="table-responsive">
-                <table class="table align-middle table-striped">
+                <table class="table align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="select_all">
+                                </div>
+                            </th>
+                            <th>STT</th>
+                            <th>Người liên hệ</th>
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                            <th>Nội dung liên hệ</th>
+                            <th>Tình trạng</th>
+                            <th>Tùy chọn</th>
+                        </tr>
+                    </thead>
                 <tbody>
-                    <tr>
-                        <th>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="select_all">
-                            </div>
-                        </th>
-                        <th>STT</th>
-                        <th>Người liên hệ</th>
-                        <th>Email</th>
-                        <th>Số điện thoại</th>
-                        <th>Nội dung liên hệ</th>
-                        <th>Tình trạng</th>
-                        <th>Tùy chọn</th>
-                    </tr>
+                    
                     <?php $dem = 0?>
                     @foreach ($lienhes as $lienhe)
                     <?php $dem = $dem +1?>
@@ -153,7 +156,7 @@
                     $.each(all_ids, function(key, val){
                         $('#lienhe_ids'+val).remove();
                     })
-                    location.reload();
+                    location.replace('/dashboard/lienhe');
                 }
             });
         });

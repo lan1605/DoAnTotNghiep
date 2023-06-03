@@ -204,7 +204,7 @@
                     $.each(all_ids, function(key, val){
                         $('#loaicauhoi_ids'+val).remove();
                     })
-                    location.reload();
+                    location.replace('/dashboard/loaicauhoi');
                 }
             });
         });

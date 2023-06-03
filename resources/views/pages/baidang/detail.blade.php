@@ -59,10 +59,9 @@
                                             
                                         </div>
                                     </div>
-                                    <div class="">
-                                        
+                                    <article>
                                         {!! $baidang->noidung_baidang !!}
-                                    </div>
+                                    </article>
                                 </div>
                             </div>
                             
@@ -167,8 +166,8 @@
                                     <div class="d-flex w-100 flex-column">
                                         <div class="d-flex justify-content-between align-baidangs-center w-100">
                                             <div class="float-start">
-                                                <h5 class="py-0 text-primary">{{$baidang->ten_baidang}}</h5>
-                                                <p class="py-0"><strong>{{App\Models\ChuDe::find($baidang->id_chude)->ten_chude}}</strong></p>
+                                                <h3 class="py-0 text-primary">{{$baidang->ten_baidang}}</h3>
+                                                <h5 class="py-0"><strong>{{App\Models\ChuDe::find($baidang->id_chude)->ten_chude}}</strong></h5>
                                             </div>
                                             <div class="d-flex">
                                                 <p class="py-0 mx-2"><strong><i class="bx bx-user"></i></strong>
@@ -189,10 +188,9 @@
                                                 
                                             </div>
                                         </div>
-                                        <div class="">
-                                            
+                                        <article>
                                             {!! $baidang->noidung_baidang !!}
-                                        </div>
+                                        </article>
                                     </div>
                                 </div>
                                 
@@ -264,11 +262,15 @@
                                     <h5>Cùng tác giả</h5>
                                 </div>
                                 <div class="card-body">
-                                    @foreach ($cungtacgia as $item)
+                                    @if (count($cungtacgia)==0)
+                                        Không có bài viết nào
+                                    @else
+                                        @foreach ($cungtacgia as $item)
                                         <a href="/goc-hoi-dap/{{$item->slug}}">
                                             <p class="mb-0 product--title">{{$item->ten_baidang}}</p>
                                         </a>
-                                    @endforeach
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>

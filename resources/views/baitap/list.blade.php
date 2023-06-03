@@ -132,23 +132,24 @@
                                 {{"Không có thông tin hiển thị"}}   
                             @else  
                             <div class="table-responsive">
-                                <table class="table align-middle table-striped">
-                                <tbody>
-                                    <tr>
-                                        <th>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="select_all">
-                                                </div>
-                                        </th>
-                                        <th>Tên bài tập</th>
-                                        <th>Đường dẫn tĩnh</th>
-                                        <th>Chủ đề</th>
-                                        <th>Tổng câu hỏi</th>
-                                        <th>Số lượng câu hỏi</th>
-                                        <th>Thời gian làm bài (phút)</th>
-                                        <th>Tùy chọn</th>
-                                    </tr>
-                    
+                                <table class="table align-middle">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="select_all">
+                                                    </div>
+                                            </th>
+                                            <th>Tên bài tập</th>
+                                            <th>Đường dẫn tĩnh</th>
+                                            <th>Chủ đề</th>
+                                            <th>Tổng câu hỏi</th>
+                                            <th>Số lượng câu hỏi</th>
+                                            <th>Thời gian làm bài (phút)</th>
+                                            <th>Tùy chọn</th>
+                                        </tr>
+                                    </thead>
+                                <tbody>                    
                                     @foreach ($baitaps as $baitap)
                                         <tr id="baitap_ids{{$baitap->id_baitap}}">
                                             <td>
@@ -354,7 +355,7 @@
                     $.each(all_ids, function(key, val){
                         $('#baitap_ids'+val).remove();
                     })
-                    location.reload();
+                    location.replace('/dashboard/baitap');
                 }
             });
         });

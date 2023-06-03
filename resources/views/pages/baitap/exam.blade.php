@@ -23,7 +23,7 @@
                             <div class="card-header py-2 " >
                                 <h2 class="fw-500 text-primary">Danh sách câu hỏi</h2>
                             </div>
-                            <form action="/bai-tap/{{$baitap->slug}}" method="post" id="formSubmit">
+                            <form action="/bai-tap/{{$baitap->slug}}" method="post" id="formSubmit" name="formSubmit">
                                 @csrf
                             <div class="card-body">
                                 <div class="row g-2 mt-1">
@@ -123,7 +123,7 @@
             // var countDownDate = new Date("2023-05-17 14:50:55").getTime();
             var oldDateObj = new Date("{{$thoigian_lambai}}");
             var newDateObj = new Date();
-            newDateObj.setTime(oldDateObj.getTime() + ({{$thoigian}} * 60 * 1000));
+            newDateObj.setTime(oldDateObj.getTime() + (1 * 60 * 1000));
             console.log(newDateObj);
             // Update the count down every 1 second
             var x = setInterval(function() {
@@ -158,10 +158,11 @@
                 document.getElementById("timer").style = 'color: red';
             }    
             // If the count down is over, write some text 
-            if (distance === 0) {
+            if (distance < 0) {
+                document.getElementById("timer").innerHTML = "Đã hết giờ làm bài";
+                document.getElementById("formSubmit").submit();
                 clearInterval(x);
-                // document.getElementById("timer").innerHTML = "EXPIRED";
-                document.getElementById('formSubmit').submit();
+                // document.forms["formSubmit"].submit();
             }
             }, 1000);
         </script>

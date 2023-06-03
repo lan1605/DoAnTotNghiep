@@ -2,7 +2,7 @@
 <aside class="sidebar-wrapper" data-simplebar="true">
   <div class="sidebar-header">
     <div>
-      <img src="../../assets/images/logo-dai-hoc-nha-trang.png" class="logo-icon" alt="logo icon">
+      <img src="{{asset('assets/images/logo-dai-hoc-nha-trang.png')}}" class="logo-icon" alt="logo icon">
     </div>
     <div>
       <h4 class="logo-text">NTU</h4>
@@ -81,10 +81,10 @@
       </ul>
     </li>
     <li>
-      <a href="/dashboard/baidang">
+      <a href="/dashboard/baiviet">
         <div class="parent-icon"><i class="bx bx-news"></i>
         </div>
-        <div class="menu-title">Bài đăng</div>
+        <div class="menu-title">Bài viết</div>
       </a>
      
     </li> 
@@ -111,7 +111,7 @@
 <aside class="sidebar-wrapper" data-simplebar="true">
   <div class="sidebar-header">
     <div>
-      <img src="../../assets/images/logo-dai-hoc-nha-trang.png" class="logo-icon" alt="logo icon">
+      <img src="{{asset('assets/images/logo-dai-hoc-nha-trang.png')}}" class="logo-icon" alt="logo icon">
     </div>
     <div>
       <h4 class="logo-text">NTU</h4>

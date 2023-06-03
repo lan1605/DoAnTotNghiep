@@ -33,24 +33,27 @@
                 {{"Không có thông tin hiển thị"}}   
             @else  
             <div class="table-responsive">
-                <table class="table align-middle table-striped">
+                <table class="table align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="select_all">
+                                </div>
+                            </th>
+                            <th>Ảnh</th>
+                            <th>Tên học viên</th>
+                            <th>Email</th>
+                            <th>Giới tính</th>
+                            <th>Địa chỉ</th>
+                            <th>Số điện thoại</th>
+                            <th>Trạng thái</th>
+                            <th>Kích hoạt Email</th>
+                            <th>Tùy chọn</th>
+                        </tr>
+                    </thead>
                 <tbody>
-                    <tr>
-                        <th>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="select_all">
-                            </div>
-                        </th>
-                        <th>Ảnh</th>
-                        <th>Tên học viên</th>
-                        <th>Email</th>
-                        <th>Giới tính</th>
-                        <th>Địa chỉ</th>
-                        <th>Số điện thoại</th>
-                        <th>Trạng thái</th>
-                        <th>Kích hoạt Email</th>
-                        <th>Tùy chọn</th>
-                    </tr>
+                    
     
                     @foreach ($users as $user)
                         <tr id="hocvien_ids{{$user->id}}">
@@ -181,7 +184,7 @@
                     $.each(all_ids, function(key, val){
                         $('#hocvien_ids'+val).remove();
                     })
-                    location.reload();
+                    location.reload('/dashboard/hocvien');
                 }
             });
         });

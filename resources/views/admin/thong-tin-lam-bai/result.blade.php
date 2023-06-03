@@ -1,62 +1,94 @@
-@extends('layouts.app')
-@include('layouts.layout.menu')
-@section('login-for-users')
-    <div class="d-flex ms-3 gap-3">
-        @include('layouts.layout.auth')
-      </div>
-@endsection
+@extends('admin.layout.index')
+
 @section('content')
-@section('title')
-    <title>
-        Quá trình làm bài 
-    </title>
-@endsection
-@include('layouts.layout.breadcrumb')
-    <main>
-        @foreach ($users as $item=>$value)
-        <div style="background-color: #f7f8fa">
-            <div class="container">
-                <div class="row g-3 ">
-                    <ul class="nav nav-pills mb-3 d-flex align-items-center justify-content-center text-center gap-2" role="tablist">
+<main class="page-content">
+    <!--breadcrumb-->
+    @include('layouts.breadcrumb')
+    <!--end breadcrumb-->
+    @include('layouts.notificationLogin')
+    <div class="row">
+        {{-- {{dd($thongtin)}} --}}
+        @foreach ($thongtin as $item=>$value)
+        <div class="col-12 col-lg-12">
+            <div class="card shadow-sm border-0 overflow-hidden">
+                <div class="card-body">
+                    <div class="border p-4 rounded">
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                @php
+                                    $user = App\Models\User::find($item);
+                                @endphp
+                                <p class="py-0 mb-1"><strong>Họ tên: </strong>{{$user->name}}</p>
+                                {{-- <hr style="margin-top: 0.5rem"> --}}
+                            </div>
+                            <div class="col-6">
+                                <p class="py-0 mb-1"><strong>Bài tập: </strong>{{$baitap->ten_baitap}}</p>
+                                {{-- <hr style="margin-top: 0.5rem"> --}}
+                            </div>
+                            <div class="col-6">
+                                <p class="py-0 mb-1"><strong>Bài học: </strong>
+                                    @php
+                                        $baihoc = App\Models\BaiHoc::find($baitap->id_baihoc);
+                                    @endphp
+                                    {{$baihoc->ten_baihoc}}
+                                </p>
+                                {{-- <hr style="margin-top: 0.5rem"> --}}
+                            </div>
+                            <div class="col-6">
+                                <p class="py-0 mb-1"><strong>Chủ đề: </strong>
+                                    @php
+                                        $chude = App\Models\ChuDe::find($baihoc->id_chude);
+                                    @endphp
+                                    {{$chude->ten_chude}}
+                                </p>
+                                {{-- <hr style="margin-top: 0.5rem"> --}}
+                            </div>
+                            <div class="col-6">
+                                <p class="py-0 mb-1"><strong>Số lần làm bài: </strong>{{count($value)}}</p>
+                                {{-- <hr style="margin-top: 0.5rem"> --}}
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="fs-5" >Chi tiết làm bài</p>
+        <div class="col-lg-12 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="nav nav-tabs nav-primary" role="tablist">
                         @php
                             $dem = 0;
                             $dem_content = 0;
                         @endphp
-                        @foreach ($value as $item_cd)
-                        @php
-                            $dem = $dem +1;
-                        @endphp   
+                        @foreach ($value as $item_ct)
+                        <?php $dem = $dem + 1?>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link {{$dem==1 ? 'active' :''}}" data-bs-toggle="pill" href="#ketqua-lan{{$dem}}" role="tab" aria-selected="false" >
+                            <a class="nav-link {{$dem == 1 ? "active" : ""}}" data-bs-toggle="tab" href="#chitiet-{{$dem}}" role="tab" aria-selected="true">
                                 <div class="d-flex align-items-center">
-                                    
                                     <div class="tab-title">Lần {{$dem}}</div>
                                 </div>
                             </a>
                         </li>
                         @endforeach
                     </ul>
-                   
-                </div>
-            </div>
-        </div>
-        <div style="background-color: white">
-            <div class="container mt-2">
-                <div class="tab-content" id="pills-tabContent">
-                    @foreach ($value as $item_cd)
+                    <div class="tab-content py-3">
+                        @foreach ($value as $item_ct)
                         @php
                             $dem_content = $dem_content +1;
                         @endphp   
-                        <div class="tab-pane fade {{$dem_content==1 ? 'active show' :''}}" id="ketqua-lan{{$dem_content}}" role="tabpanel">
+                        <div class="tab-pane fade {{$dem_content==1 ? 'active show' :''}}" id="chitiet-{{$dem_content}}" role="tabpanel">
                             @php
-                                $danhsach = App\Models\LamBaiTap::where('id_baitap', $baitap->id_baitap)->where('created_at', $item_cd->created_at)->where('id_hocvien',Auth::user()->id)->take($baitap->soluong_cauhoi)->orderBy('updated_at', 'DESC')->orderBy('id_cauhoi', 'ASC')->get();
+                                $danhsach = App\Models\LamBaiTap::where('id_baitap', $baitap->id_baitap)->where('created_at', $item_ct->created_at)->where('id_hocvien',$user->id)->take($baitap->soluong_cauhoi)->orderBy('updated_at', 'DESC')->orderBy('id_cauhoi', 'ASC')->get();
                                 $arrIDcauhoi = [];
 
                                 foreach ($danhsach as $ds){
                                     $arrIDcauhoi[] = $ds->id_cauhoi;
                                 }
                                 $cauhoi = App\Models\CauHoi::whereIn('id', $arrIDcauhoi)->get();
-                                $ketqua = App\Models\KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->where('created_at', $item_cd->created_at)->orderBy('created_at', 'DESC')->first();
+                                $ketqua = App\Models\KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', $user->id)->where('created_at', $item_ct->created_at)->orderBy('created_at', 'DESC')->first();
+                                // dd($cauhoi);
                             @endphp
                             <div class="row">
                                 <div class="col-12 col-lg-8 ">
@@ -157,17 +189,8 @@
                                     <div class="sticky-top">
                                         <div class="card">
                                             <div class="card-body">
-                                                <div class="card-title">
-                                                    <h3>Bài tập "{{App\Models\BaiHoc::find($baitap->id_baihoc)->ten_baihoc}}"</h3>
-                                                </div>
-                                                <p class="my-0"><strong>Chủ đề: </strong>
-                                                    @php
-                                                        $chude = App\Models\BaiHoc::find($baitap->id_baihoc)->id_chude;
-                                                        
-                                                    @endphp
-                                                    {{App\Models\ChuDe::find($chude)->ten_chude}}
-                                                </p>
-                                                <p class="my-0"><strong>Thời gian làm bài: </strong>
+                                                
+                                                <p class="my-0"><strong>Thời gian học viên làm bài: </strong>
                                                     @php
                                                         $start = Carbon\Carbon::parse($ketqua->created_at);
                                                         $end = Carbon\Carbon::parse($ketqua->updated_at);
@@ -213,12 +236,12 @@
                             </div>
                         </div>
                     @endforeach
+                    </div>
                 </div>
-                
             </div>
-            
         </div>
         @endforeach
 
-    </main>
+    </div>
+</main>
 @endsection

@@ -67,6 +67,8 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/xoa/{id}',[HocVienController::class,'xoaHocvien']);
         Route::get('/{id}',[HocVienController::class,'xemchitiet']);
         Route::delete('/selected',[HocVienController::class, 'deleteAll'])->name('hocvien.delete.all');
+        Route::delete('/selected/{id}',[HocVienController::class, 'deleteBT'])->name('hocvienBT.delete.all');
+        Route::delete('/selectedBD/{id}',[HocVienController::class, 'deleteBD'])->name('hocvienBD.delete.all');
     });
     //quản lý quản trị viên
     Route::prefix('/dashboard/quantrivien')->group(function () {
@@ -89,10 +91,11 @@ Route::middleware(['admin'])->group(function () {
         
     });
     //quản lý bài đăng
-    Route::prefix('/dashboard/baidang')->group(function () {
+    Route::prefix('/dashboard/baiviet')->group(function () {
         Route::get('/',[BaiDangController::class, 'index'])->name('quanly.baidang');
         Route::get('/xoa/{id}',[BaiDangController::class, 'delete']);
         Route::get('/{id}',[BaiDangController::class, 'detailGet']);
+        Route::delete('/selected',[BaiDangController::class, 'deleteAll'])->name('baidang.delete.all');
     });
     //Quản lý liên hệ
     Route::prefix('/dashboard/lienhe')->group(function () {
@@ -104,9 +107,13 @@ Route::middleware(['admin'])->group(function () {
     });
     //Quản lý thông tin bài làm
     Route::prefix('/dashboard/thongtinlambai')->group(function () {
+        Route::get('/{slug}', [ThongTinLamBaiController::class, 'detail']);
         Route::get('/', [ThongTinLamBaiController::class,'index'])->name('quanly.thongtinlambai');
         Route::get('/xoa/{slug}', [ThongTinLamBaiController::class,'delete']);
         Route::delete('/selected',[ThongTinLamBaiController::class, 'deleteAll'])->name('thongtinlambai.delete.all');
+        Route::get('/{slug}/{id_hocvien}', [ThongTinLamBaiController::class, 'view']);
+        Route::get('/{slug}/{id_hocvien}/xoa', [ThongTinLamBaiController::class, 'deleteOne']);
+        
     });
 });
     //quản lý chủ đề
@@ -147,7 +154,7 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/{id}',[CauHoiController::class,'editGet']);
         Route::post('/{id}',[CauHoiController::class,'editPost']);
         Route::delete('/selected',[CauHoiController::class, 'deleteAll'])->name('cauhoi.delete.all');
-        Route::post('/import', [CauHoiController::class,'import']);
+        Route::post('/', [CauHoiController::class,'import']);
     });
     //quản lý bài tập
     Route::prefix('/dashboard/baitap')->group(function () {
@@ -163,48 +170,80 @@ Route::middleware(['admin'])->group(function () {
     });
 });
 //Học bài
-Route::prefix('/bai-hoc')->group(function () {
-    Route::get('/danh-sach-da-luu',[BaiHocController::class,'daLuu'])->middleware('hocvien');
-    Route::get('/', [BaiHocController::class,'indexPage'])->name('baihoc.index');
-    Route::get('/{slug}', [BaiHocController::class,'viewDetail'])->middleware('hocvien');
-    Route::get('/{slug}/luu',[BaiHocController::class, 'Luubaihoc']);
-    Route::get('/{slug}/huy',[BaiHocController::class, 'xoaLuu']);
+
+Route::middleware(['hocvien'])->group(function () {
+    Route::prefix('/bai-hoc')->group(function () {
+        Route::get('/danh-sach-da-luu',[BaiHocController::class,'daLuu']);
+        Route::get('/{slug}', [BaiHocController::class,'viewDetail']);
+        Route::get('/{slug}/luu',[BaiHocController::class, 'Luubaihoc']);
+        Route::get('/{slug}/huy',[BaiHocController::class, 'xoaLuu']);
+    });
+    Route::prefix('/bai-tap')->group(function () {
+        Route::get('/{slug}', [LamBaiTapController::class,'index']);
+        Route::post('/{slug}', [LamBaiTapController::class, 'luubailam']);
+        Route::get('/{slug}/nop', [LamBaiTapController::class, 'NopBaiLam']);
+        Route::get('/{slug}/ketqua', [LamBaiTapController::class, 'KetQua']);
+    });
+    Route::prefix('/goc-hoi-dap')->group(function () {
+        Route::get('/danh-sach', [BaiDangController::class,'indexMine'])->name('baidang.canhan.index');
+        Route::get('/them-moi', [BaiDangController::class,'addGet']);
+        Route::post('/them-moi', [BaiDangController::class,'addPost']);
+        Route::get('/{slug}/chinh-sua', [BaiDangController::class,'editGet']);
+        Route::post('/{slug}/chinh-sua',[BaiDangController::class,'editPost']);
+        Route::get('/{slug}/xoa',[BaiDangController::class,'deleteMine']);
+    });
+    Route::post('/comment/store', [BinhLuanController::class, 'store'])->name('comment.add');
+    Route::post('/reply/store', [BinhLuanController::class, 'replyStore'])->name('reply.add');
+    Route::get('/comment/{id}/xoa', [BinhLuanController::class, 'delete']);
+    Route::post('/comment/edit', [BinhLuanController::class, 'edit'])->name('comment.edit');
+    Route::get('/thong-tin-ca-nhan', [HocVienController::class, 'viewDetail'])->name('user.profile');
+    Route::post('/thong-tin-ca-nhan', [HocVienController::class, 'editDetail']);
+    Route::get('/thong-tin-ca-nhan/xoa', [HocVienController::class, 'deleteDetail']);
+    Route::get('/qua-trinh-on-tap', [QuaTrinhOnTapController::class, 'index']);
+    Route::get('/qua-trinh-on-tap/{slug}', [QuaTrinhOnTapController::class, 'viewDetail']);
+});
+Route::get('/bai-hoc', [BaiHocController::class,'indexPage'])->name('baihoc.index');
+Route::get('/goc-hoi-dap', [BaiDangController::class,'indexPage'])->name('baidang.index');
+Route::get('/goc-hoi-dap/{slug}', [BaiDangController::class,'viewDetail']);
+// Route::prefix('/bai-hoc')->group(function () {
+//     Route::get('/danh-sach-da-luu',[BaiHocController::class,'daLuu'])->middleware('hocvien');
+//     Route::get('/', [BaiHocController::class,'indexPage'])->name('baihoc.index');
+//     Route::get('/{slug}', [BaiHocController::class,'viewDetail'])->middleware('hocvien');
+//     Route::get('/{slug}/luu',[BaiHocController::class, 'Luubaihoc']);
+//     Route::get('/{slug}/huy',[BaiHocController::class, 'xoaLuu']);
     
-});
+// });
 // Làm bài tập
-Route::prefix('/bai-tap')->group(function () {
-    Route::get('/{slug}', [LamBaiTapController::class,'index']);
-    Route::post('/{slug}', [LamBaiTapController::class, 'luubailam']);
-    Route::get('/{slug}/nop', [LamBaiTapController::class, 'NopBaiLam']);
-    Route::get('/{slug}/ketqua', [LamBaiTapController::class, 'KetQua']);
-})->middleware('hocvien');
+// Route::prefix('/bai-tap')->group(function () {
+//     Route::get('/{slug}', [LamBaiTapController::class,'index']);
+//     Route::post('/{slug}', [LamBaiTapController::class, 'luubailam']);
+//     Route::get('/{slug}/nop', [LamBaiTapController::class, 'NopBaiLam']);
+//     Route::get('/{slug}/ketqua', [LamBaiTapController::class, 'KetQua']);
+// })->middleware('hocvien');
 //Bài viết
-Route::prefix('/goc-hoi-dap')->group(function () {
-    Route::get('/', [BaiDangController::class,'indexPage'])->name('baidang.index');
-    Route::get('/danh-sach', [BaiDangController::class,'indexMine'])->name('baidang.canhan.index')->middleware('hocvien');
-    Route::get('/them-moi', [BaiDangController::class,'addGet'])->middleware('hocvien');
-    Route::post('/them-moi', [BaiDangController::class,'addPost'])->middleware('hocvien');
-    Route::get('/{slug}/chinh-sua', [BaiDangController::class,'editGet']);
-    Route::post('/{slug}/chinh-sua',[BaiDangController::class,'editPost']);
-    Route::get('/{slug}', [BaiDangController::class,'viewDetail']);
-    Route::get('/{slug}/xoa',[BaiDangController::class,'deleteMine']);
-});
-Route::post('/comment/store', [BinhLuanController::class, 'store'])->name('comment.add');
-Route::post('/reply/store', [BinhLuanController::class, 'replyStore'])->name('reply.add');
-Route::get('/comment/{id}/xoa', [BinhLuanController::class, 'delete']);
-Route::post('/comment/edit', [BinhLuanController::class, 'edit'])->name('comment.edit');
+// Route::prefix('/goc-hoi-dap')->group(function () {
+//     Route::get('/', [BaiDangController::class,'indexPage'])->name('baidang.index');
+//     Route::get('/danh-sach', [BaiDangController::class,'indexMine'])->name('baidang.canhan.index')->middleware('hocvien');
+//     Route::get('/them-moi', [BaiDangController::class,'addGet'])->middleware('hocvien');
+//     Route::post('/them-moi', [BaiDangController::class,'addPost'])->middleware('hocvien');
+//     Route::get('/{slug}/chinh-sua', [BaiDangController::class,'editGet']);
+//     Route::post('/{slug}/chinh-sua',[BaiDangController::class,'editPost']);
+//     Route::get('/{slug}', [BaiDangController::class,'viewDetail']);
+//     Route::get('/{slug}/xoa',[BaiDangController::class,'deleteMine']);
+// });
+
 //Liên hệ
 Route::get('/lien-he',[LienHeController::class,'index']);
 Route::post('/lien-he',[LienHeController::class, 'sendMail']);
 //Thông tin học viên
-Route::middleware(['hocvien'])->group(function () {
-    Route::get('/thong-tin-ca-nhan', [HocVienController::class, 'viewDetail'])->name('user.profile');
-Route::post('/thong-tin-ca-nhan', [HocVienController::class, 'editDetail']);
-Route::get('/thong-tin-ca-nhan/xoa', [HocVienController::class, 'deleteDetail']);
-});
-//Quá trình ôn tập
-Route::get('/qua-trinh-on-tap', [QuaTrinhOnTapController::class, 'index'])->middleware('hocvien');
-Route::get('/qua-trinh-on-tap/{slug}', [QuaTrinhOnTapController::class, 'viewDetail'])->middleware('hocvien');
+// Route::middleware(['hocvien'])->group(function () {
+//     Route::get('/thong-tin-ca-nhan', [HocVienController::class, 'viewDetail'])->name('user.profile');
+//     Route::post('/thong-tin-ca-nhan', [HocVienController::class, 'editDetail']);
+//     Route::get('/thong-tin-ca-nhan/xoa', [HocVienController::class, 'deleteDetail']);
+// });
+// //Quá trình ôn tập
+// Route::get('/qua-trinh-on-tap', [QuaTrinhOnTapController::class, 'index'])->middleware('hocvien');
+// Route::get('/qua-trinh-on-tap/{slug}', [QuaTrinhOnTapController::class, 'viewDetail'])->middleware('hocvien');
 Route::prefix('ajax')->group(function () {
     Route::get('/cauhoi',[AjaxController::class,'getBaiHoc'])->name('ajax.cauhoi');
 });

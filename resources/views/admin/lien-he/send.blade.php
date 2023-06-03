@@ -8,14 +8,13 @@
     @include('layouts.notificationLogin')
     @include('layouts.notication')
         <div class="row">
-            <div class="col-xl-9 mx-auto">
+            <div class="col-xl-12 mx-auto">
 						<div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <h5 class="">Chi tiết liên hệ</h5>
+                            </div>
 							<div class="card-body">
 								<div class="border p-4 rounded">
-									<div class="card-title d-flex align-items-center">
-										<h5 class="mb-0">Chi tiết liên hệ</h5>
-									</div>
-									<hr/>
 									<div class="row mb-3">
 										<div class="col-6">
                                             <p class="py-0 mb-1"><strong>Họ tên: </strong>{{$lienhe->ten}}</p>
