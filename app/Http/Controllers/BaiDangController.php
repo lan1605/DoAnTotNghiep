@@ -184,10 +184,10 @@ class BaiDangController extends Controller
         $baidang->save();
 
         if ($baidang) {
-            return redirect('goc-hoi-dap/'.$slug.'/chinh-sua')->with('success', 'Thay đổi bài viết thành công');
+            return redirect('goc-hoi-dap/danh-sach')->with('success', 'Thay đổi bài viết thành công');
         }
         else {
-            return redirect('goc-hoi-dap/'.$slug.'/chinh-sua')->with('error', 'Thất bại, vui lòng thử lại');
+            return redirect('goc-hoi-dap/danh-sach')->with('error', 'Thất bại, vui lòng thử lại');
         }
     }
 }

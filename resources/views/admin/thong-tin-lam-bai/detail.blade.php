@@ -41,8 +41,7 @@
                                 </div>
                                 <div class="ms-auto">
                                     {{-- <p id="select_all" class="btn btn-success mb-0">Chọn tất cả</p> --}}
-                                    <label for="check" >Chọn tất cả</label>
-                                    <input class="form-check-input " type="checkbox" name="check" id="select_all" >
+                                    
                                     <a href="#" class="btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAll"><i class="bi-trash-fill me-2"></i>Xóa</a>
                                 </div>
                             </form>
@@ -67,9 +66,9 @@
                                 <div class="row row-cols-1 row-cols-lg-2 g-lg-3">
                                         @foreach ($thongtin as $item=>$value)
                                             <div class="col">
-                                                <div id="thongtin_ids{{$item}}">
+                                                {{-- <div id="thongtin_ids{{$item}}">
                                                     <input class="form-check-input checkbox-item" type="checkbox" name="ids" value="{{$item}}">
-                                                </div>
+                                                </div> --}}
                                                 <div class="card">
                                                     <div class="row g-0">
                                                         <div class="col-md-4">

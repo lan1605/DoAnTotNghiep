@@ -212,19 +212,19 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Thay đổi thông tin bài tập</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabel">Thay đổi thông tin "{{$baitap->ten_baitap}}"</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="row">
                                                             <form class="row g-2" method="get" action="/dashboard/baitap/{{$baitap->id_baitap}}">
                                                                 @csrf
-                                                                    <div class="col-6">
+                                                                    {{-- <div class="col-6">
                                                                         <label class="form-label">Tên bài tập: </label>
                                                                     <input type="text" class="form-control @error('ten_baitapEdit') is-invalid  @enderror" placeholder="Tên bài tập..." name="ten_baitapEdit" value="{{ $baitap->ten_baitap }}" readonly>
                                                                     
-                                                                    </div>
-                                                                    <div class="col-6">
+                                                                    </div> --}}
+                                                                    <div class="col-12">
                                                                         <label class="form-label">Số lượng câu hỏi: </label>
                                                                         <input type="text" class="form-control @error('soluongEdit') is-invalid  @enderror" placeholder="Số lượng câu hỏi..." name="soluongEdit" value="{{ $baitap->soluong_cauhoi }}">
                                                                         @error('soluongEdit')
@@ -281,9 +281,9 @@
                                                                     </span>
                                                                 @enderror
                                                                     </div>
-                                                                <div class="col-12">
+                                                                <div class="col-12 mt-2">
                                                                     <div class="d-grid">
-                                                                        <button class="btn btn-primary">Thêm bài tập</button>
+                                                                        <button class="btn btn-primary">Thay đổi bài tập</button>
                                                                     </div>
                                                                 </div>
                                                             </form>

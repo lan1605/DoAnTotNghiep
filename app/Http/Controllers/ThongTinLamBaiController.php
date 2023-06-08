@@ -93,8 +93,17 @@ class ThongTinLamBaiController extends Controller
     public function detail($slug){
 
         $baitap = BaiTap::where('slug', $slug)->first();
-        $thongtin =  KetQua::where('id_baitap',$baitap->id_baitap)->orderBy('created_at')->paginate(10);
+        
 
+        $key = request()->key_find;
+        $id = [];
+
+        $sql = User::where('name','like','%'.$key.'%')->get();
+
+        foreach ($sql as $item){
+            $id[] = $item->id;
+        }
+        $thongtin =  KetQua::where('id_baitap',$baitap->id_baitap)->whereIn('id_hocvien', $id)->orderBy('created_at', 'DESC')->paginate(10);
         $thongtin->setCollection($thongtin->groupBy(function($data) {
             return $data->id_hocvien;
         }));

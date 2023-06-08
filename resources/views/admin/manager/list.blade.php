@@ -57,7 +57,7 @@
                         <th>Ảnh</th>
                         <th>Họ tên quản trị viên</th>
                         <th>Email</th>
-                        <th>Chức vụ</th>
+                        <th>Quyền</th>
                         <th>Giới tính</th>
                         <th>Trạng thái</th>
                         {{-- <th>Lần truy cập</th> --}}
