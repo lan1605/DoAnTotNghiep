@@ -14,34 +14,34 @@
                                 <h5 class="">Chi tiết liên hệ</h5>
                             </div>
 							<div class="card-body">
-								<div class="border p-4 rounded">
-									<div class="row mb-3">
-										<div class="col-6">
-                                            <p class="py-0 mb-1"><strong>Họ tên: </strong>{{$lienhe->ten}}</p>
-                                            {{-- <hr style="margin-top: 0.5rem"> --}}
+                                    <div class="border p-4 rounded">
+                                        <div class="row mb-3">
+                                            <div class="col-6">
+                                                <p class="py-0 mb-1"><strong>Họ tên: </strong>{{$lienhe->ten}}</p>
+                                                {{-- <hr style="margin-top: 0.5rem"> --}}
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="py-0 mb-1"><strong>Địa chỉ email: </strong>{{$lienhe->email}}</p>
+                                                {{-- <hr style="margin-top: 0.5rem"> --}}
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="py-0 mb-1"><strong>Thời gian gửi: </strong>{{$lienhe->created_at->format('d-m-Y H:i:s')}}</p>
+                                                {{-- <hr style="margin-top: 0.5rem"> --}}
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="py-0 mb-1"><strong>Trạng thái: </strong>{{$lienhe->noidung_phanhoi==null ? 'Chưa phản hồi' : 'Đã phản hồi'}}</p>
+                                                {{-- <hr style="margin-top: 0.5rem"> --}}
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="py-0 mb-1"><strong>Tiêu đề: </strong>Liên hệ với chúng tôi</p>
+                                                {{-- <hr style="margin-top: 0.5rem"> --}}
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="py-0 mb-1"><strong>Mailer: </strong>SMTP Server</p>
+                                                {{-- <hr style="margin-top: 0.5rem"> --}}
+                                            </div>
+                                            
                                         </div>
-										<div class="col-6">
-                                            <p class="py-0 mb-1"><strong>Địa chỉ email: </strong>{{$lienhe->email}}</p>
-                                            {{-- <hr style="margin-top: 0.5rem"> --}}
-                                        </div>
-										<div class="col-6">
-                                            <p class="py-0 mb-1"><strong>Thời gian gửi: </strong>{{$lienhe->created_at->format('H:s:i d-m-y')}}</p>
-                                            {{-- <hr style="margin-top: 0.5rem"> --}}
-                                        </div>
-										<div class="col-6">
-                                            <p class="py-0 mb-1"><strong>Trạng thái: </strong>{{$lienhe->noidung_phanhoi==null ? 'Chưa phản hồi' : 'Đã phản hồi'}}</p>
-                                            {{-- <hr style="margin-top: 0.5rem"> --}}
-                                        </div>
-										<div class="col-6">
-                                            <p class="py-0 mb-1"><strong>Tiêu đề: </strong>Liên hệ với chúng tôi</p>
-                                            {{-- <hr style="margin-top: 0.5rem"> --}}
-                                        </div>
-										<div class="col-6">
-                                            <p class="py-0 mb-1"><strong>Mailer: </strong>SMTP Server</p>
-                                            {{-- <hr style="margin-top: 0.5rem"> --}}
-                                        </div>
-										
-									</div>
                                     <hr>
 									<div class="row">
 										<label class="col-sm-3 col-form-label"><strong>Nội dung liên hệ</strong>

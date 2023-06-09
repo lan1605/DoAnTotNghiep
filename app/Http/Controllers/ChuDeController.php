@@ -10,11 +10,18 @@ use DB;
 class ChuDeController extends Controller
 {
     public function index(Request $req){
-        $keysfilter ='';
-        if ($req->key_find!=null){
-            $keysfilter = $req->key_find;
+        if (empty($req->key_find) ){
+            $chudes = ChuDe::paginate(10);
         }
-        $chudes = ChuDe::where('ten_chude','like','%'.$keysfilter.'%')->orWhere('slug','like','%'.$keysfilter.'%')->paginate(10);
+        else{
+            $keysfilter ='';
+            if ($req->key_find!=null){
+                $keysfilter = $req->key_find;
+            }
+            $chudes = ChuDe::where('ten_chude','like','%'.$keysfilter.'%')->paginate(10);
+            $chudes->appends(['key_find' => $keysfilter]);
+
+        }
         return view('chu-de.list', ['route'=>route('quanly.chude'), 'chudes'=>$chudes,'titlePage'=>'Quản lý chủ đề', 'breadcrumb'=> 'Danh sách chủ đề']);
     }
     public function addPost(Request $req){
@@ -40,7 +47,6 @@ class ChuDeController extends Controller
             $chude->id_chude = 'CD-'.$num;
         }
         $chude->ten_chude = $req->ten_chude;
-        $chude->slug = Controller::locdau($req->ten_chude);
         $chude->mo_ta = $req->mo_ta;
         $chude->save();
 
@@ -62,7 +68,6 @@ class ChuDeController extends Controller
             'ten_chudeEdit.min'=>'Tên chủ đề ít nhất 2 ký tự',
     	]);
         $chude->ten_chude = $req->ten_chudeEdit;
-        $chude->slug = Controller::locdau($req->ten_chudeEdit);
         $chude->mo_ta = $req->mo_ta;
         $chude->save();
 

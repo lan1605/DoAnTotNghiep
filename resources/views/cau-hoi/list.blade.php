@@ -242,7 +242,7 @@
                             <td>
                                <span>
                                 @if (isset($cauhoi->created_at))
-                                    {{$cauhoi->created_at}}
+                                    {{$cauhoi->created_at->format('d-m-Y H:i:s')}}
                                 @else
                                     {{'_'}}
                                 @endif

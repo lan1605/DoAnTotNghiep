@@ -14,7 +14,12 @@ use File;
 class CauHoiController extends Controller
 {
     public function index(Request $req){
-        $filterLession =[];
+        
+        if (empty($req->find_cate) && (empty($req->find_lession))){
+            $cauhois = CauHoi::orderBy('id_baihoc', 'ASC')->paginate(10);
+        }
+        else {
+            $filterLession =[];
         if (!empty($req->find_lession)){
             if ($req->find_lession==0){
                 $filterLession[]=[];
@@ -23,6 +28,8 @@ class CauHoiController extends Controller
                 $find_lession = $req->find_lession;
                 $filterLession[] = ['cau_hois.id_baihoc', '=', $find_lession];
             }
+            $cauhois = CauHoi::where($filterLession)->orderBy('id_baihoc', 'ASC')->paginate(10);
+            $cauhois->appends(['id_chude'=>$req->id_chude,'find_lession' => $find_lession]);
         }
         $filter =[];
         if (!empty($req->find_cate)){
@@ -33,9 +40,14 @@ class CauHoiController extends Controller
                 $find_cate = $req->find_cate;
                 $filter[] = ['cau_hois.id_loaicauhoi', '=', $find_cate];
             }
+            $cauhois = CauHoi::Where($filter)->orderBy('id_baihoc', 'ASC')->paginate(10);
+            $cauhois->appends([ 'find_cate'=>$find_cate]);
         }
-
-        $cauhois = CauHoi::where($filterLession)->Where($filter)->paginate(10);
+        if ($filter != [] && $filterLession != []){
+            $cauhois = CauHoi::where($filterLession)->Where($filter)->orderBy('id_baihoc', 'ASC')->paginate(10);
+            $cauhois->appends(['id_chude'=>$req->id_chude,'find_lession' => $find_lession, 'find_cate'=>$find_cate]);
+        }
+        }
         return view('cau-hoi.list', ['route'=>route('quanly.cauhoi'), 'cauhois'=>$cauhois,'titlePage'=>'Quản lý câu hỏi', 'breadcrumb'=> 'Danh sách câu hỏi']);
     }
     public function delete($id){
@@ -57,30 +69,15 @@ class CauHoiController extends Controller
         'titlePage'=>'Quản lý câu hỏi', 'breadcrumb'=> 'Thêm câu hỏi mới', 'linkPage'=>'/dashboard/cauhoi'
         ]);
     }
-    // public function import(Request $request) 
-    // {
-    //     // $data =Excel::import(new CauHoiImport,$request->file('file'));
-        
-    //     // dd($data);
-    //     // try {
-    //     //     Excel::import(new CauHoiImport,  request()->file('file'));
-    //     //     return redirect('/da')->with('success', 'File Imported Successfully!');
-    //     // } catch (\Exception $e) {
-    //     //     dd($e->getMessage());
-    //     //     return back()->with('error', __('Invalid File Structure!'));
-    //     // }
-    //     // return back()->with('success','Tải file thành công');
-        
-    // }      
-    
     public function import(Request $req){
         if($req->hasFile('file')){
             Excel::import(new CauHoiImport, $req->file('file'));
-            return redirect()->back()->with('success','Tải file thành công');
+            
         }
         else {
             return redirect()->back()->with('error','Đã có lỗi, vui lòng thử lại ');
         }
+        return redirect()->back()->with('success','Tải file thành công');
         
     }
     

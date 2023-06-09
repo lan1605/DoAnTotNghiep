@@ -64,6 +64,7 @@
                             <th>Chủ đề</th>
                             <th>Trạng thái</th>
                             <th>Người đăng</th>
+                            <th>Thời gian đăng</th>
                             <th>Tùy chọn</th>
                         </tr>
                     </thead>
@@ -113,7 +114,11 @@
                                     ?>
                                 </span>
                             </td>
-                            
+                            <td>
+                                <span>
+                                    {{$baihoc->created_at->format('d-m-Y H:i:s')}}
+                                </span>
+                            </td>
                             <td>
                                 <div class="d-flex align-items-center gap-3 fs-6">
                                 <a href="/dashboard/baihoc/{{$baihoc->id_baihoc}}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="View detail" aria-label="Views"><i class="bi bi-pencil-fill"></i></a>

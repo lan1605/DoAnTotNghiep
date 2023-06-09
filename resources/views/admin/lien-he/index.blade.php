@@ -47,6 +47,7 @@
                             <th>Số điện thoại</th>
                             <th>Nội dung liên hệ</th>
                             <th>Tình trạng</th>
+                            <th>Thời gian gửi</th>
                             <th>Tùy chọn</th>
                         </tr>
                     </thead>
@@ -77,6 +78,9 @@
                             @else
                             <span class="badge rounded-pill bg-danger">Chưa phản hồi</span>
                             @endif</span></td>
+                            <td>
+                                <span>{{$lienhe->created_at->format('d-m-Y H:i:s')}}</span>
+                            </td>
                             <td>
                                 <div class="d-flex align-items-center gap-3 fs-6">
                                 <a href="/dashboard/lienhe/{{$lienhe->id}}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" ><i class="bx bx-mail-send"></i></a>

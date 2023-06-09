@@ -29,6 +29,7 @@ class BaiDangController extends Controller
         $baidangs = BaiDang::where($filter)->where(function ($query) use ($keysfilter){
             $query->where('ten_baidang','like','%'.$keysfilter.'%')->orWhere('slug','like','%'.$keysfilter.'%');
         })->paginate(10);
+        
         return view('admin.bai-dang.list', ['route'=>route('quanly.baidang'), 'baidangs'=>$baidangs,'titlePage'=>'Quản lý bài viết', 'breadcrumb'=> 'Danh sách bài viết']);
     }
     public function delete($id){

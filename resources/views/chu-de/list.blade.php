@@ -74,7 +74,6 @@
                         <th><input class="form-check-input" type="checkbox" id="select_all"></th>
                         <th>Mã chủ đề</th>
                         <th>Tên chủ đề</th>
-                        <th>Đường dẫn tĩnh</th>
                         <th>Thời gian tạo</th>
                         <th>Tùy chọn</th>
                         </tr>
@@ -91,10 +90,8 @@
                             <td>
                                 {{$chude->ten_chude}}
                             </td>
-                            <td>
-                                {{$chude->slug}}
-                            </td>
-                            <td>{{$chude->created_at}}</td>
+                            
+                            <td>{{$chude->created_at->format('d-m-Y H:i:s')}}</td>
                             <td>
                                 <div class="d-flex align-items-center gap-3 fs-6">
                                     <i class="bi bi-pencil-fill text-warning" data-bs-toggle="modal" data-bs-target="#exampleModal-edit{{$chude->id_chude}}" aria-label="Chỉnh sửa"></i>
