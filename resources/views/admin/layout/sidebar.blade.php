@@ -104,6 +104,14 @@
       </a>
      
     </li> 
+    <li>
+      <a href="/dashboard/thongke">
+        <div class="parent-icon"><i class="lni lni-bar-chart"></i>
+        </div>
+        <div class="menu-title">Thống kê</div>
+      </a>
+     
+    </li> 
   </ul>
   <!--end navigation-->
 </aside>
@@ -170,7 +178,22 @@
         </li>
       </ul>
     </li>
-
+    <li>
+      <a href="/dashboard/thongtinlambai">
+        <div class="parent-icon"><i class="bx bx-spreadsheet"></i>
+        </div>
+        <div class="menu-title">Thông tin làm bài</div>
+      </a>
+     
+    </li> 
+    <li>
+      <a href="/dashboard/thongke">
+        <div class="parent-icon"><i class="lni lni-bar-chart"></i>
+        </div>
+        <div class="menu-title">Thống kê</div>
+      </a>
+     
+    </li> 
   </ul>
   <!--end navigation-->
 </aside>

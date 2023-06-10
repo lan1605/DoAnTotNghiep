@@ -2801,8 +2801,8 @@
   		"Sat"
   	],
   	toolbar: {
-  		exportToSVG: "Download SVG",
-  		exportToPNG: "Download PNG",
+  		exportToSVG: "Tải file .svg",
+  		exportToPNG: "Tải file .png",
   		exportToCSV: "Download CSV",
   		menu: "Menu",
   		selection: "Selection",
@@ -14530,10 +14530,12 @@
         }, {
           name: 'exportPNG',
           title: this.localeValues.exportToPNG
-        }, {
-          name: 'exportCSV',
-          title: this.localeValues.exportToCSV
-        }];
+        }, 
+        // {
+        //   name: 'exportCSV',
+        //   title: this.localeValues.exportToCSV
+        // }
+      ];
 
         if (!this.w.globals.allSeriesHasEqualX) {
           // if it is a multi series, and all series have variable x values, export CSV won't work

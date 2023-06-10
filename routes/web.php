@@ -35,6 +35,7 @@ use App\Http\Controllers\LienHeController;
 use App\Http\Controllers\BinhLuanController;
 use App\Http\Controllers\ThongTinLamBaiController;
 use App\Http\Controllers\QuaTrinhOnTapController;
+use App\Http\Controllers\ThongKeController;
 
 Route::get('/', function () {
 return view('welcome');
@@ -168,6 +169,9 @@ Route::middleware(['admin'])->group(function () {
 
 
     });
+    Route::prefix('/dashboard/thongke')->group(function () {
+        Route::get('/', [ThongKeController::class, 'index'])->name('quanly.thongke');
+    });
 });
 //Học bài
 
@@ -246,6 +250,7 @@ Route::post('/lien-he',[LienHeController::class, 'sendMail']);
 // Route::get('/qua-trinh-on-tap/{slug}', [QuaTrinhOnTapController::class, 'viewDetail'])->middleware('hocvien');
 Route::prefix('ajax')->group(function () {
     Route::get('/cauhoi',[AjaxController::class,'getBaiHoc'])->name('ajax.cauhoi');
+    Route::get('/baitap',[AjaxController::class,'getBaiTap'])->name('ajax.baitap');
 });
 
 

@@ -16,24 +16,11 @@
                             <div class="card border shadow-none w-100">
                             <div class="card-body">
                             <form action="" method="get" class="d-sm-flex mb-3">
-                                <div class="mb-2 mb-sm-0 ms-2">
-                                    <?php
-                                        $role = App\Models\ChuDe::all();    
-                                    ?>
-                                    <select name="find_cate" id="chude" class="form-select">
-                                        <option value="0">Tất cả</option>
-                                        @if (isset($role))
-                                        @foreach ($role as $item)
-                                            <option value="<?php echo $item->id_chude?>" {{request()->find_cate==$item->id_chude ? 'selected' : false}}><?php echo $item->ten_chude?></option>
-                                        @endforeach
-                                            
-                                        @endif
-                                    </select>
-                                </div>
+                                
                                 <div class="mb-2 mb-sm-0 ms-2">
                                     <div class="ms-auto position-relative">
                                         <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-search"></i></div>
-                                        <input class="form-control ps-5" type="text" placeholder="tìm kiếm bài tập..."name="key_find" value="{{Request()->key_find}}">
+                                        <input class="form-control ps-5" type="text" placeholder="tìm kiếm học viên..."name="key_find" value="{{Request()->key_find}}">
                                     </div>
                                 </div>
                                 <div class="mb-2 mb-sm-0 ms-2">

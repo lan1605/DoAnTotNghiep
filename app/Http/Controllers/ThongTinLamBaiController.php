@@ -111,7 +111,7 @@ class ThongTinLamBaiController extends Controller
         // dd($thongtin);
 
         return view('admin.thong-tin-lam-bai.detail', ['thongtin'=>$thongtin,'baitap'=>$baitap,
-        'titlePage'=>'Quản lý thông tin làm bài','linkPage'=>'/dashboard/thongtinlambai', 'breadcrumb'=> $baitap->ten_baitap]);
+        'titlePage'=>'Quản lý thông tin làm bài','linkPage'=>'/dashboard/thongtinlambai', 'breadcrumb'=> 'Danh sách học viên làm bài '.$baitap->ten_baitap]);
     }
     public function deleteOne($slug, $id_hocvien){
         $baitap = BaiTap::where('slug', $slug)->first();
