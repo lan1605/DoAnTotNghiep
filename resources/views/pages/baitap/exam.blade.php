@@ -36,7 +36,7 @@
                                                 <?php $dem = $dem +1; ?>
                                             @foreach ($danhsach as $item_lbt)
                                                 @if ($item->id ===$item_lbt->id_cauhoi)
-                                                    <div class="mt-2 " id="quest-{{$item->id}}">
+                                                    <div class="mt-2 " id="quest-{{$item->id}}" class="fs-6">
                                                         <h5><strong>Câu {{$dem}}</strong>: {{$item->noi_dung}}</h5>
                                                         <div class="question-answer fs-6">
                                                             <div class="answer">

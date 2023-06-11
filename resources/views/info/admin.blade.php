@@ -187,7 +187,7 @@
                           {{count($cauhoi)}}
                       </h4>
                         <p class="mb-0 text-secondary">
-                          Câu hỏi
+                          Câu hỏi đã đăng
                         </p>
                       </div>
                       <div class="text-center">
@@ -197,7 +197,7 @@
                           @endphp
                           {{count($baihoc)}}
                         </h4>
-                        <p class="mb-0 text-secondary">Bài học</p>
+                        <p class="mb-0 text-secondary">Bài học đã đăng</p>
                       </div>
                       {{-- <div class="text-center">
                         <h4 class="mb-0">86</h4>
@@ -205,7 +205,7 @@
                       </div> --}}
                   </div>
                   <div class="text-center mt-4">
-                    <h4 class="mb-1">{{$user->name}}, 27</h4>
+                    <h4 class="mb-1">{{$user->name}}</h4>
                     <div class="mt-4"></div>
                     <h6 class="mb-1">
                       @php

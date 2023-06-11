@@ -47,7 +47,7 @@
                         <div class=" col-lg-6 col-12 col-md-12 mb-2 mb-sm-0 ms-2">
                             <div class="ms-auto position-relative">
                                 <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-search"></i></div>
-                                <input class="form-control ps-5" type="text" placeholder="tìm kiếm bài học..."name="key_find" value="{{Request()->key_find}}">
+                                <input class="form-control ps-5" type="text" placeholder="tìm kiếm..."name="key_find" value="{{Request()->key_find}}">
                             </div>
                         </div>
                         <div class="mb-2 mb-sm-0 ms-2">
@@ -111,7 +111,7 @@
                                                                 {{$nguoidang->name}}
                                                             </p>
                                                             <p class="py-0"><strong><i class="bx bx-calendar"></i></strong>
-                                                                {{$item->created_at}}
+                                                                {{$item->created_at->format('d-m-Y h:i:s')}}
                                                             </p>
                                                             <p class="py-0 mx-2"><strong><i class="bx bx-message-rounded"></i></strong>
                                                                 @php

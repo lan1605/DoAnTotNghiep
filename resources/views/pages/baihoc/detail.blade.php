@@ -239,7 +239,7 @@
         //     1.1 Heading h2
         // 2. Heading h1b
         //          2.1 Heading h3 (đẹp hơn 2.0.1 Heading h3)
-        const sectionNumber = prevLevels.slice(startingLevel - 1, level).join('.').replace(/\.0/g, "")
+        const sectionNumber = prevLevels.slice(startingLevel - 1, level).join('.').replace(/\.0/g, ".");
 
         // Tạo ID mới và gán vào heading
         // Phải làm phần này để click vào mục lục có thể di chuyển đến được.

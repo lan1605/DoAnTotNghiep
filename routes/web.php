@@ -106,16 +106,7 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/xoa/{id}',[LienHeController::class, 'delete']);
         Route::delete('/selected',[LienHeController::class, 'deleteAll'])->name('lienhe.delete.all');
     });
-    //Quản lý thông tin bài làm
-    Route::prefix('/dashboard/thongtinlambai')->group(function () {
-        Route::get('/{slug}', [ThongTinLamBaiController::class, 'detail']);
-        Route::get('/', [ThongTinLamBaiController::class,'index'])->name('quanly.thongtinlambai');
-        Route::get('/xoa/{slug}', [ThongTinLamBaiController::class,'delete']);
-        Route::delete('/selected',[ThongTinLamBaiController::class, 'deleteAll'])->name('thongtinlambai.delete.all');
-        Route::get('/{slug}/{id_hocvien}', [ThongTinLamBaiController::class, 'view']);
-        Route::get('/{slug}/{id_hocvien}/xoa', [ThongTinLamBaiController::class, 'deleteOne']);
-        
-    });
+    
 });
     //quản lý chủ đề
     Route::prefix('/dashboard/chude')->group(function () {
@@ -171,6 +162,16 @@ Route::middleware(['admin'])->group(function () {
     });
     Route::prefix('/dashboard/thongke')->group(function () {
         Route::get('/', [ThongKeController::class, 'index'])->name('quanly.thongke');
+    });
+    //Quản lý thông tin bài làm
+    Route::prefix('/dashboard/thongtinlambai')->group(function () {
+        Route::get('/{slug}', [ThongTinLamBaiController::class, 'detail']);
+        Route::get('/', [ThongTinLamBaiController::class,'index'])->name('quanly.thongtinlambai');
+        Route::get('/xoa/{slug}', [ThongTinLamBaiController::class,'delete']);
+        Route::delete('/selected',[ThongTinLamBaiController::class, 'deleteAll'])->name('thongtinlambai.delete.all');
+        Route::get('/{slug}/{id_hocvien}', [ThongTinLamBaiController::class, 'view']);
+        Route::get('/{slug}/{id_hocvien}/xoa', [ThongTinLamBaiController::class, 'deleteOne']);
+        
     });
 });
 //Học bài

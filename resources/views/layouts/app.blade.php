@@ -40,10 +40,10 @@
             <div class="d-flex align-items-center justify-content-between w-100">
               <div class="d-flex">
                 <div class="phone">
-                  Số điện thoại: 02583831149
+                  <strong>Số điện thoại:</strong> 02583831149
                 </div>
                 <div class="ms-2">
-                  Email: tinhocdaicuongantu@gmail.com
+                  <strong>Email:</strong> tinhocdaicuongantu@gmail.com
                 </div>
               </div>
               @yield('login-for-users')
@@ -88,6 +88,8 @@
   <script src="../../assets/js/app.js"></script>
   <script src="../../assets/js/index.js"></script>
   <script>
+    const main = document.querySelector('main');
+    main.style = "min-height: 0px";
     $(function(){
 
   var url = window.location.pathname, 
