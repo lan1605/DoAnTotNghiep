@@ -3,7 +3,7 @@
       <div class="container">
         <div class="row">
           <div class="col-12 col-lg-6">
-              <a class="navbar-brand font-22" href="/"><img src="../../assets/images/logo-dai-hoc-nha-trang.png" width="50" alt=""/> NTU</a>
+              <a class="navbar-brand font-22" href="/"><img src="../../assets/images/logo-dai-hoc-nha-trang.png" width="50" alt=""/> TIN HỌC ĐẠI CƯƠNG A</a>
               <p class="py-0"></p>
               <div class="px-0">
                 <div class="d-flex align-items-center">

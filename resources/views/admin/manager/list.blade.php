@@ -120,7 +120,11 @@
                                 {{Carbon\Carbon::parse($user->truy_cap)->diffForHumans()}}</span></td> --}}
                             <td><span>{{$user->sdt}}</span></td>
                             <td><span>{{$user->dia_chi}}</span></td>
+                            @if ($user->created_at!= null)
                             <td><span>{{$user->created_at->format('d-m-Y H:i:s')}}</span></td>
+                            @else
+                            <td><span>{{"_"}}</span></td>
+                            @endif
                             <td>
                                 <div class="d-flex align-items-center gap-3 fs-6">
                                 @if (Auth::user()->id_admin == $user->id_admin)

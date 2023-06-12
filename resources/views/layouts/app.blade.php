@@ -52,7 +52,7 @@
           </div>
           <nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
           
-            <div class="container">	<a class="navbar-brand" href="/"><img src="../../assets/images/logo-dai-hoc-nha-trang.png" width="40" alt=""/> NTU</a>
+            <div class="container">	<a class="navbar-brand" href="/"><img src="../../assets/images/logo-dai-hoc-nha-trang.png" width="40" alt=""/> TIN HỌC ĐẠI CƯƠNG A</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent3" aria-controls="navbarSupportedContent3" aria-expanded="false" aria-label="Toggle navigation">
                 @yield('menu-nav')
               </div>

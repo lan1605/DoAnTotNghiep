@@ -10,7 +10,7 @@
         Trang chủ
     </title>
 @endsection
-@if (Auth::check())
+
 
 @section('content')
 <main>
@@ -54,5 +54,5 @@
 </main>
 
 @endsection
-@endif
+
 
