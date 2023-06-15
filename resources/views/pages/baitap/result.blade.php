@@ -125,7 +125,16 @@
                                         @endphp
                                         {{App\Models\ChuDe::find($chude)->ten_chude}}
                                     </p>
-                                    <p class="my-0"><strong>Thời gian làm bài: </strong>{{$baitap->thoigian_lambai}} phút</p>
+                                    @php
+                                        $start = Carbon\Carbon::parse($ketqua->created_at);
+                                        $end = Carbon\Carbon::parse($ketqua->updated_at);
+                                        $minutes = $end->diffInMinutes($start);
+                                        $seconds = $end->diffInSeconds($start);
+                                    @endphp
+                                    
+                                    <p class="my-0"><strong>Thời gian làm bài: </strong>{{$minutes.' phút '.$seconds.' giây'}}</p>
+                                    <p class="my-0"><strong>Thời gian bắt đầu: </strong>{{$ketqua->created_at->format('d-m-Y G:i:s')}}</p>
+                                    <p class="my-0"><strong>Thời gian kết thúc: </strong>{{$ketqua->updated_at->format('d-m-Y G:i:s')}}</p>
                                     <p class="my-0"><strong>Số lượng câu hỏi: </strong>{{$baitap->soluong_cauhoi}} câu</p>
                                     <p class="my-0"><strong>Số câu đúng: </strong>{{$ketqua->soluong_caudung}}/{{$baitap->soluong_cauhoi}}</p>
                                     <p class="my-0"><strong>Điểm: </strong>{{$ketqua->tong_diem}}</p>
