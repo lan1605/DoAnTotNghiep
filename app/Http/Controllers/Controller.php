@@ -49,7 +49,8 @@ class Controller extends BaseController
             }
             $slug = str_replace(' ','-',$slug);
              
-            return $slug;
+            // return $slug;
+        
     }
     public function array_equal($a, $b) {
         return (

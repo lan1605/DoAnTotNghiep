@@ -92,8 +92,8 @@
                                                                         <tr >
                                                                             <th>Lần</th>
                                                                             <th>Điểm</th>
-                                                                            <th>Số câu làm được</th>
-                                                                            <th>Số đúng</th>
+                                                                            <th>Số câu đã làm</th>
+                                                                            <th>Số câu đúng</th>
                                                                             {{-- <th>Tùy chọn</th> --}}
                                                                         </tr>
                                                                             @php
