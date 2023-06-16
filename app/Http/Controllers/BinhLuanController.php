@@ -80,4 +80,29 @@ class BinhLuanController extends Controller
             return back()->with('error','Thất bại, vui lòng thử lại');
         }
     }
+    public function deleteAdmin($id)
+    {
+        $comment = BinhLuan::find($id);
+        $commentAll = BinhLuan::all();
+        $reply = BinhLuan::where('id_traloi', $id)->get();
+        $comment->delete();
+        // dd($reply);
+        if ($comment){
+            // foreach ($reply as $item){
+            //     foreach ($commentAll as $all){
+            //         if ($item->id==$all->id_traloi){
+            //             dd('có');
+            //         }
+            //         else {
+            //             dd('ko');
+            //         }
+            //         $item->delete();
+            //     }
+            // }
+            return back()->with('success','Xóa bình luận thành công');
+        }
+        else {
+            return back()->with('error','Thất bại, vui lòng thử lại');
+        }
+    }
 }

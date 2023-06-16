@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BaiHoc;
 use App\Models\BaiTap;
+use App\Models\CauHoi;
 use \Illuminate\Http\Response;
 
 class AjaxController extends Controller
@@ -37,5 +38,24 @@ class AjaxController extends Controller
 
             return \Response::json($baihoctap);
         }
+    }
+    public function GetTenCauHoi(Request $req){
+        $cauhoi = CauHoi::where('id_baihoc', $req->baihoc)->get();
+
+        if (count($cauhoi)===0){
+            $tencauhoi = 'Câu 1';
+        }
+        else {
+            $tencauhoi_cu = CauHoi::where('id_baihoc', $req->baihoc)->latest()->first();
+            $stt = explode(' ',$tencauhoi_cu->ten_cauhoi);
+                // dd($adminNum);
+                $num = (int)$stt[1]+1;
+                // dd($num);
+                $tencauhoi = 'Câu '.$num;
+                // dd ($tencauhoi_cu->ten_cauhoi, $cauhoi, $tencauhoi);
+        }
+
+        return \Response::json($tencauhoi);
+
     }
 }

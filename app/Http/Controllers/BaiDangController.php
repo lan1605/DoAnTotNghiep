@@ -54,7 +54,7 @@ class BaiDangController extends Controller
         $binhluan = BinhLuan::where('id_baidang', $id)->get();
 
         return view('admin.bai-dang.detail', ['baidang'=>$baidang, 'binhluan'=>$binhluan, 
-        'titlePage'=>'Quản lý bài viết', 'breadcrumb'=> 'Chi tiết bài viết','linkPage'=>'dashboard/baiviet']);
+        'titlePage'=>'Quản lý bài viết', 'breadcrumb'=> 'Chi tiết bài viết','linkPage'=>'/dashboard/baiviet']);
     }
     public function indexPage(Request $req){
         $filter =[];

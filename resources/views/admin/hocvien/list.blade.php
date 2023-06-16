@@ -65,7 +65,16 @@
                             <td class="productlist">
                                 <a class="d-flex align-items-center gap-2" href="#">
                                 <div class="product-box">
-                                    <img src="assets/images/products/01.png" alt="">
+                                    <img src="
+                                        <?php
+                                            if ($user->img_hocvien!=null) {
+                                                echo asset("../hocviens/".$user->img_hocvien);
+                                            }
+                                            else {
+                                                echo asset("../../assets/images/icons/user.svg");
+                                            }
+                                        ?>
+                                    " alt="">
                                 </div>
                                 </a>
                             </td>

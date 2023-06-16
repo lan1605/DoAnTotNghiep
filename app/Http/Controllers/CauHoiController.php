@@ -99,7 +99,6 @@ class CauHoiController extends Controller
             'id_loaicauhoi.required'=>'bạn chọn loại câu hỏi',
             'id_baihoc.required'=>'bạn chọn bài học',
     	]);
-
         $cauhoi = new CauHoi;
         $cauhoi->ten_cauhoi = $req->ten_cauhoi;
         $cauhoi->noi_dung = strip_tags($req->noi_dung);

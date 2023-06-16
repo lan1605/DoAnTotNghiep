@@ -17,11 +17,11 @@
               <div class="user-setting d-flex align-items-center">
                 <img src="<?php
                 if (Auth::user()->img_admin==NULL){
-                    echo "../../assets/images/icons/user.svg";
+                    echo asset("../../assets/images/icons/user.svg");
                 }
                 else {
                     
-                    echo "../admins/".Auth::user()->img_admin;
+                    echo asset("../admins/".Auth::user()->img_admin);
                 }
                 ?>" class="user-img" alt="">
               </div>
@@ -32,12 +32,11 @@
                    <div class="d-flex align-items-center">
                       <img src="<?php
                       if (Auth::user()->img_admin==NULL){
-                          echo "../../assets/images/icons/user.svg";
-                      }
-                      else {
-                          
-                          echo "../admins/".Auth::user()->img_admin;
-                      }
+                    echo asset("../../assets/images/icons/user.svg");
+                }
+                else {
+                    echo asset("../admins/".Auth::user()->img_admin);
+                }
                       ?>" alt="" class="rounded-circle" width="54" height="54">
                       
                       <div class="ms-3">

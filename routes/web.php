@@ -97,7 +97,9 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/xoa/{id}',[BaiDangController::class, 'delete']);
         Route::get('/{id}',[BaiDangController::class, 'detailGet']);
         Route::delete('/selected',[BaiDangController::class, 'deleteAll'])->name('baidang.delete.all');
+        
     });
+    Route::get('/dashboard/binhluan/{id}/xoa', [BinhLuanController::class, 'deleteAdmin']);
     //Quản lý liên hệ
     Route::prefix('/dashboard/lienhe')->group(function () {
         Route::get('/',[LienHeController::class, 'store']);
@@ -252,6 +254,7 @@ Route::post('/lien-he',[LienHeController::class, 'sendMail']);
 Route::prefix('ajax')->group(function () {
     Route::get('/cauhoi',[AjaxController::class,'getBaiHoc'])->name('ajax.cauhoi');
     Route::get('/baitap',[AjaxController::class,'getBaiTap'])->name('ajax.baitap');
+    Route::get('/tencauhoi',[AjaxController::class,'GetTenCauHoi'])->name('ajax.tencauhoi');
 });
 
 

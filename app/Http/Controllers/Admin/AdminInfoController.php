@@ -248,7 +248,7 @@ class AdminInfoController extends Controller
         return view('admin.manager.edit',['user'=> $user,
         'linkPage'=> '/dashboard/quantrivien',
         'titlePage' => 'Quản lý quản trị viên',
-         'breadcrumb'=>'Chỉnh sửa tài khoản quản trị viên']);
+         'breadcrumb'=>'Chỉnh sửa tài khoản của'.$user->ten_admin]);
     }
     public function xemchitietPost(Request $req, $id_admin){
         $user=Admin::find($id_admin);

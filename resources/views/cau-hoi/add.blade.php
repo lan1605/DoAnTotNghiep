@@ -79,7 +79,7 @@
                         <div class="row g-3">
                             <div class="col-12">
                             <label class="form-label">Tên câu hỏi</label>
-                            <input type="text" class="form-control @error('ten_cauhoi') is-invalid  @enderror" placeholder="Tên câu hỏi..." name="ten_cauhoi">
+                            <input type="text" class="form-control @error('ten_cauhoi') is-invalid  @enderror" placeholder="Tên câu hỏi..." name="ten_cauhoi" id="ten_cauhoi">
                             @error('ten_cauhoi')
                             <span class="invalid-feedback" role="alert" >
                                 <strong>{{ $message }}</strong>
@@ -138,6 +138,20 @@
                                                         $('#baihoc').append('<option value="' + value
                                                             .id_baihoc + '">' + value.ten_baihoc + '</option>');
                                                     });
+                                                }
+                                                
+                                            });
+                                        });
+                                    });
+                                    $(document).ready(function () {
+                                        $('#baihoc').on('change', function () {
+                                            var chudeID = this.value;
+                                            $.ajax({
+                                                url: '{{ route('ajax.tencauhoi') }}?baihoc='+chudeID,
+                                                type: 'get',
+                                                success: function (res) {
+                                                    $('#ten_cauhoi').val(res);
+                                                    
                                                 }
                                                 
                                             });

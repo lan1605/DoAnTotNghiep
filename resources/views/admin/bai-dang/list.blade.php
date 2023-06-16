@@ -60,6 +60,8 @@
                         <th>Tên bài viết</th>
                         <th>Đường dẫn bài viết</th>
                         <th>Chủ đề</th>
+                        <th>Số lượng bình luận</th>
+                        <th>Số lượng truy cập</th>
                         <th>Người viết</th>
                         <th>Ngày viết</th>
                         <th>Ngày chỉnh sửa</th>
@@ -96,6 +98,21 @@
                                     }
                                 ?>    
                             </span></td>
+                            <td>
+                                <span>
+                                    @php
+                                        $binhluan = App\Models\BinhLuan::where('id_baidang',$baidang->id)->get();
+                                    @endphp
+                                    @if ($binhluan!= null)
+                                        {{count($binhluan)}}
+                                    @else
+                                        {{'0'}}
+                                    @endif
+                                </span>
+                            </td>
+                            <td>
+                                <span>{{$baidang->truy_cap}}</span>
+                            </td>
                             <td><span>
                                 <?php
                                 $hocvien = App\Models\User::find($baidang->id_hocvien);
