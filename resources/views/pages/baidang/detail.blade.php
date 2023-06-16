@@ -82,13 +82,19 @@
                             <div class="card-header">
                                 <h5>Cùng chủ đề</h5>
                             </div>
+                            
                             <div class="card-body">
+                                @if (count($cungchude)==0)
+                                    Không có bài viết nào
+                                @else
                                 @foreach ($cungchude as $item)
                                     <a href="/goc-hoi-dap/{{$item->slug}}">
                                         <p class="mb-0 product--title">{{$item->ten_baidang}}</p>
                                     </a>
                                 @endforeach
+                                @endif
                             </div>
+                            
                         </div>
                         <div class="card">
                             <div class="card-header">
@@ -249,13 +255,19 @@
                                 <div class="card-header">
                                     <h5>Cùng chủ đề</h5>
                                 </div>
-                                <div class="card-body">
-                                    @foreach ($cungchude as $item)
-                                        <a href="/goc-hoi-dap/{{$item->slug}}">
-                                            <p class="mb-0 product--title">{{$item->ten_baidang}}</p>
-                                        </a>
-                                    @endforeach
-                                </div>
+                                
+                        <div class="card-body">
+                            @if (count($cungchude)==0)
+                                Không có bài viết nào
+                            @else
+                            @foreach ($cungchude as $item)
+                                <a href="/goc-hoi-dap/{{$item->slug}}">
+                                    <p class="mb-0 product--title">{{$item->ten_baidang}}</p>
+                                </a>
+                            @endforeach
+                            @endif
+                        </div>
+                        
                             </div>
                             <div class="card">
                                 <div class="card-header">

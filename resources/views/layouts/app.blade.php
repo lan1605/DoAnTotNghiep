@@ -89,7 +89,8 @@
   <script src="../../assets/js/index.js"></script>
   <script>
     const main = document.querySelector('main');
-    main.style = "min-height: 0px";
+    main.style = "min-height: 00px";
+    main.classList.add('mb-5');
     $(function(){
 
   var url = window.location.pathname, 

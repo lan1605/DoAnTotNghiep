@@ -123,7 +123,7 @@
             // var countDownDate = new Date("2023-05-17 14:50:55").getTime();
             var oldDateObj = new Date("{{$thoigian_lambai}}");
             var newDateObj = new Date();
-            newDateObj.setTime(oldDateObj.getTime() + (1 * 60 * 1000));
+            newDateObj.setTime(oldDateObj.getTime() + ({{$thoigian}} * 60 * 1000));
             console.log(newDateObj);
             // Update the count down every 1 second
             var x = setInterval(function() {

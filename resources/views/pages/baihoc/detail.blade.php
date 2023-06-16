@@ -56,8 +56,17 @@
                     <div class="col-12 col-lg-8 ">
                         <div >
                             <div class="card-header py-2 " >
-                                <h1 class="fw-500 text-primary">{{$chitiet->ten_baihoc}}</h1>
-                                <p>Thời gian đọc: <span>
+                                
+                                    
+                                <h1 class="py-0"><strong>
+                                    <?php
+                                        $chude = App\Models\ChuDe::find($chitiet->id_chude);
+                                        echo $chude->ten_chude;    
+                                    ?>
+                                    </strong>
+                                </h1>
+                                <h2 class="fw-500 text-primary">{{$chitiet->ten_baihoc}}</h2>
+                                <p class="fs-6">Thời gian đọc: <span>
                                     @php
                                         Str::macro('readDuration', function(...$body) {
                                         $totalWords = str_word_count(implode(" ", $body));
@@ -69,13 +78,6 @@
                                     $est = Str::readDuration($chitiet->noi_dung). ' phút';
                                     echo $est;
                                     @endphp </span></p>
-                                <h2 class="py-0"><strong>
-                                    <?php
-                                        $chude = App\Models\ChuDe::find($chitiet->id_chude);
-                                        echo $chude->ten_chude;    
-                                    ?>
-                                    </strong>
-                                </h2>
                                 <div class="d-flex mt-2 justify-content-center gap-2">
                                     <?php
                                         $check = App\Models\LuuBaiHoc::where('id_baihoc', $chitiet->id_baihoc)->first();
@@ -116,7 +118,7 @@
                             @endif
                             <div class="card-body">
                                 <div class="row g-2 mt-1">
-                                    <article>
+                                    <article class="fs-6">
                                         {!! $chitiet->noi_dung !!}
                                     </article>
                                     <div class="d-flex justify-content-between">
@@ -158,7 +160,7 @@
                                     <div class="card-title">
                                        <h3>Nội dung bài học</h3>
                                     </div>
-                                    <div id="toc">
+                                    <div id="toc" class="fs-6">
                                         
                                     </div>
                                 </div>
