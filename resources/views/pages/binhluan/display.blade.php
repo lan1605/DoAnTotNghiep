@@ -32,7 +32,7 @@
                 @else
                     {{''}}
                 @endif
-                <p class="py-0">{!! $comment->noidung_binhluan !!}</p>
+                {!! $comment->noidung_binhluan !!}
             </div>
         </div>
     </div>
@@ -75,7 +75,7 @@
                     @else
                         {{''}}
                     @endif
-                    <p class="py-0">{!! $comment->noidung_binhluan !!}</p>
+                    {!! $comment->noidung_binhluan !!}
                     <a href=""  data-bs-toggle="modal" data-bs-target="#exampleExtraLargeModal-reply{{$comment->id}}">Trả lời bình luận</a>
                     
                 
@@ -111,7 +111,7 @@
                 <div class="modal-body">
                     <form method="post" action="{{ route('comment.edit') }}">
                         @csrf
-                            <textarea class="form-control rounded-0 border-0" name="noi_dung" id='ckeditor{{$comment->id}}'>{{$comment->noidung_binhluan}}</textarea>
+                            <textarea class="form-control rounded-0 border-0" name="noi_dung" id='ckeditor{{$comment->id}}'>{!! $comment->noidung_binhluan !!}</textarea>
                             {{-- <input type="hidden" name="post_id" value="{{ $baidang->slug }}" /> --}}
                             <input type="hidden" name="comment_id" value="{{ $comment->id }}" />
                 </div>
@@ -148,12 +148,14 @@
         </div>
     </div>
     <script>
-
+           var myEditor;
+           const = 
         ClassicEditor
             .create( document.querySelector( '#ckeditor{{$comment->id}}' ), {
                 ckfinder:{
                     uploadUrl: '{{ route('images.upload').'?_token='.csrf_token() }}',
                 },
+
                 // More configuration options.
                 // ...
                 
@@ -161,16 +163,24 @@
             .then( editor => {
                 // console.log( error );
                 editor.ui.view.editable.element.style.height = '100px';
+                
+                
             } )
             .catch( error => {
                 console.log( error );
             } );
-            
+            // A reference to the editor editable element in the DOM.
+const domEditableElement = document.querySelector( '.ck-editor__editable' );
+
+// Get the editor instance from the editable element.
+const editorInstance = domEditableElement.ckeditorInstance;
+console.log(editorInstance);
         ClassicEditor
             .create( document.querySelector( '#ckeditorReply{{$comment->id}}' ), {
                 ckfinder:{
                     uploadUrl: '{{ route('images.upload').'?_token='.csrf_token() }}',
                 },
+                
                 // More configuration options.
                 // ...
                 
@@ -178,6 +188,7 @@
             .then( editor => {
                 // console.log( error );
                 editor.ui.view.editable.element.style.height = '100px';
+                
             } )
             .catch( error => {
                 console.log( error );

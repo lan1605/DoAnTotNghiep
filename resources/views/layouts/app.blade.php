@@ -13,7 +13,8 @@
   <link href="../../assets/css/icons.css" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/plugins/notifications/css/lobibox.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"> --}}
+  <link href="{{asset('assets/css/bootstrap-icons.css')}}" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="../../assets/plugins/ckeditor5/build/ckeditor.js"></script>
   
@@ -90,7 +91,7 @@
   <script>
     const main = document.querySelector('main');
     main.style = "min-height: 00px";
-    main.classList.add('mb-5');
+    // main.classList.add('mb-5');
     $(function(){
 
   var url = window.location.pathname, 

@@ -48,8 +48,9 @@ class Controller extends BaseController
              
             }
             $slug = str_replace(' ','-',$slug);
-             
-            // return $slug;
+            
+            $slug = str_replace('[\-\_\%\~\@\#$\^\&\*\(\)\+\.\>\<\:\;\"/]', '-', $slug);
+            return $slug;
         
     }
     public function array_equal($a, $b) {
