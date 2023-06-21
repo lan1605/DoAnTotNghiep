@@ -29,7 +29,7 @@
                                     $role = App\Models\ChuDe::all();    
                                 ?>
                                 <select name="id_chude" id="chude" class="form-select">
-                                    <option value="0">Tất cả</option>
+                                    <option value="0">Tất cả chủ đề</option>
                                     @if (isset($role))
                                     @foreach ($role as $item)
                                         <option value="<?php echo $item->id_chude?>" {{request()->id_chude==$item->id_chude ? 'selected' : false}}><?php echo $item->ten_chude?></option>
@@ -40,9 +40,9 @@
                             </div>
                             <div class="mb-2 mb-sm-0 ms-2">
                                 <select name="find_lession" id="baihoc" class="form-select">
-                                    <option value="0">Tất cả</option>
+                                    <option value="0">Tất cả bài học</option>
                                     @if (!isset(request()->find_lession))
-                                    <option value="0">Tất cả</option>
+                                    <option value="0">Tất cả bài học</option>
                                 @else
                                     <?php
                                         $baihoc = App\Models\BaiHoc::where('id_chude', request()->id_chude)->get();
@@ -59,7 +59,7 @@
                                     $loaicauhoi = App\Models\LoaiCauHoi::all();    
                                 ?>
                                 <select name="find_cate" id="chude" class="form-select">
-                                    <option value="0">Tất cả</option>
+                                    <option value="0">Tất cả loại câu hỏi</option>
                                     @if (isset($loaicauhoi))
                                     @foreach ($loaicauhoi as $item)
                                         <option value="<?php echo $item->id?>" {{request()->find_cate==$item->id ? 'selected' : false}}><?php echo $item->ten_loaicauhoi?></option>
