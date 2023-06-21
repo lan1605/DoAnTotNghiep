@@ -38,7 +38,16 @@
                         </div>
                     </form>
                     <div class="ms-auto">
-                        <a href="#" class="btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAll"><i class="bi-trash-fill me-2"></i>Xóa</a>
+                        <button class="btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAll" type="button" 
+                            @php
+                                if (count($baidangs)==0){
+                                    echo "disabled";
+                                }
+                                else {
+                                    echo "";
+                                }
+                            @endphp
+                        ><i class="bi-trash-fill me-2"></i>Xóa</button>
                     </div>
                 </div>
             </div>
@@ -184,6 +193,7 @@
         $("#select_all").click(function(){
             $('.checkbox-item').prop('checked', $(this).prop('checked'));
         });
+    
     $('#deleteAll').click(function(e){
         e.preventDefault();
         var all_ids =[];

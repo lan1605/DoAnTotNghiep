@@ -17,11 +17,24 @@
               <div class="user-setting d-flex align-items-center">
                 <img src="<?php
                 if (Auth::user()->img_admin==NULL){
+<<<<<<< HEAD
               echo asset("../../assets/images/icons/user.svg");
           }
           else {
               echo asset("../admins/".Auth::user()->img_admin);
           }
+=======
+
+                    echo asset("../../assets/images/icons/user.svg");
+
+                    echo asset('assets/images/icons/user.svg');
+
+                }
+                else {
+                    
+                    echo asset("../admins/".Auth::user()->img_admin);
+                }
+>>>>>>> 10506f9a72ce4f40ba311e3f1db10997f92bebeb
                 ?>" class="user-img" alt="">
               </div>
             </a>

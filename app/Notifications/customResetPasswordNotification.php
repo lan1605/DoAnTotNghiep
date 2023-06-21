@@ -41,6 +41,7 @@ class customResetPasswordNotification extends Notification
     {
         return (new MailMessage)
             ->subject(Lang::get('Thông báo thay đổi mật khẩu'))
+            ->line(Lang::get('Xin chào bạn'))
             ->line(Lang::get('Bạn nhận được email này vì chúng tôi đã nhận được yêu cầu đặt lại mật khẩu cho tài khoản của bạn.'))
             ->action(Lang::get('Thay đổi mật khẩu'), url(route('admin.password.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false)))
             ->line(Lang::get('Liên kết đặt lại mật khẩu sẽ hết hạn trong :count phút nữa.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')]))

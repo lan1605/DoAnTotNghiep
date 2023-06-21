@@ -13,7 +13,7 @@ class BinhLuanController extends Controller
     public function store(Request $request)
     {
         $comment = new BinhLuan;
-        $comment->noidung_binhluan = strip_tags($request->noi_dung);
+        $comment->noidung_binhluan = $request->noi_dung;
         $comment->id_hocvien = Auth::user()->id;
         $post = BaiDang::where('slug',$request->post_id)->first();
         $comment->id_baidang = $post->id;
@@ -30,7 +30,7 @@ class BinhLuanController extends Controller
     public function replyStore(Request $request)
     {
         $reply = new BinhLuan();
-        $reply->noidung_binhluan = strip_tags($request->noi_dung);
+        $reply->noidung_binhluan = $request->noi_dung;
         $reply->id_hocvien = Auth::user()->id;
         $reply->id_traloi = $request->comment_id;
         $post = BaiDang::where('id',$request->post_id)->first();
@@ -69,7 +69,7 @@ class BinhLuanController extends Controller
         $comment = BinhLuan::find($req->comment_id);
 
         
-        $comment->noidung_binhluan = strip_tags($req->noi_dung);
+        $comment->noidung_binhluan = $req->noi_dung;
 
         $comment->save();
 

@@ -79,7 +79,7 @@
                         <div class="row g-3">
                             <div class="col-12">
                             <label class="form-label">Tên câu hỏi</label>
-                            <input type="text" class="form-control @error('ten_cauhoi') is-invalid  @enderror" placeholder="Tên câu hỏi..." name="ten_cauhoi" id="ten_cauhoi">
+                            <input type="text" class="form-control @error('ten_cauhoi') is-invalid  @enderror" placeholder="Tên câu hỏi..." name="ten_cauhoi" id="ten_cauhoi" readonly>
                             @error('ten_cauhoi')
                             <span class="invalid-feedback" role="alert" >
                                 <strong>{{ $message }}</strong>
@@ -175,123 +175,5 @@
 
 @endsection
 @section('javascript')
-    <script>
-        ClassicEditor
-            .create( document.querySelector( '#editor-1' ), {
-                ckfinder:{
-                    uploadUrl: '{{ route('images.upload').'?_token='.csrf_token() }}',
-                },
-                toolbar:{
-                    items: [
-                        'heading',
-                        '|',
-                        'subscript',
-			            'superscript',
-                    ]
-                    
-                }
-                // More configuration options.
-                // ...
-            } )
-            .then( error => {
-                console.log( error );
-            } )
-            .catch( error => {
-                console.log( error );
-            } );
-        ClassicEditor
-            .create( document.querySelector( '#editor-2' ), {
-                ckfinder:{
-                    uploadUrl: '{{ route('images.upload').'?_token='.csrf_token() }}',
-                },
-                // More configuration options.
-                // ...
-                toolbar:{
-                    items: [
-                        'heading',
-                        '|',
-                        'subscript',
-			            'superscript',
-                    ]
-                    
-                }
-            } )
-            .then( error => {
-                console.log( error );
-            } )
-            .catch( error => {
-                console.log( error );
-            } );
-        ClassicEditor
-            .create( document.querySelector( '#editor-3' ), {
-                ckfinder:{
-                    uploadUrl: '{{ route('images.upload').'?_token='.csrf_token() }}',
-                },
-                // More configuration options.
-                // ...
-                toolbar:{
-                    items: [
-                        'heading',
-                        '|',
-                        'subscript',
-			            'superscript',
-                    ]
-                    
-                }
-            } )
-            .then( error => {
-                console.log( error );
-            } )
-            .catch( error => {
-                console.log( error );
-            } );
-        ClassicEditor
-            .create( document.querySelector( '#editor-4' ), {
-                ckfinder:{
-                    uploadUrl: '{{ route('images.upload').'?_token='.csrf_token() }}',
-                },
-                // More configuration options.
-                // ...
-                toolbar:{
-                    items: [
-                        'heading',
-                        '|',
-                        'subscript',
-			            'superscript',
-                    ]
-                    
-                }
-            } )
-            .then( error => {
-                console.log( error );
-            } )
-            .catch( error => {
-                console.log( error );
-            } );
-        ClassicEditor
-            .create( document.querySelector( '#editor-5' ), {
-                ckfinder:{
-                    uploadUrl: '{{ route('images.upload').'?_token='.csrf_token() }}',
-                },
-                // More configuration options.
-                // ...
-                toolbar:{
-                    items: [
-                        'heading',
-                        '|',
-                        'subscript',
-			            'superscript',
-                    ]
-                    
-                }
-            } )
-            .then( error => {
-                console.log( error );
-            } )
-            .catch( error => {
-                console.log( error );
-            } );
-        
-            
-        </script>
+    
     @endsection
