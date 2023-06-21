@@ -67,7 +67,12 @@ class BaiTapController extends Controller
             // 'thoigian.required'=>'bạn chưa nhập thời gian làm bài',
             'id_baihoc.required'=>'bạn chọn bài học',
     	]);
-        $baitap = new BaiTap;
+        $ten_baihoc = BaiHoc::find($req->id_baihoc)->ten_baihoc;
+        if (BaiTap::where('ten_baitap', $ten_baihoc)->count()>0){
+            return redirect('dashboard/baitap/')->with('error','Bài tập này đã tồn tại, vui lòng thử lại');
+        }
+        else {
+            $baitap = new BaiTap;
         $baitapOld = BaiTap::max('id_baitap');
             // dd($baitapOld);  
             if ($baitapOld===null){
@@ -80,7 +85,7 @@ class BaiTapController extends Controller
                 // dd($num);
                 $baitap->id_baitap = 'BT-'.$num;
             }
-        $ten_baihoc = BaiHoc::find($req->id_baihoc)->ten_baihoc;
+       
         $baitap->ten_baitap = $ten_baihoc;
         $baitap->soluong_cauhoi = $req->soluong;
         $baitap->thoigian_lambai = $req->soluong*1;
@@ -89,37 +94,30 @@ class BaiTapController extends Controller
         $baitap->slug = Controller::locdau($ten_baihoc);
         $baitap->id_baihoc = $req->id_baihoc;
         $baitap->save();
-
-        if ($baitap){
-            return redirect('dashboard/baitap/')->with('success','Bạn đã thêm thành công');
+        return redirect('dashboard/baitap/')->with('success','Bạn đã thêm thành công');
         }
-        else {
-            return redirect('dashboard/baitap/')->with('error','Thất bại, vui lòng thử lại');
-        }
+        
     }
     
     public function editPost(Request $req, $id){
         $this->validate($req,
     	[
-            'soluongEdit'=>'required',
+            'soluongEdit'=>'required'
             // 'thoigian'=>'required',
-            'id_baihocEdit'=>'required'
         ],
     	[
-            'soluongEdit.required'=>'bạn chưa nhập số lượng câu hỏi',
+            'soluongEdit.required'=>'bạn chưa nhập số lượng câu hỏi'
             // 'thoigian.required'=>'bạn chưa nhập thời gian làm bài',
-            'id_baihocEdit.required'=>'bạn chọn bài học',
+
     	]);
 
         $baitap = BaiTap::find($id);
-        $ten_baihoc = BaiHoc::find($req->id_baihocEdit)->ten_baihoc;
+        // $ten_baihoc = BaiHoc::find($req->id_baihocEdit)->ten_baihoc;
         $baitap->soluong_cauhoi = $req->soluongEdit;
-        $baitap->ten_baitap = $ten_baihoc;
+        // $baitap->ten_baitap = $ten_baihoc;
         $baitap->thoigian_lambai = $req->soluongEdit * 1;
-        $tong_cauhoi = CauHoi::where('id_baihoc', $req->id_baihocEdit)->get();
-        $baitap->tong_cauhoi = count($tong_cauhoi);
-        $baitap->slug = Controller::locdau($ten_baihoc);
-        $baitap->id_baihoc = $req->id_baihocEdit;
+        // $baitap->slug = Controller::locdau($ten_baihoc);
+        // $baitap->id_baihoc = $req->id_baihocEdit;
         $baitap->save();
 
         if ($baitap){

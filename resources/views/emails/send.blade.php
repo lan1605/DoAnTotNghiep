@@ -10,6 +10,6 @@ Xin cảm ơn bạn đã liên hệ với chúng tôi!
 <br>
 <strong>Địa chỉ: </strong> 02 Nguyễn Đình Chiểu, phường Vĩnh Thọ, Nha Trang, Khánh Hòa
 <br>
-<strong>Email: </strong><a href="mailto:tinhocdaicuongantu@gmail.com">tinhocdaicuongantu@gmail.com</a>
+<strong>Email: </strong><a href="mailto:ntutinhocdaicuonga@gmail.com">ntutinhocdaicuonga@gmail.com</a>
 <br>
 <strong>Số điện thoại: </strong><a href="tel:02583831149">02583831149</a>

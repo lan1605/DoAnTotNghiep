@@ -110,7 +110,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="fs-3">	<i class="bx bx-mail-send"></i>
                                                 </div>
-                                                <div class="ms-2 fs-6"> <a href="mailto:tinhocdaicuongantu@gmail.com">tinhocdaicuongantu@gmail.com</a></div>
+                                                <div class="ms-2 fs-6"> <a href="mailto:ntutinhocdaicuonga@gmail.com">ntutinhocdaicuonga@gmail.com</a></div>
                                             </div>
                                         </div>
                                         <div class="px-2">

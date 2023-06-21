@@ -94,7 +94,16 @@
                         </form>
                         <div class="ms-auto">
                             <a href="#" class="btn btn-success mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-import"><i class="lni lni-exit-down me-2"></i>Import</a>
-                            <a href="#" class="btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAll"><i class="bi-trash-fill me-2"></i>Xóa</a>
+                            <button class="btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAll" type="button"
+                                @php
+                                    if (count($cauhois)==0){
+                                        echo "disabled";
+                                    }
+                                    else {
+                                        echo "";
+                                    }
+                                @endphp
+                            ><i class="bi-trash-fill me-2"></i>Xóa</button>
                             <a href="/dashboard/cauhoi/them" class="btn btn-primary mb-3 mb-lg-0"><i class="bi bi-plus-square-fill me-2"></i>Thêm mới</a>    
                         </div>
                         <div class="modal fade" id="exampleModal-import" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

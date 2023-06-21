@@ -117,7 +117,82 @@ ClassicEditor
         console.log( error );
     } );
     
-    
+    ClassicEditor
+            .create( document.querySelector( '#editor-1' ), {
+                ckfinder:{
+                    uploadUrl: '{{ route('images.upload').'?_token='.csrf_token() }}',
+                },
+                
+                // More configuration options.
+                // ...
+            } )
+            .then( error => {
+                console.log( error );
+            } )
+            .catch( error => {
+                console.log( error );
+            } );
+        ClassicEditor
+            .create( document.querySelector( '#editor-2' ), {
+                ckfinder:{
+                    uploadUrl: '{{ route('images.upload').'?_token='.csrf_token() }}',
+                },
+                // More configuration options.
+                // ...
+                
+            } )
+            .then( error => {
+                console.log( error );
+            } )
+            .catch( error => {
+                console.log( error );
+            } );
+        ClassicEditor
+            .create( document.querySelector( '#editor-3' ), {
+                ckfinder:{
+                    uploadUrl: '{{ route('images.upload').'?_token='.csrf_token() }}',
+                },
+                // More configuration options.
+                // ...
+                
+            } )
+            .then( error => {
+                console.log( error );
+            } )
+            .catch( error => {
+                console.log( error );
+            } );
+        ClassicEditor
+            .create( document.querySelector( '#editor-4' ), {
+                ckfinder:{
+                    uploadUrl: '{{ route('images.upload').'?_token='.csrf_token() }}',
+                },
+                // More configuration options.
+                // ...
+                
+            } )
+            .then( error => {
+                console.log( error );
+            } )
+            .catch( error => {
+                console.log( error );
+            } );
+        ClassicEditor
+            .create( document.querySelector( '#editor-5' ), {
+                ckfinder:{
+                    uploadUrl: '{{ route('images.upload').'?_token='.csrf_token() }}',
+                },
+                // More configuration options.
+                // ...
+                
+            } )
+            .then( error => {
+                console.log( error );
+            } )
+            .catch( error => {
+                console.log( error );
+            } );
+        
 </script>
 
 
