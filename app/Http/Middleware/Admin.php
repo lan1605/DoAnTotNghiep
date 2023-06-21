@@ -16,14 +16,6 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-
-        // if (Auth::check()->user()->role==1) {
-        //     return redirect()->route('admin');
-        // }
-
-        // if (Auth::check()->user()->role==1) {
-        //     return redirect()->route('giangvien');
-        // }
         if(Auth::check())
             {
                 if(Auth::user()->role_id==1)

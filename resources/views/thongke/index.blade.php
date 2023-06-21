@@ -82,7 +82,7 @@
                             
                                        
                             @if (!isset($data))
-                                Không có thông tin hiển thị. Vui lòng chọn <strong>Tất cả chủ đề</strong> và chọn <strong>bài học</strong> mà bạn muốn xem thống kê
+                                Không có thông tin hiển thị. Vui lòng chọn <strong>Tất cả chủ đề</strong> và chọn <strong>bài tập</strong> mà bạn muốn xem thống kê
                             @else
                                 @if ($data==null)
                                 Không có thông tin hiển thị. Có thể bài tập bạn muốn xem thống kê chưa có học viên làm.

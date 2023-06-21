@@ -125,7 +125,11 @@
                                 </div>
                                 <div class="ms-auto">
                                     <a href="#" class="btn btn-primary mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-create"><i class="bi bi-plus-square-fill me-2"></i>Thêm mới</a>
-                                    <a href="#" class="btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAll"><i class="bi-trash-fill me-2"></i>Xóa</a>
+                                    @if (count($baitaps)==0)
+                                        <a href="#" class="btn btn-danger mb-3 mb-lg-0" style="opacity: 0.5;"><i class="bi-trash-fill me-2"></i>Xóa</a>
+                                    @else 
+                                        <a href="#" class="btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAll"><i class="bi-trash-fill me-2"></i>Xóa</a>
+                                    @endif
                                 </div>
                             </form>
                             @if (count($baitaps)==0)
@@ -212,18 +216,19 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Thay đổi thông tin "{{$baitap->ten_baitap}}"</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabel">Thay đổi thông tin bài tập</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="row">
+                                                            <div class="col-12">
+                                                                <label class="form-label">Tên câu hỏi: </label>
+                                                                <input type="text" class="form-control "   value="{{ $baitap->ten_baitap }}" readonly>
+                                                                
+                                                            </div>
                                                             <form class="row g-2" method="get" action="/dashboard/baitap/{{$baitap->id_baitap}}">
                                                                 @csrf
-                                                                    {{-- <div class="col-6">
-                                                                        <label class="form-label">Tên bài tập: </label>
-                                                                    <input type="text" class="form-control @error('ten_baitapEdit') is-invalid  @enderror" placeholder="Tên bài tập..." name="ten_baitapEdit" value="{{ $baitap->ten_baitap }}" readonly>
-                                                                    
-                                                                    </div> --}}
+
                                                                     <div class="col-12">
                                                                         <label class="form-label">Số lượng câu hỏi: </label>
                                                                         <input type="text" class="form-control @error('soluongEdit') is-invalid  @enderror" placeholder="Số lượng câu hỏi..." name="soluongEdit" value="{{ $baitap->soluong_cauhoi }}">
@@ -236,7 +241,7 @@
                                                                     
                                                                     <div class="col-12 mt-2">
                                                                     <label class="form-label">Chủ đề: </label>
-                                                                    <select name="" id="chude{{$baitap->id_baitap}}" class="form-select">
+                                                                    <select name="" id="chude{{$baitap->id_baitap}}" class="form-select" disabled>
                                                                         <option value="">-Chọn chủ đề-</option>
                                                                         <?php 
                                                                             $chude_baitap = App\Models\BaiHoc::where('id_baihoc', $baitap->id_baihoc)->first();
@@ -252,7 +257,7 @@
                                                                     </div>
                                                                     <div class="col-12 mt-2">
                                                                         <label for="" class="form-label">Bài học</label>
-                                                                        <select name="id_baihocEdit" id="baihoc{{$baitap->id_baitap}}" class="form-select @error('id_baihocEdit') is-invalid  @enderror">
+                                                                        <select  id="baihoc{{$baitap->id_baitap}}" class="form-select " disabled>
                                                                             <option value="{{$baitap->id_baihoc}}">{{$chude_baitap->ten_baihoc}}</option>
                                                                         </select>
                                                                     <script>
@@ -275,11 +280,7 @@
                                                                     });
                                             
                                                                     </script>
-                                                                    @error('id_baihocEdit')
-                                                                    <span class="invalid-feedback" role="alert" >
-                                                                        <strong>{{ $message }}</strong>
-                                                                    </span>
-                                                                @enderror
+                                                                    
                                                                     </div>
                                                                 <div class="col-12 mt-2">
                                                                     <div class="d-grid">

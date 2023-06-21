@@ -52,6 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new customResetPasswordUserNotification($token));
     }
 
+
     public function baidang(){
         return $this->hasMany('App\Models\BaiDang','id_hocvien','id');
     }

@@ -29,7 +29,11 @@
                                 <div class="ms-auto">
                                     {{-- <p id="select_all" class="btn btn-success mb-0">Chọn tất cả</p> --}}
                                     
-                                    <a href="#" class="btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAll"><i class="bi-trash-fill me-2"></i>Xóa</a>
+                                    @if (count($thongtin)==0)
+                                        <a href="#" class="btn btn-danger mb-3 mb-lg-0" style="opacity: 0.5;"><i class="bi-trash-fill me-2"></i>Xóa</a>
+                                    @else 
+                                        <a href="#" class="btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAll"><i class="bi-trash-fill me-2"></i>Xóa</a>
+                                    @endif
                                 </div>
                             </form>
                             @if (count($thongtin)==0)

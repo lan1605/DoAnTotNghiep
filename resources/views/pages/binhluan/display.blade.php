@@ -1,3 +1,18 @@
+<style>
+    pre{
+        background: hsla(0,0%,78%,.3);
+    border: 1px solid #c4c4c4;
+    border-radius: 2px;
+    color: #353535;
+    direction: ltr;
+    font-style: normal;
+    min-width: 200px;
+    padding: 1em;
+    tab-size: 4;
+    text-align: left;
+    white-space: pre-wrap;
+    }
+</style>
 @guest
 @foreach($comments as $comment)
 <div class="card rounded overflow-hidden shadow-none bg-white border mt-3 mb-3">
@@ -149,7 +164,6 @@
     </div>
     <script>
            var myEditor;
-           const = 
         ClassicEditor
             .create( document.querySelector( '#ckeditor{{$comment->id}}' ), {
                 ckfinder:{
@@ -169,12 +183,7 @@
             .catch( error => {
                 console.log( error );
             } );
-            // A reference to the editor editable element in the DOM.
-const domEditableElement = document.querySelector( '.ck-editor__editable' );
 
-// Get the editor instance from the editable element.
-const editorInstance = domEditableElement.ckeditorInstance;
-console.log(editorInstance);
         ClassicEditor
             .create( document.querySelector( '#ckeditorReply{{$comment->id}}' ), {
                 ckfinder:{

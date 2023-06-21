@@ -34,7 +34,16 @@
                             </div>
                         </form>
                         <div class="ms-auto">
-                            <a href="#" class="btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAll"><i class="bi-trash-fill me-2"></i>Xóa</a>
+                            <button class="btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAll" type="button"
+                            @php
+                                if (count($users)==0){
+                                    echo "disabled";
+                                }
+                                else {
+                                    echo "";
+                                }
+                            @endphp
+                            ><i class="bi-trash-fill me-2"></i>Xóa</button>
                             <a href="/dashboard/quantrivien/them" class="btn btn-primary mb-3 mb-lg-0"><i class="bi bi-plus-square-fill me-2"></i>Thêm mới</a>
                         </div>
                     </div>

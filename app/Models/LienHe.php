@@ -18,7 +18,7 @@ class LienHe extends Model
   
         static::created(function ($item) {
                 
-            $adminEmail = "tinhocdaicuongantu@gmail.com";
+            $adminEmail = "ntutinhocdaicuonga@gmail.com";
             Mail::to($adminEmail)->send(new ContactMail($item));
         });
     }

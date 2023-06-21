@@ -46,13 +46,13 @@ class AjaxController extends Controller
             $tencauhoi = 'Câu 1';
         }
         else {
-            $tencauhoi_cu = CauHoi::where('id_baihoc', $req->baihoc)->latest()->first();
+            $tencauhoi_cu = CauHoi::where('id_baihoc', $req->baihoc)->orderBy('id', 'DESC')->latest()->first();
             $stt = explode(' ',$tencauhoi_cu->ten_cauhoi);
-                // dd($adminNum);
+                
                 $num = (int)$stt[1]+1;
                 // dd($num);
                 $tencauhoi = 'Câu '.$num;
-                // dd ($tencauhoi_cu->ten_cauhoi, $cauhoi, $tencauhoi);
+                // dd ($tencauhoi_cu, count($cauhoi), $tencauhoi);
         }
 
         return \Response::json($tencauhoi);

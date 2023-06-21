@@ -19,8 +19,12 @@
                 <div class="row g-3 d-flex align-items-center mt-0 ">
                     <div class="d-sm-flex mb-3 justify-content-center gap-2">
                         <a href="/goc-hoi-dap" class="btn btn-primary mb-3 mb-lg-0">Tất cả</a>
+                        @if (Auth::check())
                         <a href="/goc-hoi-dap/danh-sach" class="btn btn-white mb-3 mb-lg-0">Bài viết của bạn</a>
                         <a href="/goc-hoi-dap/them-moi" class="btn btn-white mb-3 mb-lg-0">Thêm mới</a>
+                        @else
+                            
+                        @endif
                     </div>
                    
                 </div>

@@ -160,7 +160,7 @@
 <!--end page main-->
 
 @endsection
-@section('javascript')
+{{-- @section('javascript')
     <script>
         ClassicEditor
             .create( document.querySelector( '#editor-1' ), {
@@ -280,4 +280,4 @@
         
             
         </script>
-    @endsection
+    @endsection --}}

@@ -23,7 +23,16 @@
                         </div>
                     </form>
                     <div class="ms-auto">
-                        <a href="#" class="btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAll"><i class="bi-trash-fill me-2"></i>Xóa</a>
+                        <button class="btn btn-danger mb-3 mb-lg-0" data-bs-toggle="modal" data-bs-target="#exampleModal-deleteAll" 
+                        @php
+                        if (count($lienhes)==0){
+                            echo "disabled";
+                        }
+                        else {
+                            echo "";
+                        }
+                    @endphp
+                        ><i class="bi-trash-fill me-2"></i>Xóa</button>
                     </div>
                 </div>
             </div>
