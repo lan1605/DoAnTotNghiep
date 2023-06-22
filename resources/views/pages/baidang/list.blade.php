@@ -136,14 +136,15 @@
                                                                 
                                                             </div>
                                                         </div>
-                                                        <div class="d-flex text-black">
+                                                        <div class="d-flex text-black flex-column">
                                                                 @php
                                                                 $body = $item->noidung_baidang;
-                                                                echo Str::limit($body, 200, ' ...');
-                                                            @endphp
+                                                                echo Str::limit($body, 50, ' ...');
+                                                                @endphp
                                                         </div>
                                                     </a>
-                                                        <div class="d-flex justify-content-end" >
+                                                        <div>
+                                                            <div class="d-flex justify-content-end" >
                                                              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                                 Tùy chọn
                                                               </a>
@@ -153,6 +154,7 @@
                                                                     <li><a href="/goc-hoi-dap/{{$item->slug}}/chinh-sua" class="dropdown-item">Chỉnh sửa</a>
                                                                     </li>
                                                                 </ul>
+                                                        </div>
                                                         </div>
                                                     </div>
                                                 </div>

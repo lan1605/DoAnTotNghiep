@@ -47,9 +47,10 @@ class Controller extends BaseController
             $slug = preg_replace("/($uni)/i", $nonUnicode, $slug);
              
             }
-            $slug = str_replace(' ','-',$slug);
             
-            $slug = str_replace('[\-\_\%\~\@\#$\^\&\*\(\)\+\.\>\<\:\;\"/]', '-', $slug);
+            
+            $slug = preg_replace('/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/i', ' ', $slug);
+            $slug = str_replace(' ','-',$slug);
             return $slug;
         
     }

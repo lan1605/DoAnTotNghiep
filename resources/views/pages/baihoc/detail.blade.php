@@ -81,8 +81,13 @@
                                 <div class="d-flex mt-2 justify-content-center gap-2">
                                     <?php
                                         $check = App\Models\LuuBaiHoc::where('id_baihoc', $chitiet->id_baihoc)->first();
+
+                                        if (isset($check->id_baihoc)){
+                                            $baihoc = App\Models\ThoiGianHoc::where('id_baihoc', $check->id_baihoc)->where('id_hocvien', Auth::user()->id)->first();
+                                        }
+                                        
                                     ?>
-                                    @if (isset($check->id_baihoc))
+                                    @if (isset($baihoc->id_baihoc))
                                         <a href="/bai-hoc/{{$chitiet->slug}}/huy" class="btn btn-danger px-5" id="huybaihoc"> <i class="bi bi-bookmark-check-fill"></i>Xóa khỏi danh sách</a>
                                         
                                     @else

@@ -111,7 +111,8 @@
                                                         </a>
                                                         
                                                     </div>
-                                                    @php
+                                                    <div class="float-end">
+                                                        @php
                                                         $baihocdaluu = App\Models\LuuBaiHoc::all();
 
                                                         $arrid = [];
@@ -134,6 +135,24 @@
                                                             {{''}}
                                                         @endif
                                                     @endforeach
+
+                                                    @php
+                                                        $baitap = App\Models\BaiTap::where('id_baihoc', $item->id_baihoc)->first();
+
+                                                        $ketqua = App\Models\KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->get();
+
+                                                        $diem =  [];
+                                                        $tong = 0;
+                                                        foreach ($ketqua as $value) {
+                                                            $diem[] = $value->tong_diem;
+
+                                                            $tong= $tong+ $value->tong_diem;
+                                                        }
+
+                                                        dd(round($tong/count($diem), 2));
+                                                    @endphp
+                                                    
+                                                    </div>
                                                 </div>
                                                 
                                             </div>

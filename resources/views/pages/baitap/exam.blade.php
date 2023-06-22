@@ -41,22 +41,22 @@
                                                         <div class="question-answer fs-6">
                                                             <div class="answer">
                                                                 
-                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="{{$item->id}}" value="{{trim($item->dap_an_1)}}" > A. {{$item->dap_an_1}}
+                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="{{$item->id}}" value="{{trim($item->dap_an_1)}}" > A. {!! $item->dap_an_1 !!}
                                                                 
                                                             </div>
                                                             <div class="answer">
                                                                 
-                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="{{$item->id}}" value="{{trim($item->dap_an_2)}}"> B. {{$item->dap_an_2}}
+                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="{{$item->id}}" value="{{trim($item->dap_an_2)}}"> B. {!! $item->dap_an_2 !!}
                                                                
                                                             </div>
                                                             <div class="answer">
                                                                 
-                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="{{$item->id}}" value="{{trim($item->dap_an_3)}}"> C. {{$item->dap_an_3}}
+                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="{{$item->id}}" value="{{trim($item->dap_an_3)}}"> C. {!! $item->dap_an_3 !!}
                                                                
                                                             </div>
                                                             <div class="answer">
                                                                
-                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="{{$item->id}}"value="{{trim($item->dap_an_4)}}"> D. {{$item->dap_an_4}}
+                                                                    <input type="radio" name="dapan_hocvien[{{$item->id}}]" id="{{$item->id}}"value="{{trim($item->dap_an_4)}}"> D. {!! $item->dap_an_4 !!}
                                                                 
                                                                    
                                                             </div>
@@ -96,8 +96,8 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="mb-2">
-                                            <span  id="timer" name="time"></span>
+                                        <div class="mb-2 fs-6">
+                                            Thời gian còn lại: <span  id="timer" name="time"></span>
                                         </div>
                                         @php
                                             $demds =0;
