@@ -134,9 +134,23 @@
                                         @foreach ($danhsach as $item_ds)
                                         <?php $demds = $demds +1; ?>
                                                 <div class="col-2 mt-2">
-                                                    <a href="#quest-{{$item_ds->id_cauhoi}}" class="menu-link btn btn-white d-flex justify-content-center">{{$demds}}</a>
+                                                    <a href="#quest-{{$item_ds->id_cauhoi}}" id="cau-{{$item_ds->id_cauhoi}}"class="menu-link btn btn-white d-flex justify-content-center">{{$demds}}</a>
                                                 </div>
                                         @endforeach
+                                        <script>
+                                            const inputCheck = document.querySelectorAll('input[type=radio]');
+
+                                            [...inputCheck].forEach(function(item) {
+                                            
+                                                item.addEventListener('change',  function(){
+                                                var text = "#cau-" + item.id;
+
+                                                const question = document.querySelector(text);
+                                                question.classList.add('btn-primary')
+                                            })
+                                            
+                                            });
+                                        </script>
                                     </div>
                                     
                                 </div>
@@ -153,7 +167,6 @@
             var oldDateObj = new Date("{{$thoigian_lambai}}");
             var newDateObj = new Date();
             newDateObj.setTime(oldDateObj.getTime() + ({{$thoigian}} * 60 * 1000));
-            console.log(newDateObj);
             // Update the count down every 1 second
             var x = setInterval(function() {
 
@@ -194,6 +207,8 @@
                 // document.forms["formSubmit"].submit();
             }
             }, 1000);
+
+            
         </script>
     </main>
 @endsection
