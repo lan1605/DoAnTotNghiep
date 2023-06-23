@@ -186,7 +186,7 @@ Route::middleware(['hocvien'])->group(function () {
     Route::prefix('/bai-hoc')->group(function () {
         Route::get('/danh-sach-da-luu',[BaiHocController::class,'daLuu']);
         Route::get('/{slug}', [BaiHocController::class,'viewDetail']);
-        Route::get('/{slug}/luu',[BaiHocController::class, 'Luubaihoc']);
+        Route::post('/{slug}',[BaiHocController::class, 'Luubaihoc']);
         Route::get('/{slug}/huy',[BaiHocController::class, 'xoaLuu']);
     });
     Route::middleware(['lambai'])->group(function () {
