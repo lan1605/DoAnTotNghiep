@@ -33,74 +33,145 @@
                                                 <?php $dem = $dem +1; ?>
                                                 @foreach ($danhsach as $item_lbt)
                                                     @if ($item->id ===$item_lbt->id_cauhoi)
+                                                        @if ($dem / 2 == 0)
                                                         <div class="mt-2 " id="quest-{{$item->id}}">
                                                             <h5><strong>Câu {{$dem}}</strong>: {{$item->noi_dung}}</h5>
                                                             <div class="question-answer fs-6">
                                                                 <div class="answer">
                                                                     @if ((trim($item_lbt->dapan_hocvien)===trim($item->dap_an_dung)) && (trim($item_lbt->dapan_hocvien)===trim($item->dap_an_1)))
-                                                                        <input type="radio" name="" id="" checked value="{{trim($item->dap_an_1)}}" disabled > <span class="text-success">A. {{$item->dap_an_1}}</span>
+                                                                        <input type="radio" name="" id="" checked value="{{trim($item->dap_an_1)}}" disabled > <span class="text-success">A. {!! $item->dap_an_1 !!}</span>
                                                                     @else
                                                                         @if ((trim($item_lbt->dapan_hocvien)!==trim($item->dap_an_dung)) && (trim($item_lbt->dapan_hocvien)===trim($item->dap_an_1)))
-                                                                            <input type="radio" name="" id="" checked value="{{trim($item->dap_an_1)}}" disabled > <span class="text-danger">A. {{$item->dap_an_1}}</span>
+                                                                            <input type="radio" name="" id="" checked value="{{trim($item->dap_an_1)}}" disabled > <span class="text-danger">A. {!! $item->dap_an_1 !!}</span>
                                                                         @else
                                                                             @if ((trim($item->dap_an_1)===trim($item->dap_an_dung)))
-                                                                                <input type="radio" name="" id="" checked value="{{trim($item->dap_an_1)}}" disabled > <span class="text-success">A. {{$item->dap_an_1}}</span>
+                                                                                <input type="radio" name="" id="" checked value="{{trim($item->dap_an_1)}}" disabled > <span class="text-success">A. {!! $item->dap_an_1 !!}</span>
                                                                             @else
-                                                                                <input type="radio" name="" id="" value="{{trim($item->dap_an_1)}}" disabled > A. {{$item->dap_an_1}}
+                                                                                <input type="radio" name="" id="" value="{{trim($item->dap_an_1)}}" disabled > A. {!! $item->dap_an_1 !!}
                                                                             @endif
                                                                         @endif
                                                                     @endif
                                                                 </div>
                                                                 <div class="answer">
                                                                     @if ((trim($item_lbt->dapan_hocvien)===trim($item->dap_an_dung)) && (trim($item_lbt->dapan_hocvien)===trim($item->dap_an_2)))
-                                                                        <input type="radio" name="" id="" checked value="{{trim($item->dap_an_2)}}" disabled > <span class="text-success">B. {{$item->dap_an_2}}</span>
+                                                                        <input type="radio" name="" id="" checked value="{{trim($item->dap_an_2)}}" disabled > <span class="text-success">B. {!! $item->dap_an_2 !!}</span>
                                                                     @else
                                                                         @if ((trim($item_lbt->dapan_hocvien)!==trim($item->dap_an_dung)) && (trim($item_lbt->dapan_hocvien)===trim($item->dap_an_2)))
-                                                                            <input type="radio" name="" id="" checked value="{{trim($item->dap_an_2)}}" disabled > <span class="text-danger">B. {{$item->dap_an_2}}</span>
+                                                                            <input type="radio" name="" id="" checked value="{{trim($item->dap_an_2)}}" disabled > <span class="text-danger">B. {!! $item->dap_an_2 !!}</span>
                                                                         @else
                                                                             @if ((trim($item->dap_an_2)===trim($item->dap_an_dung)))
-                                                                                <input type="radio" name="" id="" checked value="{{trim($item->dap_an_2)}}" disabled > <span class="text-success">B. {{$item->dap_an_2}}</span>
+                                                                                <input type="radio" name="" id="" checked value="{{trim($item->dap_an_2)}}" disabled > <span class="text-success">B. {!! $item->dap_an_2 !!}</span>
                                                                             @else
-                                                                                <input type="radio" name="" id="" value="{{trim($item->dap_an_2)}}" disabled > B. {{$item->dap_an_2}}
+                                                                                <input type="radio" name="" id="" value="{{trim($item->dap_an_2)}}" disabled > B. {!! $item->dap_an_2 !!}
                                                                             @endif
                                                                         @endif
                                                                     @endif
                                                                 </div>
                                                                 <div class="answer">
                                                                     @if ((trim($item_lbt->dapan_hocvien)===trim($item->dap_an_dung)) && (trim($item_lbt->dapan_hocvien)===trim($item->dap_an_3)))
-                                                                        <input type="radio" name="" id="" checked value="{{trim($item->dap_an_3)}}" disabled > <span class="text-success">C. {{$item->dap_an_3}}</span>
+                                                                        <input type="radio" name="" id="" checked value="{{trim($item->dap_an_3)}}" disabled > <span class="text-success">C. {!! $item->dap_an_3 !!}</span>
                                                                     @else
                                                                         @if ((trim($item_lbt->dapan_hocvien)!==trim($item->dap_an_dung)) && (trim($item_lbt->dapan_hocvien)===trim($item->dap_an_3)))
-                                                                            <input type="radio" name="" id="" checked value="{{trim($item->dap_an_3)}}" disabled > <span class="text-danger">C. {{$item->dap_an_3}}</span>
+                                                                            <input type="radio" name="" id="" checked value="{{trim($item->dap_an_3)}}" disabled > <span class="text-danger">C. {!! $item->dap_an_3 !!}</span>
                                                                         @else
                                                                             @if ((trim($item->dap_an_3)===trim($item->dap_an_dung)))
-                                                                                <input type="radio" name="" id="" checked value="{{trim($item->dap_an_3)}}" disabled > <span class="text-success">C. {{$item->dap_an_3}}</span>
+                                                                                <input type="radio" name="" id="" checked value="{{trim($item->dap_an_3)}}" disabled > <span class="text-success">C. {!! $item->dap_an_3 !!}</span>
                                                                             @else
-                                                                                <input type="radio" name="" id="" value="{{trim($item->dap_an_3)}}" disabled > C. {{$item->dap_an_3}}
+                                                                                <input type="radio" name="" id="" value="{{trim($item->dap_an_3)}}" disabled > C. {!! $item->dap_an_3 !!}
                                                                             @endif
                                                                         @endif
                                                                     @endif
                                                                 </div>
                                                                 <div class="answer">
                                                                     @if ((trim($item_lbt->dapan_hocvien)===trim($item->dap_an_dung)) && (trim($item_lbt->dapan_hocvien)===trim($item->dap_an_4)))
-                                                                        <input type="radio" name="" id="" checked value="{{trim($item->dap_an_4)}}" disabled > <span class="text-success">D. {{$item->dap_an_4}}</span>
+                                                                        <input type="radio" name="" id="" checked value="{{trim($item->dap_an_4)}}" disabled > <span class="text-success">D. {!! $item->dap_an_4 !!}</span>
                                                                     @else
                                                                         @if ((trim($item_lbt->dapan_hocvien)!==trim($item->dap_an_dung)) && (trim($item_lbt->dapan_hocvien)===trim($item->dap_an_4)))
-                                                                            <input type="radio" name="" id="" checked value="{{trim($item->dap_an_4)}}" disabled > <span class="text-danger">D. {{$item->dap_an_4}}</span>
+                                                                            <input type="radio" name="" id="" checked value="{{trim($item->dap_an_4)}}" disabled > <span class="text-danger">D. {!! $item->dap_an_4 !!}</span>
                                                                         @else
                                                                             @if ((trim($item->dap_an_4)===trim($item->dap_an_dung)))
-                                                                                <input type="radio" name="" id="" checked value="{{trim($item->dap_an_4)}}" disabled > <span class="text-success">D. {{$item->dap_an_4}}</span>
+                                                                                <input type="radio" name="" id="" checked value="{{trim($item->dap_an_4)}}" disabled > <span class="text-success">D. {!! $item->dap_an_4 !!}</span>
                                                                             @else
-                                                                                <input type="radio" name="" id="" value="{{trim($item->dap_an_4)}}" disabled > D. {{$item->dap_an_4}}
+                                                                                <input type="radio" name="" id="" value="{{trim($item->dap_an_4)}}" disabled > D. {!! $item->dap_an_4 !!}
                                                                             @endif
                                                                         @endif
                                                                     @endif
                                                                 </div>
                                                             </div>
                                                             <div class="alert border-0 bg-light-success alert-dismissible fade show py-2">
-                                                                <strong>Đáp án đúng:</strong> {{$item->dap_an_dung}}
+                                                                <strong>Đáp án đúng:</strong> {!! $item->dap_an_dung !!}
                                                             </div>
                                                         </div>
+                                                        @else
+                                                        <div class="mt-2 " id="quest-{{$item->id}}">
+                                                            <h5><strong>Câu {{$dem}}</strong>: {{$item->noi_dung}}</h5>
+                                                            <div class="question-answer fs-6">
+                                                                <div class="answer">
+                                                                    @if ((trim($item_lbt->dapan_hocvien)===trim($item->dap_an_dung)) && (trim($item_lbt->dapan_hocvien)===trim($item->dap_an_3)))
+                                                                        <input type="radio" name="" id="" checked value="{{trim($item->dap_an_3)}}" disabled > <span class="text-success">A. {!! $item->dap_an_3 !!}</span>
+                                                                    @else
+                                                                        @if ((trim($item_lbt->dapan_hocvien)!==trim($item->dap_an_dung)) && (trim($item_lbt->dapan_hocvien)===trim($item->dap_an_3)))
+                                                                            <input type="radio" name="" id="" checked value="{{trim($item->dap_an_3)}}" disabled > <span class="text-danger">A. {!! $item->dap_an_3 !!}</span>
+                                                                        @else
+                                                                            @if ((trim($item->dap_an_3)===trim($item->dap_an_dung)))
+                                                                                <input type="radio" name="" id="" checked value="{{trim($item->dap_an_3)}}" disabled > <span class="text-success">A. {!! $item->dap_an_3 !!}</span>
+                                                                            @else
+                                                                                <input type="radio" name="" id="" value="{{trim($item->dap_an_3)}}" disabled > A. {!! $item->dap_an_3 !!}
+                                                                            @endif
+                                                                        @endif
+                                                                    @endif
+                                                                </div>
+                                                                <div class="answer">
+                                                                    @if ((trim($item_lbt->dapan_hocvien)===trim($item->dap_an_dung)) && (trim($item_lbt->dapan_hocvien)===trim($item->dap_an_2)))
+                                                                        <input type="radio" name="" id="" checked value="{{trim($item->dap_an_2)}}" disabled > <span class="text-success">B. {!! $item->dap_an_2 !!}</span>
+                                                                    @else
+                                                                        @if ((trim($item_lbt->dapan_hocvien)!==trim($item->dap_an_dung)) && (trim($item_lbt->dapan_hocvien)===trim($item->dap_an_2)))
+                                                                            <input type="radio" name="" id="" checked value="{{trim($item->dap_an_2)}}" disabled > <span class="text-danger">B. {!! $item->dap_an_2 !!}</span>
+                                                                        @else
+                                                                            @if ((trim($item->dap_an_2)===trim($item->dap_an_dung)))
+                                                                                <input type="radio" name="" id="" checked value="{{trim($item->dap_an_2)}}" disabled > <span class="text-success">B. {!! $item->dap_an_2 !!}</span>
+                                                                            @else
+                                                                                <input type="radio" name="" id="" value="{{trim($item->dap_an_2)}}" disabled > B. {!! $item->dap_an_2 !!}
+                                                                            @endif
+                                                                        @endif
+                                                                    @endif
+                                                                </div>
+                                                                <div class="answer">
+                                                                    @if ((trim($item_lbt->dapan_hocvien)===trim($item->dap_an_dung)) && (trim($item_lbt->dapan_hocvien)===trim($item->dap_an_1)))
+                                                                        <input type="radio" name="" id="" checked value="{{trim($item->dap_an_1)}}" disabled > <span class="text-success">C. {!! $item->dap_an_1 !!}</span>
+                                                                    @else
+                                                                        @if ((trim($item_lbt->dapan_hocvien)!==trim($item->dap_an_dung)) && (trim($item_lbt->dapan_hocvien)===trim($item->dap_an_1)))
+                                                                            <input type="radio" name="" id="" checked value="{{trim($item->dap_an_1)}}" disabled > <span class="text-danger">C. {!! $item->dap_an_1 !!}</span>
+                                                                        @else
+                                                                            @if ((trim($item->dap_an_1)===trim($item->dap_an_dung)))
+                                                                                <input type="radio" name="" id="" checked value="{{trim($item->dap_an_1)}}" disabled > <span class="text-success">C. {!! $item->dap_an_1 !!}</span>
+                                                                            @else
+                                                                                <input type="radio" name="" id="" value="{{trim($item->dap_an_1)}}" disabled > C. {!! $item->dap_an_1 !!}
+                                                                            @endif
+                                                                        @endif
+                                                                    @endif
+                                                                </div>
+                                                                <div class="answer">
+                                                                    @if ((trim($item_lbt->dapan_hocvien)===trim($item->dap_an_dung)) && (trim($item_lbt->dapan_hocvien)===trim($item->dap_an_4)))
+                                                                        <input type="radio" name="" id="" checked value="{{trim($item->dap_an_4)}}" disabled > <span class="text-success">D. {!! $item->dap_an_4 !!}</span>
+                                                                    @else
+                                                                        @if ((trim($item_lbt->dapan_hocvien)!==trim($item->dap_an_dung)) && (trim($item_lbt->dapan_hocvien)===trim($item->dap_an_4)))
+                                                                            <input type="radio" name="" id="" checked value="{{trim($item->dap_an_4)}}" disabled > <span class="text-danger">D. {!! $item->dap_an_4 !!}</span>
+                                                                        @else
+                                                                            @if ((trim($item->dap_an_4)===trim($item->dap_an_dung)))
+                                                                                <input type="radio" name="" id="" checked value="{{trim($item->dap_an_4)}}" disabled > <span class="text-success">D. {!! $item->dap_an_4 !!}</span>
+                                                                            @else
+                                                                                <input type="radio" name="" id="" value="{{trim($item->dap_an_4)}}" disabled > D. {!! $item->dap_an_4 !!}
+                                                                            @endif
+                                                                        @endif
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                            <div class="alert border-0 bg-light-success alert-dismissible fade show py-2">
+                                                                <strong>Đáp án đúng:</strong> {!! $item->dap_an_dung !!}
+                                                            </div>
+                                                        </div>
+                                                        @endif
 
                                                     @endif
                                                 @endforeach
@@ -141,7 +212,10 @@
                                     <p class="my-0"><strong>Số lần làm bài: </strong>{{$solanlambai}}</p>
                                     <div class="d-flex mt-2 justify-content-center">
                                         @if ($solanlambai === 3)
-                                                
+                                            @php
+                                                $baihoc = App\Models\BaiHoc::find($baitap->id_baihoc);
+                                            @endphp
+                                        <a href="/bai-tap/{{$baihoc->slug}}" class="btn btn-primary">Về lại trang bài học</a>
                                         @else
                                             <a href="/bai-tap/{{$baitap->slug}}" class="btn btn-primary">Làm lại bài tập</a>
                                         @endif

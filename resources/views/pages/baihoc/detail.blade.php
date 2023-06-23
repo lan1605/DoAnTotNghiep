@@ -78,34 +78,7 @@
                                     $est = Str::readDuration($chitiet->noi_dung). ' phút';
                                     echo $est;
                                     @endphp </span></p>
-                                <div class="d-flex mt-2 justify-content-center gap-2">
-                                    <?php
-                                        $check = App\Models\LuuBaiHoc::where('id_baihoc', $chitiet->id_baihoc)->first();
-                                    ?>
-                                    @if (isset($check->id_baihoc))
-                                        <a href="/bai-hoc/{{$chitiet->slug}}/huy" class="btn btn-danger px-5" id="huybaihoc"> <i class="bi bi-bookmark-check-fill"></i>Xóa khỏi danh sách</a>
-                                        
-                                    @else
-                                        <a href="/bai-hoc/{{$chitiet->slug}}/luu" class="btn btn-danger px-5" id="luubaihoc"> <i class="bi bi-bookmark-check-fill"></i> Lưu bài học</a>
-                                    @endif
-                                    <?php
-                                        $baitap = App\Models\BaiTap::where('id_baihoc', $chitiet->id_baihoc)->first();
-                                    ?>
-                                        @if (isset($baitap->id_baihoc))
-                                            @php
-                                                $solanlambai = App\Models\KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->get();
-                                            @endphp
-                                            @if (count($solanlambai)==3)
-                                                
-                                            @else
-                                                <a href="/bai-tap/{{$baitap->slug}}" class="btn btn-success px-5" id="lambaitap"> <i class="bx bx-credit-card-front"></i> Làm bài tập</a>
-                                            @endif
-
-                                        @else
-                                            
-                                        @endif
-                                        
-                                </div>
+                                
                             </div>
                             @if ($chitiet->video==null)
                                 
@@ -121,41 +94,14 @@
                                     <article class="fs-6">
                                         {!! $chitiet->noi_dung !!}
                                     </article>
-                                    <div class="d-flex justify-content-between">
-                                        @if ($prev)
-                                        @php
-                                            $baitruoc = App\Models\BaiHoc::find($prev);
-                                        @endphp
-                                            <h5>
-                                                <div class="d-flex align-items-center">
-                                                    <a href="/bai-hoc/{{$baitruoc->slug}}" title="{{$baitruoc->ten_baihoc}}">
-                                                        <i class="bx bx-chevron-left-circle"></i>
-                                                        {{$baitruoc->ten_baihoc}}
-                                                    </a>
-                                                </div>
-                                            </h5>
-                                        @endif
-                                        @if ($next)
-                                        @php
-                                            $baitruoc = App\Models\BaiHoc::find($next);
-                                        @endphp
-                                            <h5>
-                                                <div class="d-flex align-items-center">
-                                                    <a href="/bai-hoc/{{$baitruoc->slug}}" title="{{$baitruoc->ten_baihoc}}">
-                                                        {{$baitruoc->ten_baihoc}}
-                                                        <i class="bx bx-chevron-right-circle"></i>
-                                                    </a>                                                
-                                                </div>
-                                            </h5>
-                                        @endif
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-lg-4">
                         <div class="sticky-top">
-                            <div class="card">
+                            <div class="card sticky-top  order-xl-1">
                                 <div class="card-body">
                                     <div class="card-title">
                                        <h3>Nội dung bài học</h3>
@@ -184,6 +130,51 @@
                                         
                                     </div>
                                     @endforeach
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex mt-2 justify-content-center gap-2 flex-column align-items-center">
+                                        
+                                            <form action="/bai-hoc/{{$chitiet->slug}}" method="post">
+                                                @csrf
+                                                {{-- <a href="/bai-hoc/{{$chitiet->slug}}/luu" class="btn btn-danger px-5" id="luubaihoc"> <i class="bi bi-bookmark-check-fill"></i> Lưu bài học</a> --}}
+                                                <button  class="btn btn-danger px-5" id="luubaihoc"> <i class="bi bi-bookmark-check-fill"></i> Lưu bài học</button>
+                                                <input type="hidden" name="luubaihoc" value="" id="luu">
+                                            </form>
+                                            <script>
+                                                const luu = document.querySelector('#luubaihoc');
+
+                                                luu.addEventListener('click', function(){
+                                                    const tocContent = document.querySelector('#toc');
+
+                                                    const href = tocContent.querySelector('.text-primary');
+                                                    
+                                                    const luuInput = document.querySelector('#luu');
+
+                                                    luuInput.value = decodeURIComponent(href.href);
+                                                    
+                                                });
+                                            </script>
+                                        {{-- @endif --}}
+                                        <?php
+                                            $baitap = App\Models\BaiTap::where('id_baihoc', $chitiet->id_baihoc)->first();
+                                        ?>
+                                            @if (isset($baitap->id_baihoc))
+                                                @php
+                                                    $solanlambai = App\Models\KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->get();
+                                                @endphp
+                                                @if (count($solanlambai)==3)
+                                                    
+                                                @else
+                                                    <a href="/bai-tap/{{$baitap->slug}}" class="btn btn-success px-5" id="lambaitap"> <i class="bx bx-credit-card-front"></i> Làm bài tập</a>
+                                                @endif
+    
+                                            @else
+                                                
+                                            @endif
+                                            
+                                    </div>
                                 </div>
                             </div>
                             
@@ -251,7 +242,9 @@
         // Tạo liên kết mục cho heading
         const anchor = document.createElement('a')
         anchor.setAttribute('href', `#${newHeadingId}`)
-        anchor.textContent = heading.textContent
+        
+        anchor.textContent = " "+heading.textContent
+        anchor.classList.add('text-black')
 
         // Thêm event listener để cuộn đến liên kết khi nhấp chuột
         anchor.addEventListener('click', (event) => {
@@ -279,9 +272,47 @@
         }
 
         // Thêm các TOC item vào toc contaner
-        tocContainer.innerHTML = ''  
+        tocContainer.innerHTML = ' '  
         tocContainer.appendChild(toc);
+        // Thêm event listener cho window object để lắng nghe sự kiện scroll
+  window.addEventListener('scroll', function() {
+    let scroll = window.scrollY // Lấy giá trị scrollY của màn hình
+    let height = window.innerHeight //Lấy chiều cao của màn hình
+    let offset = 500
 
+    headings.forEach(function (heading, index) {
+      let i = index + 1
+      let target = document.querySelector('#toc li:nth-of-type(' + i + ') > a') // Lấy phần tử target dựa trên số thứ tự
+      let pos = heading.getBoundingClientRect().top + scroll // Lấy vị trí của heading
+      if (!target) return
+
+      // Nếu scroll lớn hơn vị trí của phần tử hiện tại trừ đi chiều cao màn hình cộng với offset
+      if (scroll > pos - height + offset) { // Nếu cuộn quá vị trí của heading
+        // Nếu phần tử tiếp theo tồn tại (không phải là phần tử cuối cùng)
+        if (headings[index + 1] !== undefined) { 
+          // Lấy vị trí của phần tử tiếp theo
+          let next_pos = headings[index + 1].getBoundingClientRect().top + scroll
+          // Nếu scroll vượt qua vị trí của phần tử tiếp theo
+          if (scroll > next_pos - height + offset) {
+            target.classList.remove('text-primary')
+
+          } else if (i === 1 && tocContainer.classList.contains('active') === false) { // Phần tử đầu tiên
+            target.classList.add('text-primary')
+            tocContainer.classList.add('active')
+          } else { // Nếu không có phần tử tiếp theo trong danh sách heading
+            target.classList.add('text-primary')
+          }
+        } else { //Nếu là heading cuối cùng
+          target.classList.add('text-primary')
+        }
+      } else { // Nếu scroll không vượt qua heading
+        target.classList.remove('text-primary')
+        if (i === 1 && tocContainer.classList.contains('active')) { // Nếu chưa cuộn đến heading đầu tiên
+          tocContainer.classList.remove('active')
+        }
+      }
+    })
+  })
         // Kiểm tra xem URL có chứa anchor hay không
   if (window.location.hash) {
     // Decode hash để lấy ID của anchor

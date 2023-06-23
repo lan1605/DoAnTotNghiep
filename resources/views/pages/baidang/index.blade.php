@@ -126,10 +126,10 @@
                                                             
                                                         </div>
                                                     </div>
-                                                    <div class="d-flex">
+                                                    <div class="d-flex flex-column ">
                                                         @php
                                                             $body = $item->noidung_baidang;
-                                                            echo Str::limit($body, 200, ' ...');
+                                                            echo Str::limit($body, 50, ' ...');
                                                         @endphp
                                                     </div>
                                                 </div>

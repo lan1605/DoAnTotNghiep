@@ -118,52 +118,54 @@
                             @foreach ($chude as $itemcd)
                                 <div class="card ">
                                     <div class="card-header py-2 d-flex justify-content-between">
-                                        @if (request()->find_cate==$itemcd->id_chude)
-                                            <h6 class="mb-0 text-primary">
+                                        <div>
+                                            @if (request()->find_cate==$itemcd->id_chude)
+                                            <h5 class="mb-0 text-primary">
                                                 @php
                                                     $cate = App\Models\ChuDe::find(request()->find_cate);
                                                 @endphp
                                                 {{$cate->ten_chude}}
-                                            </h6>
+                                            </h5>
                                         @else
-                                            <h6 class="mb-0">{{$itemcd->ten_chude}}</h6>
+                                            <h5 class="mb-0 text-primary">{{$itemcd->ten_chude}}</h5>
                                         @endif
+                                        </div>
+
                                        
                                     </div>
                                     
                                     <div class="pt-3">
                                         @foreach ($baihocs as $item)
-                                        @if ($item->id_chude===$itemcd->id_chude)
-                                        <div class="col-12 my-0 px-2">
-                                            <div class="card w-100">
-                                                <div class="card-body" style="cursor: pointer" title="{{$item->ten_baihoc}}">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div>
-                                                            <a href="/bai-hoc/{{$item->slug}}" class="text-black">
-                                                                <h6 class="mb-0 product--title">{{$item->ten_baihoc}}</h6>
-                                                            </a>
+                                        @php
+                                            $baihocdaluu = App\Models\LuuBaiHoc::all();
+                                        @endphp
+                                            @foreach ($baihocdaluu as $items)
+                                            @if (($item->id_chude===$itemcd->id_chude) && ($items->id_baihoc === $item->id_baihoc))
+                                            <div class="col-12 my-0 px-2">
+                                                <div class="card w-100">
+                                                    <div class="card-body" style="cursor: pointer" title="{{$item->ten_baihoc}}">
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                <a href="{{$items->luutru}}" class="text-black">
+                                                                    <h6 class="mb-0 product--title">{{$item->ten_baihoc}}</h6>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            <div class="mb-0">
+                                                                <a href="/bai-hoc/{{$item->slug}}/huy" class="btn btn-danger"><i class="bi-trash-fill"></i></a>
+                                                            </div>
                                                             
+                                                                
+                                                                 
                                                         </div>
-                                                        @php
-                                                            $baihocdaluu = App\Models\LuuBaiHoc::all();
-                                                        @endphp
-                                                        @foreach ($baihocdaluu as $items)
-                                                            @if ($items->id_baihoc === $item->id_baihoc)
-                                                                <div class="mb-0 text-danger">
-                                                                    <i class="lni lni-heart-filled" title="Đã luu bài học"></i>
-                                                                </div>
-                                                            @else
-                                                                {{''}}
-                                                            @endif
-                                                        @endforeach
+                                                        
                                                     </div>
-                                                    
                                                 </div>
                                             </div>
-                                        </div>
                                         @else
                                             
                                         @endif
+                                        @endforeach  
                                     @endforeach
                                     </div>
                                 </div>

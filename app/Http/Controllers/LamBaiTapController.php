@@ -34,8 +34,9 @@ class LamBaiTapController extends Controller
                 }
             else {
                 $arr[] = ['id_baitap'=>$baitap->id_baitap,'id_hocvien'=>Auth::user()->id,'id_cauhoi'=>$item->id,'created_at'=>date('Y-m-d G:i:s')];
+                $arrCH[] = [$item->id];
             }
-            $arrCH[] = [$item->id];
+            
         }
         //điều kiện kiểm tra sử dụng array_diff để lấy ra các phần tử khác nhau
         $results = array_diff(array_map('serialize',$arrCH), array_map('serialize',$arrLBT));

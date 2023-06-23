@@ -196,9 +196,9 @@ class BaiHocController extends Controller
     }
     public function viewDetail($slug){
         $chitiet = BaiHoc::where('slug',$slug)->first();
-
-        $chitiet->luotxem = $chitiet->luotxem+1;
-        $chitiet->save();
+        
+            $chitiet->luotxem = $chitiet->luotxem+1;
+            $chitiet->save();
 
         $next_id = BaiHoc::where('id_baihoc', '>',$chitiet->id_baihoc)->where('id_chude', $chitiet->id_chude)->min('id_baihoc');
         $prev_id = BaiHoc::where('id_baihoc', '<',$chitiet->id_baihoc)->where('id_chude', $chitiet->id_chude)->max('id_baihoc');
@@ -207,9 +207,30 @@ class BaiHocController extends Controller
         $baitap = BaiTap::where('id_baihoc', $chitiet->id_baihoc)->first();
         // $solanlambai = KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
         // $thoigianlambai = KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->orderBy('created_at', 'DESC')->first();
+        $diemtong = 0;  
+        $baitap = BaiTap::where('id_baihoc', $chitiet->id_baihoc)->first();
+            if (isset($baitap)){
+                $ketqua = KetQua::where('id_baitap', $baitap->id_baitap)->where('id_hocvien', Auth::user()->id)->get();
+            // dd($ketqua);
+            if (count($ketqua)>0){
+                $diem =  [];
+            $tong = 0;
+            foreach ($ketqua as $value) {
+                $diem[] = $value->tong_diem;
+
+                
+            }
+            
+            $diemtong = round(array_sum($diem)/3, 2);
+            }
+            else {
+                $diemtong = 0;
+            }
+            }
         if(isset($daluu)){
             $capnhat = ThoiGianHoc::find($daluu->id);
             $capnhat->updated_at = date('Y-m-d G:i:s');
+            $capnhat->tien_trinh_hoc = $diemtong;
             // dd($capnhat);
             $capnhat->save();
         }
@@ -221,7 +242,9 @@ class BaiHocController extends Controller
         }
         // $daluu->touch();
         
-
+        
+            
+           
         $cungchude = BaiHoc::where('id_baihoc','!=' ,$chitiet->id_baihoc)->where('id_chude', $chitiet->id_chude)->get();
         return view('pages.baihoc.detail',[ 'chitiet'=>$chitiet, 'cungchude'=>$cungchude, 'next'=> $next_id, 'prev'=> $prev_id, 
         'page'=>'Bài học', 'link'=>'/bai-hoc', 'title'=>$chitiet->ten_baihoc]); 
@@ -232,17 +255,20 @@ class BaiHocController extends Controller
         $id = ThoiGianHoc::where('id_baihoc', $baihoc_id->id_baihoc)->where('id_hocvien', Auth::user()->id)->orderBy('created_at', 'DESC')->first();
         $luubaihoc = new LuuBaiHoc;
         
-        $baihocdaluu = LuuBaiHoc::where('id_baihoc', $baihoc_id->id_baihoc)->first();
+        $baihocdaluu = LuuBaiHoc::where('id_baihoc', $id->id_baihoc)->where('id_thoigianhoc',$id->id)->first();
 
         if(!isset($baihocdaluu)){
             $luubaihoc->id_thoigianhoc = $id->id;
             $luubaihoc->id_baihoc = $id->id_baihoc;
+            $luubaihoc->luutru = request()->luubaihoc;
             $luubaihoc->save();
 
-            return redirect('bai-hoc/'.$slug)->with('success','Bạn đã lưu thành công');
+            return redirect()->back()->with('success','Bạn đã lưu thành công');
         }
         else {
-            return redirect('bai-hoc/'.$slug)->with('already','Bài học này bạn đã lưu');
+            $baihocdaluu->luutru = request()->luubaihoc;
+            $baihocdaluu->save();
+            return redirect()->back()->with('success','Bạn đã lưu thành công');
         }
         
     }

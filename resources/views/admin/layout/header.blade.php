@@ -18,15 +18,11 @@
                 <img src="<?php
                 if (Auth::user()->img_admin==NULL){
 
-                    echo asset("../../assets/images/icons/user.svg");
-
-                    echo asset('assets/images/icons/user.svg');
-
-                }
-                else {
-                    
-                    echo asset("../admins/".Auth::user()->img_admin);
-                }
+              echo asset("../../assets/images/icons/user.svg");
+          }
+          else {
+              echo asset("../admins/".Auth::user()->img_admin);
+          }
                 ?>" class="user-img" alt="">
               </div>
             </a>

@@ -37,6 +37,9 @@ use App\Http\Controllers\ThongTinLamBaiController;
 use App\Http\Controllers\QuaTrinhOnTapController;
 use App\Http\Controllers\ThongKeController;
 
+
+
+
 Route::get('/', function () {
 return view('welcome');
 });
@@ -179,29 +182,35 @@ Route::middleware(['admin'])->group(function () {
 //Học bài
 
 Route::middleware(['hocvien'])->group(function () {
-    Auth::routes(['verify' => true]);
+    
     Route::prefix('/bai-hoc')->group(function () {
         Route::get('/danh-sach-da-luu',[BaiHocController::class,'daLuu']);
         Route::get('/{slug}', [BaiHocController::class,'viewDetail']);
-        Route::get('/{slug}/luu',[BaiHocController::class, 'Luubaihoc']);
+        Route::post('/{slug}',[BaiHocController::class, 'Luubaihoc']);
         Route::get('/{slug}/huy',[BaiHocController::class, 'xoaLuu']);
     });
     Route::middleware(['lambai'])->group(function () {
         Route::prefix('/bai-tap')->group(function () {
-            Route::get('/{slug}', [LamBaiTapController::class,'index']);
-            Route::post('/{slug}', [LamBaiTapController::class, 'luubailam']);
-            Route::get('/{slug}/nop', [LamBaiTapController::class, 'NopBaiLam']);
-            Route::get('/{slug}/ketqua', [LamBaiTapController::class, 'KetQua']);
-        });
+        Route::get('/{slug}', [LamBaiTapController::class,'index']);
+        Route::post('/{slug}', [LamBaiTapController::class, 'luubailam']);
+        Route::get('/{slug}/nop', [LamBaiTapController::class, 'NopBaiLam']);
+    });
+    });
+    Route::prefix('/bai-tap')->group(function () {
+        Route::get('/{slug}/ketqua', [LamBaiTapController::class, 'KetQua']);
     });
 
     Route::prefix('/goc-hoi-dap')->group(function () {
         Route::get('/danh-sach', [BaiDangController::class,'indexMine'])->name('baidang.canhan.index');
         Route::get('/them-moi', [BaiDangController::class,'addGet']);
         Route::post('/them-moi', [BaiDangController::class,'addPost']);
-        Route::get('/{slug}/chinh-sua', [BaiDangController::class,'editGet']);
-        Route::post('/{slug}/chinh-sua',[BaiDangController::class,'editPost']);
-        Route::get('/{slug}/xoa',[BaiDangController::class,'deleteMine']);
+    });
+    Route::middleware(['editPost'])->group(function (){
+        Route::prefix('/goc-hoi-dap')->group(function () {
+            Route::get('/{slug}/chinh-sua', [BaiDangController::class,'editGet']);
+            Route::post('/{slug}/chinh-sua',[BaiDangController::class,'editPost']);
+            Route::get('/{slug}/xoa',[BaiDangController::class,'deleteMine']);
+        });
     });
     Route::post('/comment/store', [BinhLuanController::class, 'store'])->name('comment.add');
     Route::post('/reply/store', [BinhLuanController::class, 'replyStore'])->name('reply.add');
@@ -263,3 +272,4 @@ Route::prefix('ajax')->group(function () {
 
 
 
+Auth::routes(['verify' => true]);

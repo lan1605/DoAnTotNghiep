@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
 
         'admin' => \App\Http\Middleware\Admin::class,
         'hocvien' => \App\Http\Middleware\loginForStudy::class,
-        'lambai' =>\App\Http\Middleware\LamBaiTap::class
+        'lambai' =>\App\Http\Middleware\LamBaiTap::class,
+        'editPost'=> \App\Http\Middleware\redirectPostEdit::class
     ];
 }
